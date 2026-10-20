@@ -23,12 +23,14 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalHapticFeedback
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import android.content.Intent
 import android.net.Uri
+import com.seniorenlauncher.R
 import com.seniorenlauncher.data.model.*
 import com.seniorenlauncher.ui.components.ScreenHeader
 import com.seniorenlauncher.util.UpdateManager
@@ -83,7 +85,6 @@ fun SettingsScreenContent(
     var showPinScreen by remember { mutableStateOf(false) }
     var enteredPin by remember { mutableStateOf("") }
     
-    // Update status
     var isCheckingUpdate by remember { mutableStateOf(false) }
     var updateResult by remember { mutableStateOf<String?>(null) }
 
@@ -127,15 +128,15 @@ fun SettingsScreenContent(
     }
 
     Column(Modifier.fillMaxSize().background(Color(0xFF0F172A)).padding(horizontal = 16.dp, vertical = 8.dp)) {
-        ScreenHeader(title = "Beheer & Instellingen", onBack = onBack)
+        ScreenHeader(title = stringResource(R.string.settings_screen_title), onBack = onBack)
         
         Column(
             Modifier.weight(1f).verticalScroll(rememberScrollState()), 
             verticalArrangement = Arrangement.spacedBy(20.dp)
         ) {
             // --- GROEP 1: SCHERM & STIJL ---
-            SettingsGroup(title = "📺 Scherm & Stijl", icon = Icons.Default.Palette) {
-                Text("Kleurthema", fontSize = 16.sp, fontWeight = FontWeight.Bold, modifier = Modifier.padding(bottom = 8.dp))
+            SettingsGroup(title = stringResource(R.string.group_screen_style), icon = Icons.Default.Palette) {
+                Text(stringResource(R.string.color_theme), fontSize = 16.sp, fontWeight = FontWeight.Bold, modifier = Modifier.padding(bottom = 8.dp))
                 Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                     AppTheme.entries.forEach { t ->
                         val selected = settings.theme == t
@@ -161,9 +162,9 @@ fun SettingsScreenContent(
                             Box(Modifier.size(24.dp).background(if (t == AppTheme.LIGHT) Color.Black else Color.White, CircleShape))
                             Text(
                                 text = when(t){ 
-                                    AppTheme.CLASSIC -> "Klassiek"
-                                    AppTheme.HIGH_CONTRAST -> "Contrast"
-                                    AppTheme.LIGHT -> "Licht" 
+                                    AppTheme.CLASSIC -> stringResource(R.string.theme_classic)
+                                    AppTheme.HIGH_CONTRAST -> stringResource(R.string.theme_contrast)
+                                    AppTheme.LIGHT -> stringResource(R.string.theme_light) 
                                 },
                                 fontSize = 14.sp,
                                 fontWeight = FontWeight.SemiBold,
@@ -175,9 +176,13 @@ fun SettingsScreenContent(
                 
                 Spacer(Modifier.height(16.dp))
 
-                Text("Knoppen indeling", fontSize = 16.sp, fontWeight = FontWeight.Bold, modifier = Modifier.padding(bottom = 8.dp))
+                Text(stringResource(R.string.button_layout), fontSize = 16.sp, fontWeight = FontWeight.Bold, modifier = Modifier.padding(bottom = 8.dp))
                 Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                    listOf(LayoutType.GRID_2x3 to "Groot", LayoutType.GRID_3x4 to "Compact", LayoutType.GRID_1x1 to "Enorm").forEach { (type, label) ->
+                    listOf(
+                        LayoutType.GRID_2x3 to stringResource(R.string.layout_large),
+                        LayoutType.GRID_3x4 to stringResource(R.string.layout_compact),
+                        LayoutType.GRID_1x1 to stringResource(R.string.layout_huge)
+                    ).forEach { (type, label) ->
                         val selected = settings.layout == type
                         Button(
                             onClick = { 
@@ -195,7 +200,7 @@ fun SettingsScreenContent(
 
                 Spacer(Modifier.height(16.dp))
 
-                Text("Tekstgrootte", fontSize = 16.sp, fontWeight = FontWeight.Bold)
+                Text(stringResource(R.string.text_size), fontSize = 16.sp, fontWeight = FontWeight.Bold)
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Text("A", fontSize = 16.sp)
                     Slider(
@@ -207,16 +212,16 @@ fun SettingsScreenContent(
                     Text("A", fontSize = 32.sp, fontWeight = FontWeight.Bold)
                 }
                 
-                SettToggle("Automatische Nachtmodus", settings.nightModeAuto) { 
+                SettToggle(stringResource(R.string.auto_night_mode), settings.nightModeAuto) { 
                     haptic.performHapticFeedback(HapticFeedbackType.LongPress)
                     onToggleNightMode() 
                 }
             }
 
             // --- GROEP 2: APPS & TAAL ---
-            SettingsGroup(title = "🌍 Apps & Taal", icon = Icons.Default.Language) {
-                Text("Taal", fontSize = 16.sp, fontWeight = FontWeight.Bold, modifier = Modifier.padding(bottom = 8.dp))
-                val languages = listOf("nl" to "Nederlands", "en" to "English", "fr" to "Français", "de" to "Deutsch")
+            SettingsGroup(title = stringResource(R.string.group_apps_language), icon = Icons.Default.Language) {
+                Text(stringResource(R.string.language), fontSize = 16.sp, fontWeight = FontWeight.Bold, modifier = Modifier.padding(bottom = 8.dp))
+                val languages = listOf("nl" to "Nederlands", "fr" to "Français", "en" to "English", "de" to "Deutsch")
                 Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                     languages.forEach { (code, name) ->
                         val selected = settings.language == code
@@ -237,9 +242,10 @@ fun SettingsScreenContent(
 
                 Spacer(Modifier.height(16.dp))
 
-                Text("Zichtbare Apps", fontSize = 16.sp, fontWeight = FontWeight.Bold, modifier = Modifier.padding(bottom = 8.dp))
+                Text(stringResource(R.string.visible_apps), fontSize = 16.sp, fontWeight = FontWeight.Bold, modifier = Modifier.padding(bottom = 8.dp))
                 ALL_APPS.filter { it.id != "settings" && it.id != "all_apps" }.forEach { app ->
-                    SettToggle("${app.emoji} ${app.name}", app.id in settings.visibleApps) { 
+                    val appTitle = if (app.nameRes != 0) stringResource(app.nameRes) else app.name
+                    SettToggle("${app.emoji} $appTitle", app.id in settings.visibleApps) { 
                         haptic.performHapticFeedback(HapticFeedbackType.LongPress)
                         onToggleAppVisibility(app.id) 
                     }
@@ -247,40 +253,39 @@ fun SettingsScreenContent(
             }
 
             // --- GROEP 3: VEILIGHEID & NOODHULP ---
-            SettingsGroup(title = "🛡️ Veiligheid & Noodhulp", icon = Icons.Default.Security) {
-                SettRow("🏥 Medische Noodinfo bewerken") { 
+            SettingsGroup(title = stringResource(R.string.group_safety), icon = Icons.Default.Security) {
+                SettRow(stringResource(R.string.med_emergency_edit)) { 
                     haptic.performHapticFeedback(HapticFeedbackType.LongPress)
                     onNavigate("emergency") 
                 }
                 HorizontalDivider(Modifier.padding(vertical = 8.dp), thickness = 0.5.dp)
-                SettRow("🆘 SOS Contacten instellen") { 
+                SettRow(stringResource(R.string.sos_contacts_setup)) { 
                     haptic.performHapticFeedback(HapticFeedbackType.LongPress)
                     onNavigate("sos_settings") 
                 }
                 HorizontalDivider(Modifier.padding(vertical = 8.dp), thickness = 0.5.dp)
-                SettToggle("🛡️ Anti-Scam Filter", settings.scamProtectionEnabled) { 
+                SettToggle(stringResource(R.string.scam_protection), settings.scamProtectionEnabled) { 
                     haptic.performHapticFeedback(HapticFeedbackType.LongPress)
                     onToggleScamProtection() 
                 }
-                SettToggle("⚠️ Valdetectie", settings.fallDetectionEnabled) { 
+                SettToggle(stringResource(R.string.fall_detection), settings.fallDetectionEnabled) { 
                     haptic.performHapticFeedback(HapticFeedbackType.LongPress)
                     onToggleFallDetection() 
                 }
-                SettToggle("🪫 Batterij-SMS (<15%)", settings.batteryAlertEnabled) { 
+                SettToggle(stringResource(R.string.battery_alert), settings.batteryAlertEnabled) { 
                     haptic.performHapticFeedback(HapticFeedbackType.LongPress)
                     onToggleBatteryAlert() 
                 }
-                SettToggle("🔌 Oplaadherinnering (22:00)", settings.chargingReminderEnabled) { 
+                SettToggle(stringResource(R.string.charging_reminder), settings.chargingReminderEnabled) { 
                     haptic.performHapticFeedback(HapticFeedbackType.LongPress)
                     onToggleChargingReminder() 
                 }
             }
 
             // --- GROEP 4: SYSTEEM & BEHEER ---
-            SettingsGroup(title = "⚙️ Systeem & Beheer", icon = Icons.Default.Build) {
-                // UPDATE SECTIE
+            SettingsGroup(title = stringResource(R.string.group_system), icon = Icons.Default.Build) {
                 Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.fillMaxWidth()) {
-                    Text("Versie: ${com.seniorenlauncher.BuildConfig.VERSION_NAME}", fontSize = 14.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                    Text(stringResource(R.string.version_label, com.seniorenlauncher.BuildConfig.VERSION_NAME), fontSize = 14.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
                     Spacer(Modifier.height(12.dp))
                     Button(
                         onClick = {
@@ -290,10 +295,10 @@ fun SettingsScreenContent(
                                 val updateManager = UpdateManager(context)
                                 val release = updateManager.checkForUpdates()
                                 if (release != null) {
-                                    updateResult = "Nieuwe versie gevonden!"
+                                    updateResult = context.getString(R.string.update_available)
                                     updateManager.downloadAndInstall(release)
                                 } else {
-                                    updateResult = "U heeft de nieuwste versie."
+                                    updateResult = context.getString(R.string.update_latest)
                                 }
                                 isCheckingUpdate = false
                             }
@@ -306,7 +311,7 @@ fun SettingsScreenContent(
                         else Row(verticalAlignment = Alignment.CenterVertically) {
                             Icon(Icons.Default.SystemUpdate, null)
                             Spacer(Modifier.width(12.dp))
-                            Text("CONTROLEER OP UPDATES", fontWeight = FontWeight.Black, fontSize = 18.sp)
+                            Text(stringResource(R.string.check_updates).uppercase(), fontWeight = FontWeight.Black, fontSize = 18.sp)
                         }
                     }
                     updateResult?.let { Text(it, fontSize = 16.sp, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.primary, modifier = Modifier.padding(top = 12.dp)) }
@@ -314,15 +319,9 @@ fun SettingsScreenContent(
 
                 HorizontalDivider(Modifier.padding(vertical = 16.dp), thickness = 0.5.dp)
 
-                SettRow("📱 Hulp op Afstand (Web)") { 
+                SettRow(stringResource(R.string.remote_support_web)) { 
                     haptic.performHapticFeedback(HapticFeedbackType.LongPress)
                     onNavigate("remote_support") 
-                }
-                
-                HorizontalDivider(Modifier.padding(vertical = 8.dp), thickness = 0.5.dp)
-
-                SettRow("🛠️ Geavanceerde Instellingen") {
-                    // Placeholder voor toekomstige systeem-integraties
                 }
                 
                 Spacer(Modifier.height(16.dp))
@@ -338,29 +337,29 @@ fun SettingsScreenContent(
                 ) {
                     Icon(Icons.Default.Lock, null)
                     Spacer(Modifier.width(12.dp))
-                    Text("MENU VERGRENDELEN", fontWeight = FontWeight.Black, fontSize = 18.sp)
+                    Text(stringResource(R.string.menu_locked), fontWeight = FontWeight.Black, fontSize = 18.sp)
                 }
             }
 
             // --- GROEP 5: OVER & PRIVACY ---
-            SettingsGroup(title = "ℹ️ Over & Privacy", icon = Icons.Default.Info) {
+            SettingsGroup(title = stringResource(R.string.about_privacy_title), icon = Icons.Default.Info) {
                 Text(
-                    "Senioren Launcher is een open-source initiatief om digitale inclusie te bevorderen, met speciale aandacht voor de noden van senioren in Gent. Wij respecteren uw privacy volledig.",
+                    stringResource(R.string.about_privacy_desc),
                     fontSize = 16.sp,
                     lineHeight = 22.sp,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
                 Spacer(Modifier.height(12.dp))
-                SettRow("🛡️ Privacy & AVG Details") {
+                SettRow(stringResource(R.string.privacy_details_row)) { 
                     haptic.performHapticFeedback(HapticFeedbackType.LongPress)
                     onNavigate("privacy")
                 }
             }
 
             // --- GROEP 6: WAARDERING & TOEKOMST ---
-            SettingsGroup(title = "❤️ Waardering", icon = Icons.Default.Favorite) {
+            SettingsGroup(title = stringResource(R.string.support_project_title), icon = Icons.Default.Favorite) {
                 Text(
-                    "Dit is een open-source project gebouwd met liefde voor onze ouderen. Uw steun helpt bij het dekken van de kosten en het verder verbeteren van de app.",
+                    stringResource(R.string.support_project_desc),
                     fontSize = 16.sp,
                     lineHeight = 22.sp,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
@@ -376,9 +375,9 @@ fun SettingsScreenContent(
                     shape = RoundedCornerShape(40.dp),
                     colors = ButtonDefaults.filledTonalButtonColors()
                 ) {
-                    Icon(Icons.Default.VolunteerActivism, null) // VolunteerActivism acts as a nice "heart in hand" icon
+                    Icon(Icons.Default.VolunteerActivism, null)
                     Spacer(Modifier.width(12.dp))
-                    Text("STEUN HET PROJECT", fontWeight = FontWeight.Bold, fontSize = 16.sp)
+                    Text(stringResource(R.string.support_project_btn), fontWeight = FontWeight.Bold, fontSize = 16.sp)
                 }
             }
 
@@ -440,10 +439,10 @@ fun LockedSettingsScreen(onBack: () -> Unit, onUnlockClick: () -> Unit) {
     ) {
         Icon(Icons.Default.Lock, null, modifier = Modifier.size(120.dp), tint = MaterialTheme.colorScheme.primary)
         Spacer(Modifier.height(32.dp))
-        Text("Instellingen Vergrendeld", fontSize = 32.sp, fontWeight = FontWeight.Black, textAlign = TextAlign.Center, color = Color.White)
+        Text(stringResource(R.string.settings_locked_title), fontSize = 32.sp, fontWeight = FontWeight.Black, textAlign = TextAlign.Center, color = Color.White)
         Spacer(Modifier.height(16.dp))
         Text(
-            "Dit menu is beveiligd om te voorkomen dat instellingen per ongeluk worden gewijzigd.", 
+            stringResource(R.string.settings_locked_notice), 
             fontSize = 20.sp, 
             textAlign = TextAlign.Center,
             color = Color.White.copy(alpha = 0.7f)
@@ -454,10 +453,10 @@ fun LockedSettingsScreen(onBack: () -> Unit, onUnlockClick: () -> Unit) {
             shape = RoundedCornerShape(40.dp),
             modifier = Modifier.fillMaxWidth().height(90.dp)
         ) {
-            Text("PINCODE INVOEREN", fontSize = 24.sp, fontWeight = FontWeight.Black)
+            Text(stringResource(R.string.enter_pin_btn), fontSize = 24.sp, fontWeight = FontWeight.Black)
         }
         TextButton(onClick = onBack, modifier = Modifier.padding(top = 24.dp)) {
-            Text("TERUG NAAR START", fontSize = 20.sp, fontWeight = FontWeight.Black, color = Color.White.copy(alpha = 0.7f))
+            Text(stringResource(R.string.back_to_home), fontSize = 20.sp, fontWeight = FontWeight.Black, color = Color.White.copy(alpha = 0.7f))
         }
     }
 }
@@ -469,7 +468,7 @@ fun PinEntryScreen(pin: String, onPinChange: (String) -> Unit, onCancel: () -> U
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-        Text("Beheerders PIN", fontSize = 28.sp, fontWeight = FontWeight.Black, color = Color.White)
+        Text(stringResource(R.string.admin_pin_title), fontSize = 28.sp, fontWeight = FontWeight.Black, color = Color.White)
         Spacer(Modifier.height(32.dp))
         Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
             repeat(4) { i ->
@@ -514,7 +513,7 @@ fun PinEntryScreen(pin: String, onPinChange: (String) -> Unit, onCancel: () -> U
         }
         Spacer(Modifier.height(32.dp))
         TextButton(onClick = onCancel) {
-            Text("ANNULEREN", fontSize = 22.sp, fontWeight = FontWeight.Black, color = Color(0xFFEF4444))
+            Text(stringResource(R.string.btn_cancel), fontSize = 22.sp, fontWeight = FontWeight.Black, color = Color(0xFFEF4444))
         }
     }
 }

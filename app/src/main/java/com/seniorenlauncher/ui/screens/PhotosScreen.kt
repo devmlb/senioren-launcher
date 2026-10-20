@@ -31,12 +31,14 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
+import com.seniorenlauncher.R
 import com.seniorenlauncher.ui.components.ScreenHeader
 import kotlinx.coroutines.launch
 import java.io.File
@@ -71,9 +73,9 @@ fun PhotosScreen(onBack: () -> Unit) {
 
     Column(Modifier.fillMaxSize().background(Color(0xFF0F172A)).padding(horizontal = 12.dp, vertical = 8.dp)) {
         val title = when {
-            initialPageIndex != null -> "Foto bekijken"
+            initialPageIndex != null -> stringResource(R.string.photos_view_photo)
             selectedFolder != null -> selectedFolder!!
-            else -> "Foto Albums"
+            else -> stringResource(R.string.photos_albums)
         }
         
         ScreenHeader(title = title, onBack = {
@@ -90,7 +92,7 @@ fun PhotosScreen(onBack: () -> Unit) {
             }
         } else if (allPhotos.isEmpty()) {
             Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-                Text("Geen foto's gevonden", fontSize = 20.sp, fontWeight = FontWeight.Bold)
+                Text(stringResource(R.string.photos_none_found), fontSize = 20.sp, fontWeight = FontWeight.Bold, color = Color.White)
             }
         } else if (initialPageIndex != null) {
             PhotoPagerView(
@@ -101,10 +103,10 @@ fun PhotosScreen(onBack: () -> Unit) {
                     try {
                         context.contentResolver.delete(photoToDelete.uri, null, null)
                         allPhotos = allPhotos.filter { it.id != photoToDelete.id }
-                        Toast.makeText(context, "Foto verwijderd", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(context, context.getString(R.string.photos_deleted), Toast.LENGTH_SHORT).show()
                         if (displayedPhotos.isEmpty()) initialPageIndex = null
                     } catch (e: Exception) {
-                        Toast.makeText(context, "Kan foto niet verwijderen", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(context, context.getString(R.string.photos_delete_failed), Toast.LENGTH_SHORT).show()
                     }
                 }
             )
@@ -234,18 +236,18 @@ fun PhotoPagerView(
                 .padding(16.dp)
         ) {
             Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
-                CircleIconButton(Icons.Default.ArrowBack, "Terug") { onClose() }
+                CircleIconButton(Icons.Default.ArrowBack, stringResource(R.string.btn_back)) { onClose() }
                 
                 Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-                    CircleIconButton(Icons.Default.Share, "Delen") {
+                    CircleIconButton(Icons.Default.Share, stringResource(R.string.photos_share)) {
                         val shareIntent = Intent(Intent.ACTION_SEND).apply {
                             type = "image/*"
                             putExtra(Intent.EXTRA_STREAM, photos[pagerState.currentPage].uri)
                             addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
                         }
-                        context.startActivity(Intent.createChooser(shareIntent, "Foto delen"))
+                        context.startActivity(Intent.createChooser(shareIntent, context.getString(R.string.photos_share)))
                     }
-                    CircleIconButton(Icons.Default.Delete, "Verwijderen", Color.Red) {
+                    CircleIconButton(Icons.Default.Delete, stringResource(R.string.btn_delete), Color.Red) {
                         showDeleteConfirm = true
                     }
                 }
@@ -255,7 +257,7 @@ fun PhotoPagerView(
         // Navigation helpers
         if (pagerState.currentPage > 0) {
             Box(Modifier.align(Alignment.CenterStart).padding(8.dp)) {
-                CircleIconButton(Icons.Default.ChevronLeft, "Vorige", size = 64.dp) {
+                CircleIconButton(Icons.Default.ChevronLeft, stringResource(R.string.photos_previous), size = 64.dp) {
                     scope.launch { pagerState.animateScrollToPage(pagerState.currentPage - 1) }
                 }
             }
@@ -263,7 +265,7 @@ fun PhotoPagerView(
 
         if (pagerState.currentPage < photos.size - 1) {
             Box(Modifier.align(Alignment.CenterEnd).padding(8.dp)) {
-                CircleIconButton(Icons.Default.ChevronRight, "Volgende", size = 64.dp) {
+                CircleIconButton(Icons.Default.ChevronRight, stringResource(R.string.photos_next), size = 64.dp) {
                     scope.launch { pagerState.animateScrollToPage(pagerState.currentPage + 1) }
                 }
             }
@@ -290,8 +292,8 @@ fun PhotoPagerView(
     if (showDeleteConfirm) {
         AlertDialog(
             onDismissRequest = { showDeleteConfirm = false },
-            title = { Text("Verwijderen?", fontSize = 24.sp, fontWeight = FontWeight.Bold) },
-            text = { Text("Wilt u deze foto uit uw album verwijderen?", fontSize = 18.sp) },
+            title = { Text(stringResource(R.string.photos_delete_confirm_title), fontSize = 24.sp, fontWeight = FontWeight.Bold) },
+            text = { Text(stringResource(R.string.photos_delete_confirm_desc), fontSize = 18.sp) },
             confirmButton = {
                 Button(
                     onClick = {
@@ -301,12 +303,12 @@ fun PhotoPagerView(
                     colors = ButtonDefaults.buttonColors(containerColor = Color.Red),
                     modifier = Modifier.height(60.dp)
                 ) {
-                    Text("JA, VERWIJDER", fontWeight = FontWeight.Bold)
+                    Text(stringResource(R.string.photos_delete_btn), fontWeight = FontWeight.Bold)
                 }
             },
             dismissButton = {
                 TextButton(onClick = { showDeleteConfirm = false }) {
-                    Text("ANNULEREN", fontSize = 18.sp)
+                    Text(stringResource(R.string.btn_cancel), fontSize = 18.sp)
                 }
             }
         )
@@ -356,7 +358,7 @@ fun fetchPhotos(context: Context): List<PhotoItem> {
             
             while (cursor.moveToNext() && photoList.size < 1000) {
                 val id = cursor.getLong(idColumn)
-                val folderName = cursor.getString(bucketColumn) ?: "Onbekend"
+                val folderName = cursor.getString(bucketColumn) ?: context.getString(R.string.photos_unknown_folder)
                 val contentUri = ContentUris.withAppendedId(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, id)
                 photoList.add(PhotoItem(contentUri, id, folderName))
             }

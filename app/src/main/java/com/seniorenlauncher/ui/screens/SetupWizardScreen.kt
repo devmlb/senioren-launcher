@@ -27,18 +27,18 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import com.seniorenlauncher.LauncherApp
+import com.seniorenlauncher.R
 import com.seniorenlauncher.data.model.*
 import com.seniorenlauncher.ui.screens.setup.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import androidx.compose.ui.res.stringResource
-import com.seniorenlauncher.R
 
 @Composable
 fun SetupWizardScreen(
@@ -169,7 +169,7 @@ fun PrivacyConsentScreen(onAccepted: () -> Unit) {
         Spacer(Modifier.height(32.dp))
         
         Text(
-            text = "Door op de knop hieronder te drukken, gaat u akkoord met onze privacyverklaring.",
+            text = stringResource(R.string.wizard_privacy_agreement),
             fontSize = 15.sp,
             textAlign = TextAlign.Center,
             color = Color(0xFFCBD5E1),
@@ -214,7 +214,7 @@ fun FlowSelectionScreen(onFlowSelected: (WizardSetupFlow) -> Unit) {
         verticalArrangement = Arrangement.Center
     ) {
         Text(
-            text = "WELKOM.\nWIE STELT DEZE TELEFOON IN?",
+            text = stringResource(R.string.wizard_flow_title),
             fontSize = 32.sp,
             lineHeight = 42.sp,
             fontWeight = FontWeight.Black,
@@ -230,7 +230,7 @@ fun FlowSelectionScreen(onFlowSelected: (WizardSetupFlow) -> Unit) {
             border = BorderStroke(1.dp, Color.White.copy(alpha = 0.1f))
         ) {
             Text(
-                "De setup bestaat uit twee delen: technische instellingen door de beheerder en visuele keuzes voor de senior.",
+                stringResource(R.string.wizard_flow_desc),
                 modifier = Modifier.padding(24.dp),
                 fontSize = 18.sp,
                 fontWeight = FontWeight.Bold,
@@ -240,8 +240,8 @@ fun FlowSelectionScreen(onFlowSelected: (WizardSetupFlow) -> Unit) {
         }
 
         SetupOptionCard(
-            title = "IK BEN DE MANTELZORGER",
-            description = "Ik stel dit toestel technisch in (aanbevolen).",
+            title = stringResource(R.string.wizard_flow_caregiver_title),
+            description = stringResource(R.string.wizard_flow_caregiver_desc),
             icon = Icons.Default.VolunteerActivism,
             color = Color(0xFF3B82F6),
             onClick = { onFlowSelected(WizardSetupFlow.CAREGIVER) }
@@ -250,8 +250,8 @@ fun FlowSelectionScreen(onFlowSelected: (WizardSetupFlow) -> Unit) {
         Spacer(Modifier.height(24.dp))
 
         SetupOptionCard(
-            title = "IK BEN DE GEBRUIKER",
-            description = "Ik ga deze telefoon direct zelf gebruiken.",
+            title = stringResource(R.string.wizard_flow_senior_title),
+            description = stringResource(R.string.wizard_flow_senior_desc),
             icon = Icons.Default.Person,
             color = Color(0xFF10B981),
             onClick = { onFlowSelected(WizardSetupFlow.SENIOR) }
@@ -301,7 +301,7 @@ fun ContactPickerDialog(onDismiss: () -> Unit, onContactSelected: (String, Strin
             colors = CardDefaults.cardColors(containerColor = Color(0xFF1E293B))
         ) {
             Column(Modifier.padding(24.dp)) {
-                Text("KIES EEN CONTACT", fontSize = 24.sp, fontWeight = FontWeight.Black, color = Color.White)
+                Text(stringResource(R.string.wizard_choose_contact), fontSize = 24.sp, fontWeight = FontWeight.Black, color = Color.White)
                 
                 Spacer(Modifier.height(20.dp))
                 
@@ -309,7 +309,7 @@ fun ContactPickerDialog(onDismiss: () -> Unit, onContactSelected: (String, Strin
                     value = searchQuery,
                     onValueChange = { searchQuery = it },
                     modifier = Modifier.fillMaxWidth(),
-                    placeholder = { Text("Zoek op naam of nummer...", fontWeight = FontWeight.Bold, color = Color(0xFF94A3B8)) },
+                    placeholder = { Text(stringResource(R.string.search_name_or_number), fontWeight = FontWeight.Bold, color = Color(0xFF94A3B8)) },
                     leadingIcon = { Icon(Icons.Default.Search, null, tint = Color(0xFF94A3B8)) },
                     shape = RoundedCornerShape(20.dp),
                     singleLine = true,
@@ -384,7 +384,7 @@ fun ContactPickerDialog(onDismiss: () -> Unit, onContactSelected: (String, Strin
                     border = BorderStroke(1.dp, Color.White.copy(alpha = 0.1f)),
                     colors = ButtonDefaults.outlinedButtonColors(contentColor = Color.White)
                 ) {
-                    Text("ANNULEREN", fontWeight = FontWeight.Black, fontSize = 18.sp)
+                    Text(stringResource(R.string.btn_cancel), fontWeight = FontWeight.Black, fontSize = 18.sp)
                 }
             }
         }

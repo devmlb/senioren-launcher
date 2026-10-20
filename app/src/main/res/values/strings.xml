@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- App & Navigation -->
     <string name="app_name">Senioren Launcher</string>
     <string name="sos_emergency">SOS NOODGEVAL</string>
     <string name="call">Bellen</string>
@@ -8,6 +9,409 @@
     <string name="flashlight">Zaklamp</string>
     <string name="contacts">Contacten</string>
     <string name="back">Terug</string>
+    <string name="yes">Ja</string>
+    <string name="no">Nee</string>
+    <string name="not_set">Niet ingesteld</string>
+
+    <!-- Standard Apps (ALL_APPS) -->
+    <string name="app_name_phone">Bellen</string>
+    <string name="app_name_sms">Berichten</string>
+    <string name="app_name_camera">Camera</string>
+    <string name="app_name_photos">Foto\'s</string>
+    <string name="app_name_alarm">Wekker</string>
+    <string name="app_name_calendar">Agenda</string>
+    <string name="app_name_meds">Medicijnen</string>
+    <string name="app_name_weather">Weer</string>
+    <string name="app_name_flashlight">Zaklamp</string>
+    <string name="app_name_magnifier">Vergrootglas</string>
+    <string name="app_name_notes">Notities</string>
+    <string name="app_name_radio">Radio</string>
+    <string name="app_name_wifi">Wifi</string>
+    <string name="app_name_bluetooth">Bluetooth</string>
+    <string name="app_name_steps">Stappen</string>
+    <string name="app_name_emergency">Noodinfo</string>
+    <string name="app_name_sos">SOS</string>
+    <string name="app_name_remote_support">Hulp op afstand</string>
+    <string name="app_name_all_apps">Alle Apps</string>
+    <string name="app_name_settings">Instellingen</string>
+
+    <!-- Home Screen -->
+    <string name="btn_add_app">Toevoegen</string>
+    <string name="btn_sos_help">SOS HULP NODIG</string>
+    <string name="med_reminder_tag">HERINNERING</string>
+    <string name="med_reminder_count">Nog %d medicijnen</string>
+    <string name="notifications">Meldingen</string>
+
+    <!-- Home Dialogs -->
+    <string name="pin_dialog_title">BEVEILIGDE INSTELLINGEN</string>
+    <string name="choose_apps_title">KIES APPS</string>
+    <string name="btn_delete">VERWIJDEREN</string>
+    <string name="btn_cancel">ANNULEREN</string>
+    <string name="btn_add">VOEG TOE</string>
+    <string name="search_app">Zoek app...</string>
+    <string name="wifi_title">WIFI VERBINDING</string>
+    <string name="wifi_connected_to">VERBONDEN MET:</string>
+    <string name="wifi_off">UW WIFI STAAT UIT</string>
+    <string name="wifi_settings">WIFI INSTELLINGEN</string>
+    <string name="wifi_access_title">Wifi Toegang</string>
+    <string name="wifi_access_desc">Om wifi informatie te kunnen tonen, hebben we toestemming nodig om nabijgelegen apparaten te scannen.</string>
+    <string name="wifi_not_connected">Niet verbonden</string>
+    <string name="signal_none">Geen signaal</string>
+    <string name="signal_weak">Zwak signaal</string>
+    <string name="signal_fair">Matig signaal</string>
+    <string name="signal_good">Goed signaal</string>
+    <string name="signal_excellent">Uitstekend signaal</string>
+    <string name="signal_strength">Signaalsterkte: %s</string>
+    <string name="bluetooth_title">BLUETOOTH</string>
+    <string name="bluetooth_on">BLUETOOTH STAAT AAN</string>
+    <string name="bluetooth_off">BLUETOOTH STAAT UIT</string>
+    <string name="sos_countdown_title">SOS ALARM WORDT VERSTUURD OVER:</string>
+    <string name="sos_access_title">SOS Toegang</string>
+    <string name="sos_access_desc">Om hulp te kunnen inschakelen hebben we toestemming nodig voor locatie, bellen en SMS.</string>
+    <string name="btn_stop_cancel">STOP / ANNULEER</string>
+    <string name="btn_grant">TOESTAAN</string>
+    <string name="btn_manual_settings">HANDMATIG INSTELLEN</string>
+
+    <!-- Fall Detection -->
+    <string name="fall_detected_title">VAL GEDETECTEERD!</string>
+    <string name="fall_detected_desc">Bent u gevallen? We gaan hulp inschakelen over:</string>
+    <string name="fall_access_desc">Om hulp te kunnen inschakelen bij een val hebben we toestemming nodig voor locatie, bellen en SMS.</string>
+    <string name="btn_call_help_now">BEL NU HULP</string>
+
+    <!-- Settings Screen -->
+    <string name="settings_screen_title">Beheer &amp; Instellingen</string>
+    <string name="settings_locked_title">Instellingen Vergrendeld</string>
+    <string name="settings_locked_desc">Tik hier om te ontgrendelen met uw PIN-code</string>
+    <string name="settings_pin_prompt">Voer uw 4-cijferige PIN-code in</string>
+    <string name="group_screen_style">📺 Scherm &amp; Stijl</string>
+    <string name="color_theme">Kleurthema</string>
+    <string name="theme_classic">Klassiek</string>
+    <string name="theme_contrast">Contrast</string>
+    <string name="theme_light">Licht</string>
+    <string name="button_layout">Knoppen indeling</string>
+    <string name="layout_large">Groot</string>
+    <string name="layout_compact">Compact</string>
+    <string name="layout_huge">Enorm</string>
+    <string name="text_size">Tekstgrootte</string>
+    <string name="auto_night_mode">Automatische Nachtmodus</string>
+    <string name="group_apps_language">🌍 Apps &amp; Taal</string>
+    <string name="language">Taal</string>
+    <string name="visible_apps">Zichtbare Apps</string>
+    <string name="group_safety">🛡️ Veiligheid &amp; Noodhulp</string>
+    <string name="fall_detection">Valdetectie</string>
+    <string name="battery_alert">Batterij Waarschuwing (&lt; 15%)</string>
+    <string name="charging_reminder">Oplaadherinnering</string>
+    <string name="scam_protection">Oplichting &amp; Spam Bescherming</string>
+    <string name="sos_contacts_settings">SOS Contacten Beheren</string>
+    <string name="group_system">⚙️ Systeem &amp; Beveiliging</string>
+    <string name="change_pin">PIN-code wijzigen</string>
+    <string name="lock_settings">Instellingen Vergrendelen</string>
+    <string name="check_updates">Zoek naar Updates</string>
+    <string name="checking_updates">Controleren op updates...</string>
+    <string name="update_available">Update beschikbaar!</string>
+    <string name="update_latest">U heeft al de nieuwste versie.</string>
+    <string name="update_failed">Kan niet controleren op updates.</string>
+    <string name="btn_unlock">ONTGRENDELEN</string>
+    <string name="btn_lock">VERGRENDELEN</string>
+    <string name="version_label">Versie %1$s</string>
+
+    <!-- Additional Settings Strings -->
+    <string name="support_project_title">❤️ Waardering</string>
+    <string name="support_project_desc">Dit is een open-source project gebouwd met liefde voor onze ouderen. Uw steun helpt bij het dekken van de kosten en het verder verbeteren van de app.</string>
+    <string name="support_project_btn">STEUN HET PROJECT</string>
+    <string name="about_privacy_title">ℹ️ Over &amp; Privacy</string>
+    <string name="about_privacy_desc">Senioren Launcher is een open-source initiatief om digitale inclusie te bevorderen, met speciale aandacht voor de noden van senioren in Gent. Wij respecteren uw privacy volledig.</string>
+    <string name="menu_locked">MENU VERGRENDELEN</string>
+    <string name="remote_support_web">📱 Hulp op Afstand (Web)</string>
+    <string name="med_emergency_edit">🏥 Medische Noodinfo bewerken</string>
+    <string name="sos_contacts_setup">🆘 SOS Contacten instellen</string>
+    <string name="privacy_details_row">🛡️ Privacy &amp; AVG Details</string>
+    <string name="enter_pin_btn">PINCODE INVOEREN</string>
+    <string name="back_to_home">TERUG NAAR START</string>
+    <string name="admin_pin_title">Beheerders PIN</string>
+    <string name="settings_locked_notice">Dit menu is beveiligd om te voorkomen dat instellingen per ongeluk worden gewijzigd.</string>
+
+    <!-- Phone Screen -->
+    <string name="phone_title">Telefoon</string>
+    <string name="recents_title">Recent</string>
+    <string name="contacts_title">Contacten</string>
+    <string name="tab_dialpad">TOETSEN</string>
+    <string name="tab_recents">RECENT</string>
+    <string name="tab_contacts">LIJST</string>
+    <string name="call_button">BELLEN</string>
+    <string name="my_number">Ik (Mijn nummer)</string>
+    <string name="default_dialer_banner">Stel in als standaard telefoon-app voor de beste ervaring.</string>
+    <string name="btn_set_default">INSTELLEN</string>
+    <string name="no_recent_calls">Geen recente oproepen</string>
+    <string name="search_contact_placeholder">Zoek contact...</string>
+    <string name="btn_new_contact">Nieuw</string>
+    <string name="no_contacts_found">Geen contacten gevonden</string>
+    <string name="dialer_placeholder">TOETS EEN NUMMER</string>
+    <string name="unknown_caller">ONBEKEND</string>
+    <string name="emergency_call_confirm_title">NOODNUMMER BELLEN?</string>
+    <string name="emergency_call_confirm_desc">Weet u zeker dat u 112 wilt bellen?</string>
+    <string name="btn_call_emergency">JA, BEL NU</string>
+    <string name="btn_grant_permission">TOESTEMMING GEVEN</string>
+    <string name="btn_add_new_contact">NIEUW CONTACT TOEVOEGEN</string>
+    <string name="search_name_or_number">Zoek op naam of nummer...</string>
+
+    <!-- Call Screens -->
+    <string name="call_connected">Verbonden</string>
+    <string name="call_incoming">Inkomend gesprek</string>
+    <string name="call_outgoing">Bezig met bellen...</string>
+    <string name="call_ended">Gesprek beëindigd</string>
+    <string name="call_speaker">Luidspreker</string>
+    <string name="call_mute">Dempen</string>
+
+    <!-- Messages Screen -->
+    <string name="messages_title">Berichten</string>
+    <string name="btn_new_message">Nieuw Bericht</string>
+    <string name="type_message_placeholder">Typ een bericht...</string>
+    <string name="recipient_placeholder">Telefoonnummer of naam...</string>
+    <string name="btn_send">Versturen</string>
+    <string name="no_messages">Geen berichten gevonden</string>
+    <string name="default_sms_banner">Stel in als standaard SMS-app om berichten te kunnen lezen en versturen.</string>
+    <string name="chat_title">Chat</string>
+    <string name="new_message_title">Nieuw</string>
+    <string name="btn_write_new_message">NIEUW BERICHT SCHRIJVEN</string>
+    <string name="messages_secured_title">Berichten Beveiligd</string>
+    <string name="messages_permission_desc">Geef toestemming om uw berichten veilig te tonen.</string>
+
+    <!-- Medication Screen -->
+    <string name="meds_title">Medicijnen</string>
+    <string name="meds_logbook_title">Logboek</string>
+    <string name="tab_overview">OVERZICHT</string>
+    <string name="tab_logbook">LOGBOEK</string>
+    <string name="btn_add_med">Medicijn Toevoegen</string>
+    <string name="no_meds_scheduled">Geen medicijnen ingesteld</string>
+    <string name="med_taken">INGENOMEN</string>
+    <string name="med_take_now">NEEM IN</string>
+    <string name="med_stock_left">Voorraad: %d over</string>
+    <string name="med_stock_low">⚠️ Lage voorraad!</string>
+    <string name="no_meds_added">Nog geen medicijnen toegevoegd</string>
+    <string name="med_take_now_header">⚠️ NU INNEMEN</string>
+    <string name="my_meds_list">💊 MIJN LIJST</string>
+    <string name="no_med_history">Nog geen geschiedenis</string>
+    <string name="med_removed">Verwijderd medicijn</string>
+    <string name="med_edit_title">Aanpassen</string>
+    <string name="med_new_title">Nieuw Medicijn</string>
+    <string name="med_name_label">Naam</string>
+    <string name="med_dose_label">Dosering</string>
+    <string name="med_stock_label">Voorraad (aantal)</string>
+    <string name="med_repeat_on">Herhaal op:</string>
+    <string name="med_photo_label">Foto:</string>
+    <string name="med_times_label">Tijden:</string>
+    <string name="btn_choose_photo">KIES FOTO</string>
+    <string name="btn_add_time">TIJD TOEVOEGEN</string>
+    <string name="med_stock_warning">BIJNA OP: nog %d stuks</string>
+
+    <!-- Alarm Screens -->
+    <string name="alarm_title">Wekker</string>
+    <string name="no_alarms_set">Geen wekkers ingesteld</string>
+    <string name="alarm_turn_off">UITZETTEN</string>
+    <string name="alarm_snooze">SNOOZE</string>
+    <string name="alarm_dismiss">STOPPEN</string>
+    <string name="alarm_exact_permission_banner">Toestemming nodig voor nauwkeurige wekkers. Tik hier.</string>
+    <string name="alarm_add_title">Wekker toevoegen</string>
+    <string name="alarm_with_morning_routine">Met ochtendritueel</string>
+    <string name="alarm_every_day">Elke dag</string>
+    <string name="alarm_never">Nooit</string>
+    <string name="alarm_name_label">Naam van de wekker</string>
+    <string name="alarm_morning_routine">Ochtendritueel</string>
+    <string name="alarm_open_weather">Weerbericht openen</string>
+    <string name="alarm_morning_routine_desc">Indien ingeschakeld opent de app \'s ochtends automatisch het weerbericht na het uitzetten.</string>
+    <string name="alarm_choose_sound">Kies Geluid:</string>
+    <string name="alarm_sound_default">Standaard</string>
+    <string name="alarm_preview_sound">Beluister</string>
+    <string name="alarm_days">Dagen:</string>
+    <string name="alarm_header_message">📩 BERICHT</string>
+    <string name="alarm_header_meds">💊 MEDICIJNEN</string>
+    <string name="alarm_header_event">📅 AFSPRAAK</string>
+    <string name="alarm_header_search">🔍 ZOEKEN</string>
+    <string name="alarm_header_alarm">⏰ WEKKER</string>
+    <string name="alarm_snooze_15min">HERINNER OVER 15 MIN</string>
+    <string name="alarm_btn_taken">NU INGENOMEN</string>
+    <string name="alarm_btn_understood">BEGREPEN</string>
+    <string name="alarm_tts_find_phone">Ik ben hier! Uw telefoon ligt hier!</string>
+    <string name="alarm_tts_family_message">Bericht van familie: %s</string>
+    <string name="alarm_tts_medication">Tijd voor uw medicijnen. %s</string>
+    <string name="alarm_tts_reminder">Herinnering. %s</string>
+    <string name="alarm_tts_morning">Goedemorgen. Het is tijd voor: %s</string>
+
+    <!-- Calendar Screen -->
+    <string name="calendar_title">Agenda</string>
+    <string name="calendar_overlay_warning">Zet \'Verschijnen bovenop\' AAN voor wekkers.</string>
+    <string name="calendar_grant_permission">GEEF TOESTEMMING VOOR AGENDA</string>
+    <string name="calendar_no_events">Geen afspraken in de komende 3 maanden</string>
+    <string name="calendar_today">VANDAAG</string>
+    <string name="calendar_tomorrow">MORGEN</string>
+    <string name="calendar_all_day">Hele dag</string>
+    <string name="calendar_delete_title">Verwijderen?</string>
+    <string name="calendar_delete_desc">Wilt u \'%s\' verwijderen?</string>
+    <string name="btn_new_event">NIEUWE AFSPRAAK</string>
+    <string name="calendar_make_event">AFSPRAAK MAKEN</string>
+    <string name="calendar_step_what">1. WAT GAAT U DOEN?</string>
+    <string name="calendar_example_placeholder">Bijv. Kapper of Dokter</string>
+    <string name="calendar_step_day">2. WELKE DAG?</string>
+    <string name="calendar_step_time">3. HOE LAAT?</string>
+    <string name="calendar_hour_label">UUR</string>
+    <string name="calendar_min_label">MIN</string>
+    <string name="calendar_event_saved">Afspraak opgeslagen!</string>
+
+    <!-- Weather Screen -->
+    <string name="weather_screen_title">Weer in %s</string>
+    <string name="weather_your_region">uw regio</string>
+    <string name="weather_listen">LUISTER NAAR WEERBERICHT</string>
+    <string name="weather_permission_needed">Locatie toestemming nodig om het weer in uw buurt te tonen.</string>
+    <string name="weather_btn_grant_location">LOCATIE TOESTAAN</string>
+    <string name="weather_change_city">ANDERE STAD KIEZEN</string>
+    <string name="weather_clothing_advice">KLEDINGADVIES</string>
+    <string name="weather_listen_advice">LUISTER NAAR ADVIES</string>
+    <string name="weather_day_parts">DAGDELEN</string>
+    <string name="weather_choose_location">Locatie Kiezen</string>
+    <string name="weather_search_city">Zoek stad...</string>
+    <string name="weather_search_and_add">ZOEKEN &amp; TOEVOEGEN</string>
+    <string name="weather_safe_outside">VEILIG: Heerlijk weer om buiten te zijn</string>
+    <string name="weather_warning_outside">PAS OP: Kans op regen of wind</string>
+    <string name="weather_danger_heat">EXTREME HITTE: Blijf binnen</string>
+    <string name="weather_danger_storm">GEVAARLIJK WEER: Blijf binnen</string>
+    <string name="weather_location_needed">Locatie-toegang nodig</string>
+
+    <!-- Flashlight & Magnifier -->
+    <string name="flashlight_is_on">De zaklamp is AAN</string>
+    <string name="flashlight_is_off">De zaklamp is UIT</string>
+    <string name="flashlight_turn_on">ZET AAN</string>
+    <string name="flashlight_turn_off">ZET UIT</string>
+    <string name="magnifier_permission_needed">Camera toegang nodig voor het vergrootglas.</string>
+
+    <!-- Notes & Steps -->
+    <string name="notes_title">Notities</string>
+    <string name="no_notes_title">Nog geen notities</string>
+    <string name="no_notes_desc">Druk op de + knop om te beginnen</string>
+    <string name="note_dialog_title">Nieuwe Notitie</string>
+    <string name="note_dialog_edit_title">Notitie Bewerken</string>
+    <string name="note_title_placeholder">Titel</string>
+    <string name="note_content_placeholder">Schrijf hier uw notitie...</string>
+    <string name="btn_save">OPSLAAN</string>
+    <string name="steps_title">Stappen</string>
+    <string name="steps_unit">stappen</string>
+    <string name="steps_today_label">VANDAAG</string>
+    <string name="steps_permission_needed">Toegang tot bewegingsgegevens is nodig om uw stappen te tellen.</string>
+
+    <!-- Emergency & SOS -->
+    <string name="emergency_title">Noodinfo</string>
+    <string name="emergency_medical_title">🏥 Medische informatie</string>
+    <string name="emergency_blood_type">Bloedgroep</string>
+    <string name="emergency_allergies">Allergieën</string>
+    <string name="emergency_conditions">Aandoeningen</string>
+    <string name="emergency_pacemaker">Pacemaker</string>
+    <string name="emergency_current_meds">💊 Huidige medicijnen</string>
+    <string name="emergency_no_meds">Geen medicijnen geregistreerd</string>
+    <string name="emergency_ice_contacts">📞 Noodcontacten (ICE)</string>
+    <string name="emergency_doctor">Huisarts</string>
+    <string name="emergency_name_label">Naam</string>
+    <string name="emergency_phone_label">Telefoonnummer</string>
+    <string name="emergency_personal_info">🏠 Persoonlijke info</string>
+    <string name="emergency_birthdate">Geboortedatum</string>
+    <string name="emergency_address">Adres</string>
+    <string name="btn_edit">Bewerken</string>
+    <string name="emergency_edit_dialog_title">Noodinfo Bewerken</string>
+    <string name="emergency_personal_header">Persoonlijk</string>
+    <string name="emergency_fullname_label">Volledige Naam</string>
+    <string name="emergency_ice_header">ICE Contact (In Case of Emergency)</string>
+    <string name="emergency_contact_name_label">Naam Contactpersoon</string>
+    <string name="emergency_contact_phone_label">Telefoonnummer Contactpersoon</string>
+    <string name="emergency_medical_header">Medisch</string>
+    <string name="emergency_doctor_name_label">Huisarts Naam</string>
+    <string name="emergency_doctor_phone_label">Huisarts Telefoon</string>
+    <string name="emergency_has_pacemaker_label">Heeft Pacemaker</string>
+
+    <string name="sos_title">SOS Noodoproep</string>
+    <string name="sos_hold_instruction">HOUD 3 SECONDEN INGEDRUKT</string>
+    <string name="sos_contacts_subtitle">Deze mensen krijgen een SMS met uw locatie bij nood.</string>
+    <string name="sos_no_contacts">⚠️ Geen contacten ingesteld</string>
+    <string name="sos_no_contacts_desc">Voeg minimaal één persoon toe die we kunnen waarschuwen.</string>
+    <string name="sos_help_title">SOS Noodhulp</string>
+    <string name="sos_overlay_warning">Samsung blokkeert hulp. Tik hier en zet \'Verschijnen bovenop\' AAN.</string>
+    <string name="sos_location_needed">Locatie nodig</string>
+    <string name="sos_gps_disabled">GPS staat uit</string>
+    <string name="sos_click_to_fix">Klik hier om te herstellen.</string>
+    <string name="btn_fix">HERSTEL</string>
+    <string name="sos_hold_button_instruction">HOU DE KNOP 3 SECONDEN IN\nOM HULP TE ROEPEN</string>
+    <string name="sos_sms_info">Uw noodcontacten ontvangen direct\nuw locatie via SMS.</string>
+    <string name="sos_contacts_header">Contactpersonen:</string>
+    <string name="sos_sent_title">NOODSIGNAAL\nVERSTUURD!</string>
+    <string name="sos_sent_desc">Blijf rustig. Uw locatie is verzonden naar uw contactpersonen.</string>
+    <string name="btn_i_am_safe">IK BEN VEILIG</string>
+    <string name="sos_settings_title">SOS Instellingen</string>
+    <string name="btn_add_person">IEMAND TOEVOEGEN</string>
+    <string name="sos_who_to_add">Wie wilt u toevoegen?</string>
+    <string name="search_by_name">Zoek op naam...</string>
+    <string name="btn_create_new_contact">NIEUW CONTACT MAKEN</string>
+
+    <!-- Remote Support -->
+    <string name="remote_support_title">Hulp op afstand</string>
+    <string name="remote_how_it_works">Hoe werkt het?</string>
+    <string name="remote_step_1">Druk op de grote knop onderaan om de hulp-app (RustDesk) te openen.</string>
+    <string name="remote_step_2">Tik in die app onderaan op het icoontje \'Scherm Delen\'.</string>
+    <string name="remote_step_3">Druk bovenin op de blauwe knop \'Start service\'.</string>
+    <string name="remote_step_4">Kies voor \'Hele scherm delen\' en druk op \'Volgende\' (of \'Starten\').</string>
+    <string name="remote_step_5">Vertel de \'ID\' en het \'Wachtwoord\' aan de persoon die u helpt.</string>
+    <string name="remote_step_6">Druk op \'Accepteren\' of \'Toestaan\' als er dadelijk een melding in beeld komt.</string>
+    <string name="btn_open_support_app">OPEN HULP-APP</string>
+    <string name="remote_card_note">U kunt de hulp-app altijd afsluiten om de verbinding te verbreken.</string>
+
+    <!-- All Apps -->
+    <string name="all_apps_title">Alle Apps</string>
+    <string name="search_apps_placeholder">Zoek een app...</string>
+
+    <!-- Radio -->
+    <string name="radio_playing">Bezig met spelen...</string>
+    <string name="radio_paused">Gepauzeerd</string>
+    <string name="btn_add_station">ZENDER TOEVOEGEN</string>
+
+    <!-- Notifications Screen -->
+    <string name="notifications_title">Berichten &amp; Herinneringen</string>
+    <string name="no_notifications">Geen nieuwe berichten</string>
+    <string name="btn_clear_all">ALLES WISSEN</string>
+    <string name="notif_clear_confirm_title">Alle meldingen wissen?</string>
+    <string name="notif_clear_confirm_desc">Weet u zeker dat u alle meldingen wilt verwijderen? U kunt dit niet ongedaan maken.</string>
+    <string name="notif_clear_confirm_yes">Ja, wis alles</string>
+    <string name="notif_clear_confirm_no">Nee, terug</string>
+    <string name="notif_access_needed">Toegang nodig</string>
+    <string name="notif_access_desc">Om uw berichten van WhatsApp, SMS en andere apps hier te tonen, hebben we toestemming nodig.</string>
+    <string name="notif_open_settings">Instellingen openen</string>
+    <string name="notif_clear_group">Wis groep</string>
+    <string name="notif_new_messages_count">%d nieuwe berichten</string>
+    <string name="notif_clear_item">Wis</string>
+
+    <!-- Setup Wizard -->
+    <string name="wizard_welcome">Welkom</string>
+    <string name="wizard_welcome_desc">We gaan uw telefoon samen heel makkelijk maken. U kunt hierbij niets fout doen.</string>
+    <string name="btn_start">BEGINNEN</string>
+    <string name="btn_next">VOLGENDE</string>
+    <string name="btn_finish">VOLTOOIEN</string>
+    <string name="wizard_font_question">Welkom. Hoe groot wilt u de letters?</string>
+    <string name="wizard_theme_question">Welke stijl vindt u het prettigst?</string>
+    <string name="wizard_colors_question">Welkom. Welke kleuren vindt u het fijnst?</string>
+    <string name="wizard_reading_normal">Dit is normale tekst.</string>
+    <string name="wizard_reading_large">Dit is grote tekst.</string>
+    <string name="wizard_reading_huge">DIT IS REUSACHTIG.</string>
+    <string name="wizard_theme_classic">Klassiek (Zacht)</string>
+    <string name="wizard_theme_contrast">Hoog Contrast (Fel)</string>
+    <string name="wizard_emergency_question">Wie wilt u bellen in geval van nood?</string>
+    <string name="wizard_save_contact">BEWAAR CONTACT</string>
+    <string name="wizard_permission_notice">De app zal hierna om toestemming vragen om dit nummer te mogen bellen.</string>
+    <string name="wizard_flow_title">WELKOM.\nWIE STELT DEZE TELEFOON IN?</string>
+    <string name="wizard_flow_desc">De setup bestaat uit twee delen: technische instellingen door de beheerder en visuele keuzes voor de senior.</string>
+    <string name="wizard_flow_caregiver_title">IK BEN DE MANTELZORGER</string>
+    <string name="wizard_flow_caregiver_desc">Ik stel dit toestel technisch in (aanbevolen).</string>
+    <string name="wizard_flow_senior_title">IK BEN DE GEBRUIKER</string>
+    <string name="wizard_flow_senior_desc">Ik ga deze telefoon direct zelf gebruiken.</string>
+    <string name="wizard_choose_contact">KIES EEN CONTACT</string>
+    <string name="wizard_privacy_agreement">Door op de knop hieronder te drukken, gaat u akkoord met onze privacyverklaring.</string>
+
+    <!-- Privacy & AVG -->
     <string name="privacy_title">Privacy &amp; AVG</string>
     <string name="privacy_gent_support">Ondersteund voor Gentse Senioren</string>
     <string name="gdpr_compliant">AVG/GDPR Compliant</string>
@@ -19,4 +423,187 @@
     <string name="privacy_rights_desc">U heeft volledige controle. U kunt beheerders direct verwijderen en alle data wordt gewist bij verwijdering van de app.</string>
     <string name="privacy_accept">IK GA AKKOORD</string>
     <string name="privacy_version_label">Versie 0.8.8 - Project Senioren Gent</string>
+
+    <!-- Permissions & Technical Setup -->
+    <string name="perm_step_format">STAP %1$d VAN %2$d</string>
+    <string name="perm_cat_emergency_senior">HULP BIJ NOOD</string>
+    <string name="perm_cat_emergency_senior_desc">Als u in nood bent, kan de app uw familie vertellen waar u bent.</string>
+    <string name="perm_cat_location_tech">LOCATIE</string>
+    <string name="perm_cat_location_tech_desc">Nodig voor de SOS-functie om uw locatie te bepalen.</string>
+    <string name="perm_privacy_location">Privacy: Uw locatie wordt alleen gedeeld tijdens een SOS-oproep.</string>
+
+    <string name="perm_cat_phone_senior">FAMILIE BELLEN</string>
+    <string name="perm_cat_phone_senior_desc">Hiermee kunt u direct uw kinderen of de dokter bellen.</string>
+    <string name="perm_cat_phone_tech">TELEFOON</string>
+    <string name="perm_cat_phone_tech_desc">Om direct vanuit de launcher te bellen.</string>
+    <string name="perm_privacy_phone">Privacy: De app belt alleen wanneer u zelf op een contact drukt.</string>
+
+    <string name="perm_cat_sms_senior">BERICHTEN</string>
+    <string name="perm_cat_sms_senior_desc">Zodat de telefoon een noodbericht kan sturen naar uw familie.</string>
+    <string name="perm_cat_sms_tech">SMS SERVICE</string>
+    <string name="perm_cat_sms_tech_desc">Nodig voor SOS en batterijwaarschuwingen.</string>
+    <string name="perm_privacy_sms">Privacy: We lezen NOOIT uw privéberichten.</string>
+
+    <string name="perm_cat_health">GEZONDHEID</string>
+    <string name="perm_cat_health_desc">Zodat de telefoon uw stapjes kan tellen voor uw dagelijkse beweging.</string>
+    <string name="perm_privacy_health">Privacy: Deze gegevens blijven veilig op uw eigen telefoon.</string>
+
+    <string name="perm_cat_camera_senior">VERGROOTGLAS</string>
+    <string name="perm_cat_camera_senior_desc">Zodat u kleine lettertjes makkelijk kunt lezen met de camera.</string>
+    <string name="perm_cat_camera_tech">CAMERA</string>
+    <string name="perm_cat_camera_tech_desc">Nodig voor het vergrootglas en de zaklamp.</string>
+    <string name="perm_privacy_camera">Privacy: Er worden geen foto\'s ongevraagd opgeslagen.</string>
+
+    <string name="perm_cat_notifications_senior">HERINNERINGEN</string>
+    <string name="perm_cat_notifications_senior_desc">Zodat u een seintje krijgt als het tijd is voor uw medicijnen.</string>
+    <string name="perm_cat_notifications_tech">MELDINGEN</string>
+    <string name="perm_cat_notifications_tech_desc">Nodig voor medicijnalarmen.</string>
+    <string name="perm_privacy_notifications">Privacy: Geen reclame, alleen uw eigen belangrijke meldingen.</string>
+
+    <string name="perm_btn_grant">TOESTEMMING GEVEN</string>
+    <string name="perm_btn_allow">TOESTAAN</string>
+    <string name="perm_btn_next">VOLGENDE STAP</string>
+    <string name="perm_btn_start_app">START DE APP</string>
+    <string name="perm_btn_confirm">JA, DIT IS GOED</string>
+    <string name="perm_btn_not_now">NU EVEN NIET</string>
+    <string name="perm_btn_all_granted">ALLES GOEDGEKEURD</string>
+    <string name="perm_btn_continue">KLIK HIER OM DOOR TE GAAN</string>
+    <string name="perm_tip_while_using">Tip: Tik op de blauwe knop en kies \'Tijdens gebruik van app\'.</string>
+
+    <!-- System Permissions Setup -->
+    <string name="sys_perm_title_senior">De telefoon slim maken</string>
+    <string name="sys_perm_title_tech">Wekker &amp; SOS Rechten</string>
+    <string name="sys_perm_desc_senior">We moeten 4 knoppen aanzetten zodat uw wekker en SOS altijd goed werken. Tik op de rode vakken.</string>
+    <string name="sys_perm_desc_tech">Deze instellingen zijn cruciaal voor een betrouwbare werking op Samsung en Android 14/15/16.</string>
+    <string name="sys_perm_notif_title_senior">1. Meldingen lezen</string>
+    <string name="sys_perm_notif_title_tech">Toegang tot meldingen</string>
+    <string name="sys_perm_notif_desc_senior">Zodat we de SOS-knop op uw scherm kunnen tonen.</string>
+    <string name="sys_perm_notif_desc_tech">Nodig voor de statusbalk en SOS-functies.</string>
+    <string name="sys_perm_restricted_warning">Let op: Krijgt u \'Beperkte instelling\'? Ga terug, houd app lang ingedrukt -> App-info -> 3 puntjes -> Beperkte instellingen toestaan.</string>
+    <string name="sys_perm_overlay_title_senior">2. Scherm aanzetten</string>
+    <string name="sys_perm_overlay_title_tech">Verschijnen bovenop</string>
+    <string name="sys_perm_overlay_desc_senior">Zodat u de wekker direct ziet als hij afgaat.</string>
+    <string name="sys_perm_overlay_desc_tech">Nodig om de wekker en SOS direct op het scherm te tonen.</string>
+    <string name="sys_perm_fullscreen_title_senior">3. Belangrijke meldingen</string>
+    <string name="sys_perm_fullscreen_title_tech">Volledig scherm meldingen</string>
+    <string name="sys_perm_fullscreen_desc_senior">Zodat de telefoon ook in nood geluid maakt.</string>
+    <string name="sys_perm_fullscreen_desc_tech">Nodig om het scherm te wekken bij een alarm of SOS.</string>
+    <string name="sys_perm_alarm_title_senior">4. De tijd bewaken</string>
+    <string name="sys_perm_alarm_title_tech">Exacte wekkers</string>
+    <string name="sys_perm_alarm_desc_senior">Zodat uw medicijnen exact op tijd gemeld worden.</string>
+    <string name="sys_perm_alarm_desc_tech">Nodig om medicijn-herinneringen exact op tijd te laten afgaan.</string>
+    <string name="sys_perm_install_title_senior">5. Updates ontvangen</string>
+    <string name="sys_perm_install_title_tech">Onbekende apps installeren</string>
+    <string name="sys_perm_install_desc_senior">Zodat uw familie de app veilig kan vernieuwen.</string>
+    <string name="sys_perm_install_desc_tech">Nodig voor de automatische update-functie via HTTPS.</string>
+    <string name="sys_perm_battery_title_senior">6. Altijd aan blijven</string>
+    <string name="sys_perm_battery_title_tech">Batterij optimalisatie uit</string>
+    <string name="sys_perm_battery_desc_senior">Zodat de hulp-knop en valdetectie altijd werken.</string>
+    <string name="sys_perm_battery_desc_tech">Voorkomt dat Android de app afsluit om stroom te besparen.</string>
+    <string name="sys_perm_btn_done_senior">HET IS GELUKT, GA VERDER</string>
+    <string name="sys_perm_btn_done_tech">VOLGENDE</string>
+    <string name="sys_perm_btn_pending_senior">ZET DE 6 KNOPPEN AAN</string>
+    <string name="sys_perm_btn_pending_tech">STEL ALLES IN OM VERDER TE GAAN</string>
+
+    <!-- Technical Setup Steps -->
+    <string name="tech_default_apps_title_senior">De telefoon veilig maken</string>
+    <string name="tech_default_apps_title_tech">Standaard Apps</string>
+    <string name="tech_default_apps_desc_senior">We maken de Senioren Launcher uw vaste hulp voor bellen en berichten. Klik op de rode vakken.</string>
+    <string name="tech_default_apps_desc_tech">Stel de launcher in als standaard for Home, Telefoon en SMS om de stabiliteit te garanderen.</string>
+    <string name="tech_home_row_senior">1. Basis scherm</string>
+    <string name="tech_home_row_tech">Startscherm (Home)</string>
+    <string name="tech_home_row_desc_senior">Zodat u altijd de grote knoppen ziet.</string>
+    <string name="tech_home_row_desc_tech">Maak dit de standaard launcher.</string>
+    <string name="tech_dialer_row_senior">2. Telefoon knop</string>
+    <string name="tech_dialer_row_tech">Telefoon (Bellen)</string>
+    <string name="tech_dialer_row_desc_senior">Om makkelijk uw familie te kunnen bellen.</string>
+    <string name="tech_dialer_row_desc_tech">Nodig voor de versimpelde bel-interface.</string>
+    <string name="tech_sms_row_senior">3. Berichten knop</string>
+    <string name="tech_sms_row_tech">Berichten (SMS)</string>
+    <string name="tech_sms_row_desc_senior">Zodat u veilig berichten kunt ontvangen.</string>
+    <string name="tech_sms_row_desc_tech">Nodig voor SOS en batterijmeldingen.</string>
+    <string name="tech_btn_setup_3_senior">STEL DE 3 KNOPPEN IN</string>
+    <string name="tech_btn_setup_all_tech">STEL ALLES IN</string>
+    <string name="tech_sos_setup_title">Hoofdcontacten instellen</string>
+    <string name="tech_sos_setup_desc">Kies tot maximaal 4 contactpersonen. Deze nummers worden direct als favoriet en SOS-contact ingesteld.</string>
+    <string name="tech_no_contacts_yet">Nog geen contacten gekozen</string>
+    <string name="tech_btn_choose_contacts">KIES UIT CONTACTEN</string>
+    <string name="field_name">Naam</string>
+    <string name="field_phone">Nummer</string>
+    <string name="tech_fall_beta_notice">BETA FASE: Deze functie is nog in ontwikkeling en dient als extra hulpmiddel, niet als vervanging voor professionele hulp.</string>
+    <string name="tech_fall_desc">De telefoon kan met zijn sensoren een harde val herkennen. Als dat gebeurt, slaat de telefoon alarm en worden de SOS-contacten gewaarschuwd.</string>
+    <string name="tech_fall_enable_title">Valdetectie inschakelen</string>
+    <string name="tech_fall_enable_desc">Gebruikt bewegingssensoren.</string>
+    <string name="tech_security_title">Beveiliging instellen</string>
+    <string name="tech_pin_label">4-cijferige PIN</string>
+    <string name="tech_pin_desc">Dit vergrendelt de instellingen for de senior.</string>
+    <string name="tech_pin_placeholder">Bijv. 1234</string>
+    <string name="tech_remote_support_title">Hulp op afstand</string>
+    <string name="tech_remote_support_desc">Maakt meekijken via RustDesk mogelijk.</string>
+    <string name="tech_save_security_btn">BEVEILIGING OPSLAAN</string>
+    <string name="tech_handover_title">De techniek is klaar!</string>
+    <string name="tech_handover_desc">Geef de telefoon nu aan de gebruiker, zodat zij zelf kunnen kiezen hoe groot de letters en knoppen moeten zijn.</string>
+    <string name="tech_handover_start_btn">START VISUELE INSTELLINGEN</string>
+
+    <!-- Contacts Screen -->
+    <string name="contacts_my_list">Mijn Lijst</string>
+    <string name="contacts_btn_new">Nieuw</string>
+    <string name="contacts_empty">Geen favoriete contacten.\nTik op \'Nieuw\' om er een toe te voegen.</string>
+    <string name="contacts_privacy">Privacy: Uw contacten worden alleen op dit toestel bewaard en nooit gedeeld met derden.</string>
+    <string name="contacts_call_failed">Kon niet bellen</string>
+    <string name="contacts_favorite">Favoriet</string>
+    <string name="contacts_add_title">Nieuw Contact</string>
+
+    <!-- Photos Screen -->
+    <string name="photos_view_photo">Foto bekijken</string>
+    <string name="photos_albums">Foto Albums</string>
+    <string name="photos_none_found">Geen foto\'s gevonden</string>
+    <string name="photos_deleted">Foto verwijderd</string>
+    <string name="photos_delete_failed">Kan foto niet verwijderen</string>
+    <string name="photos_share">Foto delen</string>
+    <string name="photos_previous">Vorige</string>
+    <string name="photos_next">Volgende</string>
+    <string name="photos_delete_confirm_title">Verwijderen?</string>
+    <string name="photos_delete_confirm_desc">Wilt u deze foto uit uw album verwijderen?</string>
+    <string name="photos_delete_btn">JA, VERWIJDER</string>
+    <string name="photos_unknown_folder">Onbekend</string>
+
+    <!-- Radio Screen & Models -->
+    <string name="radio_title">Radio</string>
+    <string name="radio_cat_belgium">🇧🇪 België</string>
+    <string name="radio_cat_netherlands">🇳🇱 Nederland</string>
+    <string name="radio_cat_international">🇬🇧 International</string>
+    <string name="radio_cat_my_stations">⭐ Mijn Zenders</string>
+    <string name="radio_status_error">FOUT BIJ LADEN</string>
+    <string name="radio_status_connecting">VERBINDEN...</string>
+    <string name="radio_status_playing">NU AAN HET SPELEN</string>
+    <string name="radio_station_fallback">Zender</string>
+    <string name="radio_btn_pause">PAUZE</string>
+    <string name="radio_btn_play">SPEEL</string>
+    <string name="radio_btn_stop">STOP</string>
+    <string name="radio_add_title">Zender Toevoegen</string>
+    <string name="radio_link_detected">Link gedetecteerd!</string>
+    <string name="radio_input_hint">Typ naam of plak link...</string>
+    <string name="radio_stream_found">Gevonden: Directe Stream</string>
+    <string name="radio_name_prompt">Geef deze zender een naam:</string>
+    <string name="radio_name_example">Bijv. Radio Extra</string>
+    <string name="radio_btn_search">ZOEK OP INTERNET</string>
+    <string name="radio_btn_save_play">OPSLAAN &amp; SPELEN</string>
+
+    <!-- SOS Screen Extras -->
+    <string name="sos_help_word">HULP</string>
+    <string name="sos_demo_activated">Demo Mode: SOS geactiveerd</string>
+
+    <!-- Incoming Call Screen -->
+    <string name="call_unknown_number">Onbekend Nummer</string>
+    <string name="call_status_incoming">INKOMENDE OPROEP</string>
+    <string name="call_status_active">IN GESPREK</string>
+    <string name="call_btn_decline">WEIGEREN</string>
+    <string name="call_btn_answer">OPNEMEN</string>
+    <string name="call_speaker_on">LUIDSPREKER AAN</string>
+    <string name="call_speaker_off">LUIDSPREKER UIT</string>
+    <string name="call_btn_hangup">OPHANGEN</string>
+
+    <!-- Misc Buttons -->
+    <string name="btn_back">TERUG</string>
 </resources>

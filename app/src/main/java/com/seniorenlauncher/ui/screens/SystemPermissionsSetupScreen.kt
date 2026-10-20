@@ -22,6 +22,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.text.font.FontWeight
@@ -31,6 +32,7 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.compose.LocalLifecycleOwner
+import com.seniorenlauncher.R
 
 @Composable
 fun SystemPermissionsSetupScreen(onNext: () -> Unit, isSenior: Boolean = false) {
@@ -107,7 +109,7 @@ fun SystemPermissionsSetupScreen(onNext: () -> Unit, isSenior: Boolean = false) 
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
-            text = if (isSenior) "De telefoon slim maken" else "Wekker & SOS Rechten",
+            text = stringResource(if (isSenior) R.string.sys_perm_title_senior else R.string.sys_perm_title_tech),
             fontSize = if (isSenior) 36.sp else 32.sp,
             fontWeight = FontWeight.ExtraBold,
             textAlign = TextAlign.Center,
@@ -117,9 +119,7 @@ fun SystemPermissionsSetupScreen(onNext: () -> Unit, isSenior: Boolean = false) 
         Spacer(Modifier.height(16.dp))
         
         Text(
-            text = if (isSenior) 
-                "We moeten 4 knoppen aanzetten zodat uw wekker en SOS altijd goed werken. Tik op de rode vakken." 
-                else "Deze instellingen zijn cruciaal voor een betrouwbare werking op Samsung en Android 14/15/16.",
+            text = stringResource(if (isSenior) R.string.sys_perm_desc_senior else R.string.sys_perm_desc_tech),
             fontSize = if (isSenior) 22.sp else 18.sp,
             textAlign = TextAlign.Center,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
@@ -129,8 +129,8 @@ fun SystemPermissionsSetupScreen(onNext: () -> Unit, isSenior: Boolean = false) 
         Spacer(Modifier.height(32.dp))
 
         PermissionRow(
-            title = if (isSenior) "1. Meldingen lezen" else "Toegang tot meldingen",
-            description = if (isSenior) "Zodat we de SOS-knop op uw scherm kunnen tonen." else "Nodig voor de statusbalk en SOS-functies.",
+            title = stringResource(if (isSenior) R.string.sys_perm_notif_title_senior else R.string.sys_perm_notif_title_tech),
+            description = stringResource(if (isSenior) R.string.sys_perm_notif_desc_senior else R.string.sys_perm_notif_desc_tech),
             isGranted = hasNotificationAccess,
             icon = Icons.Default.Notifications,
             isSenior = isSenior,
@@ -147,7 +147,7 @@ fun SystemPermissionsSetupScreen(onNext: () -> Unit, isSenior: Boolean = false) 
                 shape = RoundedCornerShape(12.dp)
             ) {
                 Text(
-                    text = "Let op: Krijgt u 'Beperkte instelling'? Ga terug, houd app lang ingedrukt -> App-info -> 3 puntjes -> Beperkte instellingen toestaan.",
+                    text = stringResource(R.string.sys_perm_restricted_warning),
                     modifier = Modifier.padding(12.dp),
                     fontSize = 12.sp,
                     lineHeight = 16.sp,
@@ -159,8 +159,8 @@ fun SystemPermissionsSetupScreen(onNext: () -> Unit, isSenior: Boolean = false) 
         Spacer(Modifier.height(16.dp))
 
         PermissionRow(
-            title = if (isSenior) "2. Scherm aanzetten" else "Verschijnen bovenop",
-            description = if (isSenior) "Zodat u de wekker direct ziet als hij afgaat." else "Nodig om de wekker en SOS direct op het scherm te tonen.",
+            title = stringResource(if (isSenior) R.string.sys_perm_overlay_title_senior else R.string.sys_perm_overlay_title_tech),
+            description = stringResource(if (isSenior) R.string.sys_perm_overlay_desc_senior else R.string.sys_perm_overlay_desc_tech),
             isGranted = canDrawOverlays,
             icon = Icons.Default.Layers,
             isSenior = isSenior,
@@ -176,8 +176,8 @@ fun SystemPermissionsSetupScreen(onNext: () -> Unit, isSenior: Boolean = false) 
         Spacer(Modifier.height(16.dp))
 
         PermissionRow(
-            title = if (isSenior) "3. Belangrijke meldingen" else "Volledig scherm meldingen",
-            description = if (isSenior) "Zodat de telefoon ook in nood geluid maakt." else "Nodig om het scherm te wekken bij een alarm of SOS.",
+            title = stringResource(if (isSenior) R.string.sys_perm_fullscreen_title_senior else R.string.sys_perm_fullscreen_title_tech),
+            description = stringResource(if (isSenior) R.string.sys_perm_fullscreen_desc_senior else R.string.sys_perm_fullscreen_desc_tech),
             isGranted = canUseFullScreenIntent,
             icon = Icons.Default.Fullscreen,
             isSenior = isSenior,
@@ -194,8 +194,8 @@ fun SystemPermissionsSetupScreen(onNext: () -> Unit, isSenior: Boolean = false) 
         Spacer(Modifier.height(16.dp))
 
         PermissionRow(
-            title = if (isSenior) "4. De tijd bewaken" else "Exacte wekkers",
-            description = if (isSenior) "Zodat uw medicijnen exact op tijd gemeld worden." else "Nodig om medicijn-herinneringen exact op tijd te laten afgaan.",
+            title = stringResource(if (isSenior) R.string.sys_perm_alarm_title_senior else R.string.sys_perm_alarm_title_tech),
+            description = stringResource(if (isSenior) R.string.sys_perm_alarm_desc_senior else R.string.sys_perm_alarm_desc_tech),
             isGranted = canScheduleExactAlarms,
             icon = Icons.Default.Alarm,
             isSenior = isSenior,
@@ -212,8 +212,8 @@ fun SystemPermissionsSetupScreen(onNext: () -> Unit, isSenior: Boolean = false) 
         Spacer(Modifier.height(16.dp))
 
         PermissionRow(
-            title = if (isSenior) "5. Updates ontvangen" else "Onbekende apps installeren",
-            description = if (isSenior) "Zodat uw familie de app veilig kan vernieuwen." else "Nodig voor de automatische update-functie via HTTPS.",
+            title = stringResource(if (isSenior) R.string.sys_perm_install_title_senior else R.string.sys_perm_install_title_tech),
+            description = stringResource(if (isSenior) R.string.sys_perm_install_desc_senior else R.string.sys_perm_install_desc_tech),
             isGranted = canRequestPackageInstalls,
             icon = Icons.Default.SystemUpdate,
             isSenior = isSenior,
@@ -228,8 +228,8 @@ fun SystemPermissionsSetupScreen(onNext: () -> Unit, isSenior: Boolean = false) 
         )
 
         PermissionRow(
-            title = if (isSenior) "6. Altijd aan blijven" else "Batterij optimalisatie uit",
-            description = if (isSenior) "Zodat de hulp-knop en valdetectie altijd werken." else "Voorkomt dat Android de app afsluit om stroom te besparen.",
+            title = stringResource(if (isSenior) R.string.sys_perm_battery_title_senior else R.string.sys_perm_battery_title_tech),
+            description = stringResource(if (isSenior) R.string.sys_perm_battery_desc_senior else R.string.sys_perm_battery_desc_tech),
             isGranted = isIgnoringBatteryOptimizations,
             icon = Icons.Default.BatteryAlert,
             isSenior = isSenior,
@@ -256,8 +256,8 @@ fun SystemPermissionsSetupScreen(onNext: () -> Unit, isSenior: Boolean = false) 
             )
         ) {
             Text(
-                text = if (allGranted) (if (isSenior) "HET IS GELUKT, GA VERDER" else "VOLGENDE") 
-                       else (if (isSenior) "ZET DE 6 KNOPPEN AAN" else "STEL ALLES IN OM VERDER TE GAAN"),
+                text = if (allGranted) stringResource(if (isSenior) R.string.sys_perm_btn_done_senior else R.string.sys_perm_btn_done_tech) 
+                       else stringResource(if (isSenior) R.string.sys_perm_btn_pending_senior else R.string.sys_perm_btn_pending_tech),
                 fontSize = if (isSenior) 24.sp else 20.sp,
                 fontWeight = FontWeight.Black,
                 textAlign = TextAlign.Center
@@ -304,7 +304,7 @@ fun PermissionRow(
             ) {
                 Icon(
                     icon, 
-                    contentDescription = if (isSenior) "Icoon voor $title" else null, 
+                    contentDescription = if (isSenior) title else null, 
                     modifier = Modifier.size(if (isSenior) 40.dp else 32.dp), 
                     tint = if (isGranted) Color(0xFF10B981) else Color(0xFFEF4444)
                 )
@@ -330,9 +330,9 @@ fun PermissionRow(
             Spacer(Modifier.width(12.dp))
             
             if (isGranted) {
-                Text("\u2705", fontSize = if (isSenior) 32.sp else 24.sp, modifier = Modifier.clearAndSetSemantics { contentDescription = if (isSenior) "Correct ingesteld" else "Vinkje" })
+                Text("\u2705", fontSize = if (isSenior) 32.sp else 24.sp)
             } else {
-                Text("\u274C", fontSize = if (isSenior) 32.sp else 24.sp, modifier = Modifier.clearAndSetSemantics { contentDescription = if (isSenior) "Nog niet ingesteld" else "Kruisje" })
+                Text("\u274C", fontSize = if (isSenior) 32.sp else 24.sp)
             }
         }
     }

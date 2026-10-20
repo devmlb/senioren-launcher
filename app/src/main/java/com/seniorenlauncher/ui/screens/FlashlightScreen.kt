@@ -15,9 +15,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.seniorenlauncher.R
 import com.seniorenlauncher.ui.components.ScreenHeader
 
 @Composable
@@ -29,7 +31,6 @@ fun FlashlightScreen(onBack: () -> Unit) {
     var isFlashOn by remember { mutableStateOf(false) }
     val interactionSource = remember { MutableInteractionSource() }
 
-    // Zorg dat de zaklamp uitgaat als we het scherm verlaten
     DisposableEffect(Unit) {
         onDispose {
             if (isFlashOn && cameraId != null) {
@@ -39,7 +40,7 @@ fun FlashlightScreen(onBack: () -> Unit) {
     }
 
     Column(Modifier.fillMaxSize().background(MaterialTheme.colorScheme.background).padding(horizontal = 12.dp, vertical = 8.dp)) {
-        ScreenHeader(title = "Zaklamp", onBack = onBack)
+        ScreenHeader(title = stringResource(R.string.app_name_flashlight), onBack = onBack)
         
         Column(
             Modifier.weight(1f).fillMaxWidth(),
@@ -47,7 +48,7 @@ fun FlashlightScreen(onBack: () -> Unit) {
             verticalArrangement = Arrangement.Center
         ) {
             Text(
-                if (isFlashOn) "De zaklamp is AAN" else "De zaklamp is UIT",
+                if (isFlashOn) stringResource(R.string.flashlight_is_on) else stringResource(R.string.flashlight_is_off),
                 fontSize = 24.sp,
                 fontWeight = FontWeight.Bold,
                 color = MaterialTheme.colorScheme.onBackground
@@ -97,7 +98,7 @@ fun FlashlightScreen(onBack: () -> Unit) {
                 shape = RoundedCornerShape(16.dp)
             ) {
                 Text(
-                    if (isFlashOn) "ZET UIT" else "ZET AAN",
+                    if (isFlashOn) stringResource(R.string.flashlight_turn_off) else stringResource(R.string.flashlight_turn_on),
                     fontSize = 24.sp,
                     fontWeight = FontWeight.ExtraBold
                 )

@@ -1,2 +1,609 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources><string name="app_name">Lanceur Senior</string><string name="sos_emergency">SOS URGENCE</string></resources>
+<resources>
+    <!-- App & Navigation -->
+    <string name="app_name">Lanceur Senior</string>
+    <string name="sos_emergency">URGENCE SOS</string>
+    <string name="call">Appeler</string>
+    <string name="messages">Messages</string>
+    <string name="settings">Paramètres</string>
+    <string name="flashlight">Lampe torche</string>
+    <string name="contacts">Contacts</string>
+    <string name="back">Retour</string>
+    <string name="yes">Oui</string>
+    <string name="no">Non</string>
+    <string name="not_set">Non défini</string>
+
+    <!-- Standard Apps (ALL_APPS) -->
+    <string name="app_name_phone">Téléphone</string>
+    <string name="app_name_sms">Messages</string>
+    <string name="app_name_camera">Appareil photo</string>
+    <string name="app_name_photos">Photos</string>
+    <string name="app_name_alarm">Alarme</string>
+    <string name="app_name_calendar">Agenda</string>
+    <string name="app_name_meds">Médicaments</string>
+    <string name="app_name_weather">Météo</string>
+    <string name="app_name_flashlight">Lampe torche</string>
+    <string name="app_name_magnifier">Loupe</string>
+    <string name="app_name_notes">Notes</string>
+    <string name="app_name_radio">Radio</string>
+    <string name="app_name_wifi">Wi-Fi</string>
+    <string name="app_name_bluetooth">Bluetooth</string>
+    <string name="app_name_steps">Podomètre</string>
+    <string name="app_name_emergency">Urgences</string>
+    <string name="app_name_sos">SOS</string>
+    <string name="app_name_remote_support">Assistance</string>
+    <string name="app_name_all_apps">Toutes les apps</string>
+    <string name="app_name_settings">Paramètres</string>
+
+    <!-- Home Screen -->
+    <string name="btn_add_app">Ajouter</string>
+    <string name="btn_sos_help">AIDE SOS</string>
+    <string name="med_reminder_tag">RAPPEL</string>
+    <string name="med_reminder_count">Encore %d médicaments</string>
+    <string name="notifications">Notifications</string>
+
+    <!-- Home Dialogs -->
+    <string name="pin_dialog_title">PARAMÈTRES SÉCURISÉS</string>
+    <string name="choose_apps_title">CHOISIR LES APPLICATIONS</string>
+    <string name="btn_delete">SUPPRIMER</string>
+    <string name="btn_cancel">ANNULER</string>
+    <string name="btn_add">AJOUTER</string>
+    <string name="search_app">Rechercher une app...</string>
+    <string name="wifi_title">CONNEXION WI-FI</string>
+    <string name="wifi_connected_to">CONNECTÉ À :</string>
+    <string name="wifi_off">LE WI-FI EST DÉSACTIVÉ</string>
+    <string name="wifi_settings">PARAMÈTRES WI-FI</string>
+    <string name="wifi_access_title">Accès Wi-Fi</string>
+    <string name="wifi_access_desc">Pour afficher les informations Wi-Fi, nous avons besoin de l\'autorisation de rechercher les appareils à proximité.</string>
+    <string name="wifi_not_connected">Non connecté</string>
+    <string name="signal_none">Aucun signal</string>
+    <string name="signal_weak">Signal faible</string>
+    <string name="signal_fair">Signal moyen</string>
+    <string name="signal_good">Bon signal</string>
+    <string name="signal_excellent">Signal excellent</string>
+    <string name="signal_strength">Force du signal : %s</string>
+    <string name="bluetooth_title">BLUETOOTH</string>
+    <string name="bluetooth_on">LE BLUETOOTH EST ACTIVÉ</string>
+    <string name="bluetooth_off">LE BLUETOOTH EST DÉSACTIVÉ</string>
+    <string name="sos_countdown_title">ALARME SOS ENVOYÉE DANS :</string>
+    <string name="sos_access_title">Accès SOS</string>
+    <string name="sos_access_desc">Pour alerter vos proches, nous avons besoin des autorisations pour la localisation, les appels et les SMS.</string>
+    <string name="btn_stop_cancel">ARRÊTER / ANNULER</string>
+    <string name="btn_grant">AUTORISER</string>
+    <string name="btn_manual_settings">RÉGLAGES MANUELS</string>
+
+    <!-- Fall Detection -->
+    <string name="fall_detected_title">CHUTE DÉTECTÉE !</string>
+    <string name="fall_detected_desc">Êtes-vous tombé ? Nous allons appeler de l\'aide dans :</string>
+    <string name="fall_access_desc">Pour prévenir les secours en cas de chute, nous avons besoin des autorisations pour la localisation, les appels et les SMS.</string>
+    <string name="btn_call_help_now">APPELER DE L\'AIDE</string>
+
+    <!-- Settings Screen -->
+    <string name="settings_screen_title">Gestion &amp; Paramètres</string>
+    <string name="settings_locked_title">Paramètres Verrouillés</string>
+    <string name="settings_locked_desc">Touchez ici pour déverrouiller avec votre code PIN</string>
+    <string name="settings_pin_prompt">Saisissez votre code PIN à 4 chiffres</string>
+    <string name="group_screen_style">📺 Écran &amp; Style</string>
+    <string name="color_theme">Thème de couleurs</string>
+    <string name="theme_classic">Classique</string>
+    <string name="theme_contrast">Contraste élevé</string>
+    <string name="theme_light">Clair</string>
+    <string name="button_layout">Disposition des boutons</string>
+    <string name="layout_large">Grand</string>
+    <string name="layout_compact">Compact</string>
+    <string name="layout_huge">Géant</string>
+    <string name="text_size">Taille du texte</string>
+    <string name="auto_night_mode">Mode Nuit Automatique</string>
+    <string name="group_apps_language">🌍 Applications &amp; Langue</string>
+    <string name="language">Langue</string>
+    <string name="visible_apps">Applications visibles</string>
+    <string name="group_safety">🛡️ Sécurité &amp; Urgences</string>
+    <string name="fall_detection">Détection de chute</string>
+    <string name="battery_alert">Alerte batterie faible (&lt; 15%)</string>
+    <string name="charging_reminder">Rappel de recharge</string>
+    <string name="scam_protection">Protection anti-arnaque &amp; spam</string>
+    <string name="sos_contacts_settings">Gérer les contacts SOS</string>
+    <string name="group_system">⚙️ Système &amp; Sécurité</string>
+    <string name="change_pin">Modifier le code PIN</string>
+    <string name="lock_settings">Verrouiller les paramètres</string>
+    <string name="check_updates">Rechercher des mises à jour</string>
+    <string name="checking_updates">Vérification des mises à jour...</string>
+    <string name="update_available">Mise à jour disponible !</string>
+    <string name="update_latest">Vous disposez déjà de la dernière version.</string>
+    <string name="update_failed">Impossible de vérifier les mises à jour.</string>
+    <string name="btn_unlock">DÉVERROUILLER</string>
+    <string name="btn_lock">VERROUILLER</string>
+    <string name="version_label">Version %1$s</string>
+
+    <!-- Additional Settings Strings -->
+    <string name="support_project_title">❤️ Remerciements</string>
+    <string name="support_project_desc">Ceci est un projet open-source conçu avec soin pour nos aînés. Votre soutien permet de couvrir les coûts et de continuer à améliorer l\'application.</string>
+    <string name="support_project_btn">SOUTENIR LE PROJET</string>
+    <string name="about_privacy_title">ℹ️ À propos &amp; Confidentialité</string>
+    <string name="about_privacy_desc">Le Lanceur Senior est une initiative visant à promouvoir l\'inclusion numérique pour les seniors. Vos données et votre vie privée sont totalement respectées.</string>
+    <string name="menu_locked">VERROUILLER LE MENU</string>
+    <string name="remote_support_web">📱 Assistance à distance (Web)</string>
+    <string name="med_emergency_edit">🏥 Modifier la fiche médicale</string>
+    <string name="sos_contacts_setup">🆘 Définir les contacts SOS</string>
+    <string name="privacy_details_row">🛡️ Confidentialité &amp; RGPD</string>
+    <string name="enter_pin_btn">SAISIR LE CODE PIN</string>
+    <string name="back_to_home">RETOUR À L\'ACCUEIL</string>
+    <string name="admin_pin_title">PIN Administrateur</string>
+    <string name="settings_locked_notice">Ce menu est sécurisé pour empêcher les modifications accidentelles.</string>
+
+    <!-- Phone Screen -->
+    <string name="phone_title">Téléphone</string>
+    <string name="recents_title">Récents</string>
+    <string name="contacts_title">Contacts</string>
+    <string name="tab_dialpad">CLAVIER</string>
+    <string name="tab_recents">RÉCENTS</string>
+    <string name="tab_contacts">RÉPERTOIRE</string>
+    <string name="call_button">APPELER</string>
+    <string name="my_number">Moi (Mon numéro)</string>
+    <string name="default_dialer_banner">Définir comme application téléphonique par défaut pour une meilleure expérience.</string>
+    <string name="btn_set_default">DÉFINIR</string>
+    <string name="no_recent_calls">Aucun appel récent</string>
+    <string name="search_contact_placeholder">Rechercher un contact...</string>
+    <string name="btn_new_contact">Nouveau</string>
+    <string name="no_contacts_found">Aucun contact trouvé</string>
+    <string name="dialer_placeholder">COMPOSEZ UN NUMÉRO</string>
+    <string name="unknown_caller">INCONNU</string>
+    <string name="emergency_call_confirm_title">APPELER LES URGENCES ?</string>
+    <string name="emergency_call_confirm_desc">Êtes-vous sûr de vouloir appeler le 112 ?</string>
+    <string name="btn_call_emergency">OUI, APPELER</string>
+    <string name="btn_grant_permission">ACCORDER L\'AUTORISATION</string>
+    <string name="btn_add_new_contact">AJOUTER UN CONTACT</string>
+    <string name="search_name_or_number">Rechercher par nom ou numéro...</string>
+
+    <!-- Call Screens -->
+    <string name="call_connected">En communication</string>
+    <string name="call_incoming">Appel entrant</string>
+    <string name="call_outgoing">Appel en cours...</string>
+    <string name="call_ended">Appel terminé</string>
+    <string name="call_speaker">Haut-parleur</string>
+    <string name="call_mute">Silence</string>
+
+    <!-- Messages Screen -->
+    <string name="messages_title">Messages</string>
+    <string name="btn_new_message">Nouveau Message</string>
+    <string name="type_message_placeholder">Écrivez un message...</string>
+    <string name="recipient_placeholder">Numéro ou nom du destinataire...</string>
+    <string name="btn_send">Envoyer</string>
+    <string name="no_messages">Aucun message trouvé</string>
+    <string name="default_sms_banner">Définir comme application SMS par défaut pour lire et envoyer des messages.</string>
+    <string name="chat_title">Discussion</string>
+    <string name="new_message_title">Nouveau</string>
+    <string name="btn_write_new_message">ÉCRIRE UN NOUVEAU MESSAGE</string>
+    <string name="messages_secured_title">Messages protégés</string>
+    <string name="messages_permission_desc">Accordez l\'autorisation pour afficher vos messages en toute sécurité.</string>
+
+    <!-- Medication Screen -->
+    <string name="meds_title">Médicaments</string>
+    <string name="meds_logbook_title">Journal</string>
+    <string name="tab_overview">APERÇU</string>
+    <string name="tab_logbook">JOURNAL</string>
+    <string name="btn_add_med">Ajouter un Médicament</string>
+    <string name="no_meds_scheduled">Aucun médicament programmé</string>
+    <string name="med_taken">PRIS</string>
+    <string name="med_take_now">PRENDRE</string>
+    <string name="med_stock_left">Stock restant : %d</string>
+    <string name="med_stock_low">⚠️ Stock faible !</string>
+    <string name="no_meds_added">Aucun médicament ajouté pour le moment</string>
+    <string name="med_take_now_header">⚠️ À PRENDRE MAINTENANT</string>
+    <string name="my_meds_list">💊 MA LISTE</string>
+    <string name="no_med_history">Aucun historique pour le moment</string>
+    <string name="med_removed">Médicament supprimé</string>
+    <string name="med_edit_title">Modifier</string>
+    <string name="med_new_title">Nouveau Médicament</string>
+    <string name="med_name_label">Nom</string>
+    <string name="med_dose_label">Dosage</string>
+    <string name="med_stock_label">Stock (quantité)</string>
+    <string name="med_repeat_on">Répéter le :</string>
+    <string name="med_photo_label">Photo :</string>
+    <string name="med_times_label">Heures :</string>
+    <string name="btn_choose_photo">CHOISIR UNE PHOTO</string>
+    <string name="btn_add_time">AJOUTER UNE HEURE</string>
+    <string name="med_stock_warning">PRESQUE ÉPUISÉ : encore %d</string>
+
+    <!-- Alarm Screens -->
+    <string name="alarm_title">Alarme</string>
+    <string name="no_alarms_set">Aucune alarme programmée</string>
+    <string name="alarm_turn_off">DÉSACTIVER</string>
+    <string name="alarm_snooze">RÉPÉTER</string>
+    <string name="alarm_dismiss">ARRÊTER</string>
+    <string name="alarm_exact_permission_banner">Autorisation nécessaire pour les alarmes précises. Touchez ici.</string>
+    <string name="alarm_add_title">Ajouter une alarme</string>
+    <string name="alarm_with_morning_routine">Avec rituel du matin</string>
+    <string name="alarm_every_day">Tous les jours</string>
+    <string name="alarm_never">Jamais</string>
+    <string name="alarm_name_label">Nom de l\'alarme</string>
+    <string name="alarm_morning_routine">Rituel du matin</string>
+    <string name="alarm_open_weather">Ouvrir la météo</string>
+    <string name="alarm_morning_routine_desc">Si activé, l\'application ouvre automatiquement la météo après avoir éteint l\'alarme le matin.</string>
+    <string name="alarm_choose_sound">Choisir la sonnerie :</string>
+    <string name="alarm_sound_default">Par défaut</string>
+    <string name="alarm_preview_sound">Écouter</string>
+    <string name="alarm_days">Jours :</string>
+    <string name="alarm_header_message">📩 MESSAGE</string>
+    <string name="alarm_header_meds">💊 MÉDICAMENTS</string>
+    <string name="alarm_header_event">📅 RENDEZ-VOUS</string>
+    <string name="alarm_header_search">🔍 RECHERCHE</string>
+    <string name="alarm_header_alarm">⏰ ALARME</string>
+    <string name="alarm_snooze_15min">RAPPEL DANS 15 MIN</string>
+    <string name="alarm_btn_taken">PRIS MAINTENANT</string>
+    <string name="alarm_btn_understood">COMPRIS</string>
+    <string name="alarm_tts_find_phone">Je suis ici ! Votre téléphone est ici !</string>
+    <string name="alarm_tts_family_message">Message de vos proches : %s</string>
+    <string name="alarm_tts_medication">L\'heure de vos médicaments. %s</string>
+    <string name="alarm_tts_reminder">Rappel. %s</string>
+    <string name="alarm_tts_morning">Bonjour. C\'est l\'heure de : %s</string>
+
+    <!-- Calendar Screen -->
+    <string name="calendar_title">Agenda</string>
+    <string name="calendar_overlay_warning">Activez \'Afficher par-dessus\' pour les alarmes.</string>
+    <string name="calendar_grant_permission">ACCORDER L\'AUTORISATION POUR L\'AGENDA</string>
+    <string name="calendar_no_events">Aucun rendez-vous dans les 3 prochains mois</string>
+    <string name="calendar_today">AUJOURD\'HUI</string>
+    <string name="calendar_tomorrow">DEMAIN</string>
+    <string name="calendar_all_day">Toute la journée</string>
+    <string name="calendar_delete_title">Supprimer ?</string>
+    <string name="calendar_delete_desc">Voulez-vous supprimer \'%s\' ?</string>
+    <string name="btn_new_event">NOUVEAU RENDEZ-VOUS</string>
+    <string name="calendar_make_event">PRENDRE RENDEZ-VOUS</string>
+    <string name="calendar_step_what">1. QUE SOUHAITEZ-VOUS FAIRE ?</string>
+    <string name="calendar_example_placeholder">Ex. Coiffeur ou Médecin</string>
+    <string name="calendar_step_day">2. QUEL JOUR ?</string>
+    <string name="calendar_step_time">3. À QUELLE HEURE ?</string>
+    <string name="calendar_hour_label">HEURE</string>
+    <string name="calendar_min_label">MIN</string>
+    <string name="calendar_event_saved">Rendez-vous enregistré !</string>
+
+    <!-- Weather Screen -->
+    <string name="weather_screen_title">Météo à %s</string>
+    <string name="weather_your_region">votre région</string>
+    <string name="weather_listen">ÉCOUTER LE BULLETIN MÉTÉO</string>
+    <string name="weather_permission_needed">Autorisation de localisation requise pour afficher la météo locale.</string>
+    <string name="weather_btn_grant_location">AUTORISER LA LOCALISATION</string>
+    <string name="weather_change_city">CHANGER DE VILLE</string>
+    <string name="weather_clothing_advice">CONSEIL VESTIMENTAIRE</string>
+    <string name="weather_listen_advice">ÉCOUTER LES CONSEILS</string>
+    <string name="weather_day_parts">MOMENTS DE LA JOURNÉE</string>
+    <string name="weather_choose_location">Choisir un lieu</string>
+    <string name="weather_search_city">Rechercher une ville...</string>
+    <string name="weather_search_and_add">RECHERCHER ET AJOUTER</string>
+    <string name="weather_safe_outside">SÛR : Temps idéal pour sortir</string>
+    <string name="weather_warning_outside">ATTENTION : Risque de pluie ou de vent</string>
+    <string name="weather_danger_heat">CHALEUR EXTRÊME : Restez à l\'intérieur</string>
+    <string name="weather_danger_storm">MÉTÉO DANGEREUSE : Restez à l\'intérieur</string>
+    <string name="weather_location_needed">Accès à la position requis</string>
+
+    <!-- Flashlight & Magnifier -->
+    <string name="flashlight_is_on">La lampe torche est ALLUMÉE</string>
+    <string name="flashlight_is_off">La lampe torche est ÉTEINTE</string>
+    <string name="flashlight_turn_on">ALLUMER</string>
+    <string name="flashlight_turn_off">ÉTEINDRE</string>
+    <string name="magnifier_permission_needed">Accès à l\'appareil photo requis pour la loupe.</string>
+
+    <!-- Notes & Steps -->
+    <string name="notes_title">Notes</string>
+    <string name="no_notes_title">Aucune note pour le moment</string>
+    <string name="no_notes_desc">Appuyez sur le bouton + pour commencer</string>
+    <string name="note_dialog_title">Nouvelle Note</string>
+    <string name="note_dialog_edit_title">Modifier la Note</string>
+    <string name="note_title_placeholder">Titre</string>
+    <string name="note_content_placeholder">Écrivez votre note ici...</string>
+    <string name="btn_save">ENREGISTRER</string>
+    <string name="steps_title">Podomètre</string>
+    <string name="steps_unit">pas</string>
+    <string name="steps_today_label">AUJOURD\'HUI</string>
+    <string name="steps_permission_needed">L\'accès aux capteurs de mouvement est requis pour compter vos pas.</string>
+
+    <!-- Emergency & SOS -->
+    <string name="emergency_title">Urgences</string>
+    <string name="emergency_medical_title">🏥 Informations médicales</string>
+    <string name="emergency_blood_type">Groupe sanguin</string>
+    <string name="emergency_allergies">Allergies</string>
+    <string name="emergency_conditions">Pathologies</string>
+    <string name="emergency_pacemaker">Stimulateur cardiaque</string>
+    <string name="emergency_current_meds">💊 Médicaments actuels</string>
+    <string name="emergency_no_meds">Aucun médicament enregistré</string>
+    <string name="emergency_ice_contacts">📞 Contacts d\'urgence (ICE)</string>
+    <string name="emergency_doctor">Médecin traitant</string>
+    <string name="emergency_name_label">Nom</string>
+    <string name="emergency_phone_label">Numéro de téléphone</string>
+    <string name="emergency_personal_info">🏠 Informations personnelles</string>
+    <string name="emergency_birthdate">Date de naissance</string>
+    <string name="emergency_address">Adresse</string>
+    <string name="btn_edit">Modifier</string>
+    <string name="emergency_edit_dialog_title">Modifier la fiche médicale</string>
+    <string name="emergency_personal_header">Personnel</string>
+    <string name="emergency_fullname_label">Nom complet</string>
+    <string name="emergency_ice_header">Contact ICE (En cas d\'urgence)</string>
+    <string name="emergency_contact_name_label">Nom du contact</string>
+    <string name="emergency_contact_phone_label">Téléphone du contact</string>
+    <string name="emergency_medical_header">Médical</string>
+    <string name="emergency_doctor_name_label">Nom du médecin</string>
+    <string name="emergency_doctor_phone_label">Téléphone du médecin</string>
+    <string name="emergency_has_pacemaker_label">A un pacemaker</string>
+
+    <string name="sos_title">Appel d\'urgence SOS</string>
+    <string name="sos_hold_instruction">MAINTENEZ APPUYÉ 3 SECONDES</string>
+    <string name="sos_contacts_subtitle">Ces personnes recevront un SMS avec votre position en cas d\'urgence.</string>
+    <string name="sos_no_contacts">⚠️ Aucun contact d\'urgence configuré</string>
+    <string name="sos_no_contacts_desc">Ajoutez au moins une personne à prévenir en cas de problème.</string>
+    <string name="sos_help_title">Aide d\'urgence SOS</string>
+    <string name="sos_overlay_warning">Samsung bloque l\'aide. Appuyez ici et activez \'Afficher par-dessus\'.</string>
+    <string name="sos_location_needed">Position requise</string>
+    <string name="sos_gps_disabled">Le GPS est désactivé</string>
+    <string name="sos_click_to_fix">Cliquez ici pour corriger.</string>
+    <string name="btn_fix">CORRIGER</string>
+    <string name="sos_hold_button_instruction">MAINTENEZ LE BOUTON 3 SECONDES\nPOUR APPELER À L\'AIDE</string>
+    <string name="sos_sms_info">Vos contacts d\'urgence recevront immédiatement\nvotre position par SMS.</string>
+    <string name="sos_contacts_header">Contacts d\'urgence :</string>
+    <string name="sos_sent_title">SIGNAL D\'URGENCE\nENVOYÉ !</string>
+    <string name="sos_sent_desc">Restez calme. Votre position a été envoyée à vos proches.</string>
+    <string name="btn_i_am_safe">JE SUIS EN SÉCURITÉ</string>
+    <string name="sos_settings_title">Paramètres SOS</string>
+    <string name="btn_add_person">AJOUTER UNE PERSONNE</string>
+    <string name="sos_who_to_add">Qui souhaitez-vous ajouter ?</string>
+    <string name="search_by_name">Rechercher par nom...</string>
+    <string name="btn_create_new_contact">CRÉER UN NOUVEAU CONTACT</string>
+
+    <!-- Remote Support -->
+    <string name="remote_support_title">Assistance à distance</string>
+    <string name="remote_how_it_works">Comment ça marche ?</string>
+    <string name="remote_step_1">Appuyez sur le grand bouton ci-dessous pour ouvrir l\'application d\'aide (RustDesk).</string>
+    <string name="remote_step_2">Dans cette application, touchez l\'icône \'Partager l\'écran\' en bas.</string>
+    <string name="remote_step_3">Appuyez sur le bouton bleu \'Démarrer le service\' en haut.</string>
+    <string name="remote_step_4">Choisissez \'Partager tout l\'écran\' et confirmez.</string>
+    <string name="remote_step_5">Donnez l\'Identifiant et le Mot de passe à la personne qui vous assiste.</string>
+    <string name="remote_step_6">Appuyez sur \'Accepter\' ou \'Autoriser\' si un message s\'affiche à l\'écran.</string>
+    <string name="btn_open_support_app">OUVRIR L\'APPLICATION D\'AIDE</string>
+    <string name="remote_card_note">Vous pouvez fermer l\'application d\'assistance à tout moment pour couper la connexion.</string>
+
+    <!-- All Apps -->
+    <string name="all_apps_title">Toutes les apps</string>
+    <string name="search_apps_placeholder">Rechercher une application...</string>
+
+    <!-- Radio -->
+    <string name="radio_playing">Lecture en cours...</string>
+    <string name="radio_paused">En pause</string>
+    <string name="btn_add_station">AJOUTER UNE STATION</string>
+
+    <!-- Notifications Screen -->
+    <string name="notifications_title">Messages &amp; Rappels</string>
+    <string name="no_notifications">Aucun nouveau message</string>
+    <string name="btn_clear_all">TOUT EFFACER</string>
+    <string name="notif_clear_confirm_title">Effacer toutes les notifications ?</string>
+    <string name="notif_clear_confirm_desc">Êtes-vous sûr de vouloir supprimer toutes les notifications ? Cette action est irréversible.</string>
+    <string name="notif_clear_confirm_yes">Oui, tout effacer</string>
+    <string name="notif_clear_confirm_no">Non, retour</string>
+    <string name="notif_access_needed">Accès requis</string>
+    <string name="notif_access_desc">Pour afficher vos messages WhatsApp, SMS et d\'autres applications ici, nous avons besoin de votre autorisation.</string>
+    <string name="notif_open_settings">Ouvrir les paramètres</string>
+    <string name="notif_clear_group">Effacer le groupe</string>
+    <string name="notif_new_messages_count">%d nouveaux messages</string>
+    <string name="notif_clear_item">Effacer</string>
+
+    <!-- Setup Wizard -->
+    <string name="wizard_welcome">Bienvenue</string>
+    <string name="wizard_welcome_desc">Nous allons configurer votre téléphone ensemble très simplement. Vous ne pouvez rien faire de mal.</string>
+    <string name="btn_start">COMMENCER</string>
+    <string name="btn_next">SUIVANT</string>
+    <string name="btn_finish">TERMINER</string>
+    <string name="wizard_font_question">Bienvenue. Quelle taille de texte préférez-vous ?</string>
+    <string name="wizard_theme_question">Quel style visuel préférez-vous ?</string>
+    <string name="wizard_colors_question">Bienvenue. Quelles couleurs préférez-vous ?</string>
+    <string name="wizard_reading_normal">Ceci est un texte normal.</string>
+    <string name="wizard_reading_large">Ceci est un grand texte.</string>
+    <string name="wizard_reading_huge">CECI EST UN TEXTE GÉANT.</string>
+    <string name="wizard_theme_classic">Classique (Doux)</string>
+    <string name="wizard_theme_contrast">Contraste élevé (Vif)</string>
+    <string name="wizard_emergency_question">Qui souhaitez-vous appeler en cas d\'urgence ?</string>
+    <string name="wizard_save_contact">ENREGISTRER LE CONTACT</string>
+    <string name="wizard_permission_notice">L\'application demandera ensuite l\'autorisation d\'appeler ce numéro.</string>
+    <string name="wizard_flow_title">BIENVENUE.\nQUI CONFIGURE CE TÉLÉPHONE ?</string>
+    <string name="wizard_flow_desc">La configuration se compose de deux parties : réglages techniques par l\'aidant et choix visuels pour le senior.</string>
+    <string name="wizard_flow_caregiver_title">JE SUIS L\'AIDANT</string>
+    <string name="wizard_flow_caregiver_desc">Je configure cet appareil techniquement (recommandé).</string>
+    <string name="wizard_flow_senior_title">JE SUIS L\'UTILISATEUR</string>
+    <string name="wizard_flow_senior_desc">Je vais utiliser ce téléphone directement.</string>
+    <string name="wizard_choose_contact">CHOISIR UN CONTACT</string>
+    <string name="wizard_privacy_agreement">En appuyant sur le bouton ci-dessous, vous acceptez notre politique de confidentialité.</string>
+
+    <!-- Privacy & AVG -->
+    <string name="privacy_title">Confidentialité &amp; RGPD</string>
+    <string name="privacy_gent_support">Conçu pour la sécurité des seniors</string>
+    <string name="gdpr_compliant">Conforme RGPD</string>
+    <string name="privacy_promise_title">Notre Engagement</string>
+    <string name="privacy_promise_desc">Le Lanceur Senior est conçu avec la protection de la vie privée comme priorité absolue. Vos données restent strictement sur votre appareil.</string>
+    <string name="privacy_processing_title">Traitement des Données</string>
+    <string name="privacy_processing_desc">• Zéro Cloud : Vos données personnelles restent sur cet appareil.\n• Gestion par SMS : Réservée aux aidants autorisés.\n• Aucun traqueur : Pas de publicité, pas de profilage.</string>
+    <string name="privacy_rights_title">Vos Droits</string>
+    <string name="privacy_rights_desc">Vous gardez le contrôle total. Vous pouvez supprimer les aidants à tout moment et toutes les données sont effacées si l\'application est désinstallée.</string>
+    <string name="privacy_accept">J\'ACCEPTE</string>
+    <string name="privacy_version_label">Version 0.8.8 - Lanceur Senior</string>
+
+    <!-- Permissions & Technical Setup -->
+    <string name="perm_step_format">ÉTAPE %1$d SUR %2$d</string>
+    <string name="perm_cat_emergency_senior">AIDE D\'URGENCE</string>
+    <string name="perm_cat_emergency_senior_desc">En cas d\'urgence, l\'application peut indiquer à vos proches où vous vous trouvez.</string>
+    <string name="perm_cat_location_tech">LOCALISATION</string>
+    <string name="perm_cat_location_tech_desc">Nécessaire pour permettre à la fonction SOS d\'obtenir votre position.</string>
+    <string name="perm_privacy_location">Confidentialité : Votre position n\'est partagée que lors d\'un appel SOS.</string>
+
+    <string name="perm_cat_phone_senior">APPELER VOS PROCHES</string>
+    <string name="perm_cat_phone_senior_desc">Permet d\'appeler directement vos proches ou votre médecin.</string>
+    <string name="perm_cat_phone_tech">TÉLÉPHONE</string>
+    <string name="perm_cat_phone_tech_desc">Pour passer des appels directement depuis le lanceur.</string>
+    <string name="perm_privacy_phone">Confidentialité : L\'application n\'appelle que lorsque vous appuyez sur un contact.</string>
+
+    <string name="perm_cat_sms_senior">MESSAGES</string>
+    <string name="perm_cat_sms_senior_desc">Permet au téléphone d\'envoyer un message d\'urgence à vos proches.</string>
+    <string name="perm_cat_sms_tech">SERVICE SMS</string>
+    <string name="perm_cat_sms_tech_desc">Nécessaire pour le SOS et les alertes de batterie.</string>
+    <string name="perm_privacy_sms">Confidentialité : Nous ne lisons JAMAIS vos messages privés.</string>
+
+    <string name="perm_cat_health">SANTÉ</string>
+    <string name="perm_cat_health_desc">Pour que le téléphone puisse compter vos pas quotidiens.</string>
+    <string name="perm_privacy_health">Confidentialité : Ces données restent strictement sur votre propre téléphone.</string>
+
+    <string name="perm_cat_camera_senior">LOUPE</string>
+    <string name="perm_cat_camera_senior_desc">Pour lire facilement les petits caractères grâce à l\'appareil photo.</string>
+    <string name="perm_cat_camera_tech">APPAREIL PHOTO</string>
+    <string name="perm_cat_camera_tech_desc">Nécessaire pour la loupe et la lampe de poche.</string>
+    <string name="perm_privacy_camera">Confidentialité : Aucune photo n\'est enregistrée sans votre accord.</string>
+
+    <string name="perm_cat_notifications_senior">RAPPELS</string>
+    <string name="perm_cat_notifications_senior_desc">Pour recevoir une notification à l\'heure de vos médicaments.</string>
+    <string name="perm_cat_notifications_tech">NOTIFICATIONS</string>
+    <string name="perm_cat_notifications_tech_desc">Nécessaire pour les alarmes de médicaments.</string>
+    <string name="perm_privacy_notifications">Confidentialité : Pas de publicité, seulement vos alertes importantes.</string>
+
+    <string name="perm_btn_grant">AUTORISER</string>
+    <string name="perm_btn_allow">AUTORISER</string>
+    <string name="perm_btn_next">ÉTAPE SUIVANTE</string>
+    <string name="perm_btn_start_app">LANCER L\'APPLICATION</string>
+    <string name="perm_btn_confirm">OUI, J\'ACCEPTE</string>
+    <string name="perm_btn_not_now">PAS MAINTENANT</string>
+    <string name="perm_btn_all_granted">TOUT EST AUTORISÉ</string>
+    <string name="perm_btn_continue">CLIQUEZ POUR CONTINUER</string>
+    <string name="perm_tip_while_using">Astuce : Appuyez sur le bouton bleu et choisissez \'Lorsque vous utilisez l\'application\'.</string>
+
+    <!-- System Permissions Setup -->
+    <string name="sys_perm_title_senior">Sécuriser le téléphone</string>
+    <string name="sys_perm_title_tech">Autorisations Alarme &amp; SOS</string>
+    <string name="sys_perm_desc_senior">Nous devons activer ces autorisations pour que votre réveil et le SOS fonctionnent toujours. Touchez les cases rouges.</string>
+    <string name="sys_perm_desc_tech">Ces paramètres sont indispensables pour un fonctionnement fiable sur Android.</string>
+    <string name="sys_perm_notif_title_senior">1. Lire les notifications</string>
+    <string name="sys_perm_notif_title_tech">Accès aux notifications</string>
+    <string name="sys_perm_notif_desc_senior">Pour afficher le bouton SOS sur votre écran.</string>
+    <string name="sys_perm_notif_desc_tech">Nécessaire pour la barre d\'état et les fonctions SOS.</string>
+    <string name="sys_perm_restricted_warning">Attention : Si vous voyez \'Paramètre restreint\', retournez en arrière, restez appuyé sur l\'application -> Infos appli -> 3 points -> Autoriser les paramètres restreints.</string>
+    <string name="sys_perm_overlay_title_senior">2. Allumer l\'écran</string>
+    <string name="sys_perm_overlay_title_tech">Affichage par-dessus les autres applis</string>
+    <string name="sys_perm_overlay_desc_senior">Pour voir le réveil immédiatement lorsqu\'il sonne.</string>
+    <string name="sys_perm_overlay_desc_tech">Nécessaire pour afficher le réveil et le SOS à l\'écran.</string>
+    <string name="sys_perm_fullscreen_title_senior">3. Notifications importantes</string>
+    <string name="sys_perm_fullscreen_title_tech">Notifications en plein écran</string>
+    <string name="sys_perm_fullscreen_desc_senior">Pour que le téléphone sonne même en cas d\'urgence.</string>
+    <string name="sys_perm_fullscreen_desc_tech">Nécessaire pour allumer l\'écran lors d\'une alarme ou SOS.</string>
+    <string name="sys_perm_alarm_title_senior">4. Précision horaire</string>
+    <string name="sys_perm_alarm_title_tech">Alarmes exactes</string>
+    <string name="sys_perm_alarm_desc_senior">Pour que vos médicaments soient rappelés à la minute près.</string>
+    <string name="sys_perm_alarm_desc_tech">Nécessaire pour déclencher les rappels à la minute près.</string>
+    <string name="sys_perm_install_title_senior">5. Mises à jour</string>
+    <string name="sys_perm_install_title_tech">Installer des applis inconnues</string>
+    <string name="sys_perm_install_desc_senior">Pour que vos proches puissent mettre à jour l\'application.</string>
+    <string name="sys_perm_install_desc_tech">Nécessaire pour la mise à jour automatique via HTTPS.</string>
+    <string name="sys_perm_battery_title_senior">6. Rester toujours actif</string>
+    <string name="sys_perm_battery_title_tech">Désactiver l\'optimisation de batterie</string>
+    <string name="sys_perm_battery_desc_senior">Pour que le bouton SOS et la détection de chute fonctionnent sans interruption.</string>
+    <string name="sys_perm_battery_desc_tech">Empêche Android d\'arrêter l\'application en arrière-plan pour économiser l\'énergie.</string>
+    <string name="sys_perm_btn_done_senior">C\'EST RÉUSSI, CONTINUER</string>
+    <string name="sys_perm_btn_done_tech">SUIVANT</string>
+    <string name="sys_perm_btn_pending_senior">ACTIVEZ LES OPTIONS</string>
+    <string name="sys_perm_btn_pending_tech">CONFIGUREZ TOUT POUR CONTINUER</string>
+
+    <!-- Technical Setup Steps -->
+    <string name="tech_default_apps_title_senior">Sécuriser le téléphone</string>
+    <string name="tech_default_apps_title_tech">Applications par défaut</string>
+    <string name="tech_default_apps_desc_senior">Nous faisons du Lanceur Senior votre assistant habituel pour les appels et messages. Touchez les cases rouges.</string>
+    <string name="tech_default_apps_desc_tech">Définissez le lanceur par défaut pour l\'Accueil, le Téléphone et les SMS afin d\'assurer la stabilité.</string>
+    <string name="tech_home_row_senior">1. Écran d\'accueil</string>
+    <string name="tech_home_row_tech">Écran d\'accueil (Home)</string>
+    <string name="tech_home_row_desc_senior">Pour que vous ayez toujours les grands boutons sous les yeux.</string>
+    <string name="tech_home_row_desc_tech">Définir comme lanceur par défaut.</string>
+    <string name="tech_dialer_row_senior">2. Bouton Téléphone</string>
+    <string name="tech_dialer_row_tech">Téléphone (Appels)</string>
+    <string name="tech_dialer_row_desc_senior">Pour appeler facilement vos proches.</string>
+    <string name="tech_dialer_row_desc_tech">Requis pour l\'interface simplifiée d\'appel.</string>
+    <string name="tech_sms_row_senior">3. Bouton Messages</string>
+    <string name="tech_sms_row_tech">Messages (SMS)</string>
+    <string name="tech_sms_row_desc_senior">Pour recevoir vos messages en toute sécurité.</string>
+    <string name="tech_sms_row_desc_tech">Requis pour le SOS et les alertes de batterie.</string>
+    <string name="tech_btn_setup_3_senior">RÉGLER LES 3 BOUTONS</string>
+    <string name="tech_btn_setup_all_tech">TOUT CONFIGURER</string>
+    <string name="tech_sos_setup_title">Définir les contacts principaux</string>
+    <string name="tech_sos_setup_desc">Choisissez jusqu\'à 4 contacts. Ces numéros deviendront vos favoris et contacts SOS.</string>
+    <string name="tech_no_contacts_yet">Aucun contact sélectionné pour l\'instant</string>
+    <string name="tech_btn_choose_contacts">CHOISIR PARMI LES CONTACTS</string>
+    <string name="field_name">Nom</string>
+    <string name="field_phone">Numéro</string>
+    <string name="tech_fall_beta_notice">PHASE BÊTA : Cette fonctionnalité est en cours de développement et sert d\'aide complémentaire, non de substitut aux secours professionnels.</string>
+    <string name="tech_fall_desc">Le téléphone peut détecter une chute lourde grâce à ses capteurs. Si cela se produit, une alerte retentit et vos contacts SOS sont prévenus.</string>
+    <string name="tech_fall_enable_title">Activer la détection des chutes</string>
+    <string name="tech_fall_enable_desc">Utilise les capteurs de mouvement.</string>
+    <string name="tech_security_title">Configurer la sécurité</string>
+    <string name="tech_pin_label">Code PIN à 4 chiffres</string>
+    <string name="tech_pin_desc">Verrouille les réglages avancés.</string>
+    <string name="tech_pin_placeholder">Ex. 1234</string>
+    <string name="tech_remote_support_title">Assistance à distance</string>
+    <string name="tech_remote_support_desc">Permet le partage d\'écran sécurisé via RustDesk.</string>
+    <string name="tech_save_security_btn">ENREGISTRER LA SÉCURITÉ</string>
+    <string name="tech_handover_title">La configuration technique est prête !</string>
+    <string name="tech_handover_desc">Donnez maintenant le téléphone à l\'utilisateur pour qu\'il choisisse la taille des lettres et des boutons.</string>
+    <string name="tech_handover_start_btn">COMMENCER LE CHOIX VISUEL</string>
+
+    <!-- Contacts Screen -->
+    <string name="contacts_my_list">Ma Liste</string>
+    <string name="contacts_btn_new">Nouveau</string>
+    <string name="contacts_empty">Aucun contact favori.\nAppuyez sur \'Nouveau\' pour en ajouter un.</string>
+    <string name="contacts_privacy">Confidentialité : Vos contacts sont conservés uniquement sur cet appareil et ne sont jamais partagés.</string>
+    <string name="contacts_call_failed">Impossible de passer l\'appel</string>
+    <string name="contacts_favorite">Favori</string>
+    <string name="contacts_add_title">Nouveau Contact</string>
+
+    <!-- Photos Screen -->
+    <string name="photos_view_photo">Voir la photo</string>
+    <string name="photos_albums">Albums Photos</string>
+    <string name="photos_none_found">Aucune photo trouvée</string>
+    <string name="photos_deleted">Photo supprimée</string>
+    <string name="photos_delete_failed">Impossible de supprimer la photo</string>
+    <string name="photos_share">Partager la photo</string>
+    <string name="photos_previous">Précédente</string>
+    <string name="photos_next">Suivante</string>
+    <string name="photos_delete_confirm_title">Supprimer ?</string>
+    <string name="photos_delete_confirm_desc">Voulez-vous supprimer cette photo de votre album ?</string>
+    <string name="photos_delete_btn">OUI, SUPPRIMER</string>
+    <string name="photos_unknown_folder">Inconnu</string>
+
+    <!-- Radio Screen & Models -->
+    <string name="radio_title">Radio</string>
+    <string name="radio_cat_belgium">🇧🇪 Belgique</string>
+    <string name="radio_cat_netherlands">🇳🇱 Pays-Bas</string>
+    <string name="radio_cat_international">🇬🇧 International</string>
+    <string name="radio_cat_my_stations">⭐ Mes stations</string>
+    <string name="radio_status_error">ERREUR DE CHARGEMENT</string>
+    <string name="radio_status_connecting">CONNEXION...</string>
+    <string name="radio_status_playing">EN COURS DE LECTURE</string>
+    <string name="radio_station_fallback">Station</string>
+    <string name="radio_btn_pause">PAUSE</string>
+    <string name="radio_btn_play">LECTURE</string>
+    <string name="radio_btn_stop">ARRÊTER</string>
+    <string name="radio_add_title">Ajouter une station</string>
+    <string name="radio_link_detected">Lien détecté !</string>
+    <string name="radio_input_hint">Nom ou lien du flux...</string>
+    <string name="radio_stream_found">Flux direct détecté</string>
+    <string name="radio_name_prompt">Donnez un nom à cette station :</string>
+    <string name="radio_name_example">Ex. Radio Nostalgie</string>
+    <string name="radio_btn_search">RECHERCHER SUR INTERNET</string>
+    <string name="radio_btn_save_play">ENREGISTRER &amp; ÉCOUTER</string>
+
+    <!-- SOS Screen Extras -->
+    <string name="sos_help_word">AIDE</string>
+    <string name="sos_demo_activated">Mode démo : SOS activé</string>
+
+    <!-- Incoming Call Screen -->
+    <string name="call_unknown_number">Numéro inconnu</string>
+    <string name="call_status_incoming">APPEL ENTRANT</string>
+    <string name="call_status_active">EN COMMUNICATION</string>
+    <string name="call_btn_decline">REFUSER</string>
+    <string name="call_btn_answer">RÉPONDRE</string>
+    <string name="call_speaker_on">HAUT-PARLEUR ACTIVÉ</string>
+    <string name="call_speaker_off">HAUT-PARLEUR DÉSACTIVÉ</string>
+    <string name="call_btn_hangup">RACCROCHER</string>
+
+    <!-- Misc Buttons -->
+    <string name="btn_back">RETOUR</string>
+</resources>

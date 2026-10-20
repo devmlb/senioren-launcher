@@ -7,6 +7,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 data class HomeApp(
     val id: String,
     val name: String,
+    val nameRes: Int? = null,
     val emoji: String? = null,
     val icon: Drawable? = null,
     val vectorIcon: ImageVector? = null,

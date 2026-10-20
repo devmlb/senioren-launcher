@@ -23,6 +23,8 @@ import androidx.compose.ui.window.DialogProperties
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
+import com.seniorenlauncher.R
 import com.seniorenlauncher.util.PermissionUtils
 import kotlinx.coroutines.delay
 
@@ -46,8 +48,8 @@ fun FallDetectionDialog(
 
     if (!hasPermission) {
         PermissionRequestDialog(
-            title = "SOS Toegang",
-            description = "Om hulp te kunnen inschakelen bij een val hebben we toestemming nodig voor locatie, bellen en SMS.",
+            title = stringResource(R.string.sos_access_title),
+            description = stringResource(R.string.fall_access_desc),
             onDismiss = onCancel,
             onGrant = {
                 permissionLauncher.launch(PermissionUtils.getRequiredSosPermissions().toTypedArray())
@@ -89,7 +91,7 @@ fun FallDetectionDialog(
                 )
 
                 Text(
-                    "VAL GEDETECTEERD!",
+                    stringResource(R.string.fall_detected_title),
                     fontSize = 32.sp,
                     fontWeight = FontWeight.Black,
                     color = Color.White,
@@ -97,7 +99,7 @@ fun FallDetectionDialog(
                 )
 
                 Text(
-                    "Bent u gevallen? We gaan hulp inschakelen over:",
+                    stringResource(R.string.fall_detected_desc),
                     fontSize = 20.sp,
                     fontWeight = FontWeight.Bold,
                     color = Color.White,
@@ -125,7 +127,7 @@ fun FallDetectionDialog(
                     colors = ButtonDefaults.buttonColors(containerColor = Color.White, contentColor = Color(0xFFEF4444)),
                     shape = RoundedCornerShape(40.dp)
                 ) {
-                    Text("STOP / ANNULEER", fontSize = 24.sp, fontWeight = FontWeight.Black)
+                    Text(stringResource(R.string.btn_stop_cancel), fontSize = 24.sp, fontWeight = FontWeight.Black)
                 }
 
                 val confirmInteractionSource = remember { MutableInteractionSource() }
@@ -143,7 +145,7 @@ fun FallDetectionDialog(
                     border = BorderStroke(2.dp, Color.White.copy(alpha = 0.5f)),
                     shape = RoundedCornerShape(40.dp)
                 ) {
-                    Text("BEL NU HULP", fontSize = 22.sp, fontWeight = FontWeight.Black)
+                    Text(stringResource(R.string.btn_call_help_now), fontSize = 22.sp, fontWeight = FontWeight.Black)
                 }
             }
         }

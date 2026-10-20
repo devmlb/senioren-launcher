@@ -51,6 +51,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
@@ -60,6 +61,7 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImage
 import com.seniorenlauncher.LauncherApp
+import com.seniorenlauncher.R
 import com.seniorenlauncher.data.model.QuickContact
 import com.seniorenlauncher.ui.components.ScreenHeader
 import kotlinx.coroutines.launch
@@ -81,6 +83,7 @@ fun PhoneScreen(onNavigate: (String) -> Unit, onBack: () -> Unit, settingsVm: Se
     val localContext = LocalContext.current
     val scope = rememberCoroutineScope()
     val settings by settingsVm.settings.collectAsState()
+    val myNumberLabel = stringResource(R.string.my_number)
     
     val telecomManager = localContext.getSystemService(Context.TELECOM_SERVICE) as TelecomManager
     var isDefaultDialer by remember { 
@@ -116,13 +119,13 @@ fun PhoneScreen(onNavigate: (String) -> Unit, onBack: () -> Unit, settingsVm: Se
     
     var allContacts by remember { mutableStateOf(emptyList<DeviceContact>()) }
     
-    LaunchedEffect(settings.userPhoneNumber, permissionsGranted) {
+    LaunchedEffect(settings.userPhoneNumber, permissionsGranted, myNumberLabel) {
         if (permissionsGranted) {
             val deviceContacts = fetchAllDeviceContacts(localContext)
             val myNumber = settings.userPhoneNumber ?: tryGetMyNumber(localContext)
             
             allContacts = if (myNumber != null) {
-                val me = DeviceContact("Ik (Mijn nummer)", myNumber, isMe = true)
+                val me = DeviceContact(myNumberLabel, myNumber, isMe = true)
                 listOf(me) + deviceContacts.filter { !isNumberMatch(it.number, myNumber) }
             } else {
                 deviceContacts
@@ -147,9 +150,9 @@ fun PhoneScreen(onNavigate: (String) -> Unit, onBack: () -> Unit, settingsVm: Se
         ) {
             ScreenHeader(
                 title = when(activeTab) {
-                    PhoneTab.Dialer -> "Telefoon"
-                    PhoneTab.Recents -> "Recent"
-                    PhoneTab.Contacts -> "Contacten"
+                    PhoneTab.Dialer -> stringResource(R.string.phone_title)
+                    PhoneTab.Recents -> stringResource(R.string.recents_title)
+                    PhoneTab.Contacts -> stringResource(R.string.contacts_title)
                 }, 
                 onBack = { 
                     if (activeTab != PhoneTab.Dialer) activeTab = PhoneTab.Dialer 
@@ -182,21 +185,21 @@ fun PhoneScreen(onNavigate: (String) -> Unit, onBack: () -> Unit, settingsVm: Se
                 ) {
                     PhoneTabButton(
                         icon = Icons.Default.Dialpad,
-                        label = "TOETSEN",
+                        label = stringResource(R.string.tab_dialpad),
                         isSelected = activeTab == PhoneTab.Dialer,
                         modifier = Modifier.weight(1f),
                         onClick = { activeTab = PhoneTab.Dialer }
                     )
                     PhoneTabButton(
                         icon = Icons.Default.History,
-                        label = "RECENT",
+                        label = stringResource(R.string.tab_recents),
                         isSelected = activeTab == PhoneTab.Recents,
                         modifier = Modifier.weight(1f),
                         onClick = { activeTab = PhoneTab.Recents }
                     )
                     PhoneTabButton(
                         icon = Icons.Default.Person,
-                        label = "LIJST",
+                        label = stringResource(R.string.tab_contacts),
                         isSelected = activeTab == PhoneTab.Contacts,
                         modifier = Modifier.weight(1f),
                         onClick = { activeTab = PhoneTab.Contacts }
@@ -215,7 +218,7 @@ fun PhoneScreen(onNavigate: (String) -> Unit, onBack: () -> Unit, settingsVm: Se
                         shape = RoundedCornerShape(32.dp),
                         colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primary)
                     ) {
-                        Text("TOESTEMMING GEVEN", fontSize = 22.sp, fontWeight = FontWeight.Black)
+                        Text(stringResource(R.string.btn_grant_permission), fontSize = 22.sp, fontWeight = FontWeight.Black)
                     }
                 }
             } else {
@@ -365,7 +368,7 @@ fun DialerContent(
         }
 
         Text(
-            text = matchedContact?.name ?: if (phoneNumber.isEmpty()) "TOETS EEN NUMMER" else "ONBEKEND",
+            text = matchedContact?.name ?: if (phoneNumber.isEmpty()) stringResource(R.string.dialer_placeholder) else stringResource(R.string.unknown_caller),
             fontSize = 20.sp,
             fontWeight = FontWeight.Black,
             color = MaterialTheme.colorScheme.primary,
@@ -478,8 +481,8 @@ fun DialerContent(
         AlertDialog(
             onDismissRequest = { showEmergencyConfirm = false },
             containerColor = Color(0xFF1E293B),
-            title = { Text("NOODNUMMER BELLEN?", color = Color.White, fontWeight = FontWeight.Black) },
-            text = { Text("Weet u zeker dat u 112 wilt bellen?", fontSize = 20.sp, color = Color.White.copy(alpha = 0.8f)) },
+            title = { Text(stringResource(R.string.emergency_call_confirm_title), color = Color.White, fontWeight = FontWeight.Black) },
+            text = { Text(stringResource(R.string.emergency_call_confirm_desc), fontSize = 20.sp, color = Color.White.copy(alpha = 0.8f)) },
             confirmButton = {
                 Button(
                     onClick = {
@@ -490,12 +493,12 @@ fun DialerContent(
                     modifier = Modifier.height(64.dp).fillMaxWidth(0.6f),
                     shape = RoundedCornerShape(20.dp)
                 ) {
-                    Text("JA, BEL NU", fontWeight = FontWeight.Black, fontSize = 20.sp)
+                    Text(stringResource(R.string.btn_call_emergency), fontWeight = FontWeight.Black, fontSize = 20.sp)
                 }
             },
             dismissButton = {
                 TextButton(onClick = { showEmergencyConfirm = false }) {
-                    Text("ANNULEREN", fontSize = 18.sp, color = Color.White)
+                    Text(stringResource(R.string.btn_cancel), fontSize = 18.sp, color = Color.White)
                 }
             }
         )
@@ -633,7 +636,7 @@ fun AllContactsList(
             value = searchQuery,
             onValueChange = { searchQuery = it },
             modifier = Modifier.fillMaxWidth().padding(bottom = 16.dp),
-            placeholder = { Text("Zoek op naam of nummer...", fontWeight = FontWeight.Bold, color = Color.White.copy(alpha = 0.5f)) },
+            placeholder = { Text(stringResource(R.string.search_name_or_number), fontWeight = FontWeight.Bold, color = Color.White.copy(alpha = 0.5f)) },
             leadingIcon = { Icon(Icons.Default.Search, null, tint = MaterialTheme.colorScheme.primary) },
             shape = RoundedCornerShape(40.dp),
             colors = TextFieldDefaults.colors(
@@ -660,7 +663,7 @@ fun AllContactsList(
         ) {
             Icon(Icons.Default.PersonAdd, null, modifier = Modifier.size(28.dp))
             Spacer(Modifier.width(12.dp))
-            Text("NIEUW CONTACT TOEVOEGEN", fontSize = 18.sp, fontWeight = FontWeight.Black)
+            Text(stringResource(R.string.btn_add_new_contact), fontSize = 18.sp, fontWeight = FontWeight.Black)
         }
 
         LazyColumn(verticalArrangement = Arrangement.spacedBy(12.dp), contentPadding = PaddingValues(bottom = 24.dp)) {
@@ -846,8 +849,8 @@ fun DefaultDialerBanner(onRequest: () -> Unit) {
         Row(Modifier.padding(20.dp), verticalAlignment = Alignment.CenterVertically) {
             Icon(Icons.Default.Warning, null, tint = Color(0xFFEF4444))
             Spacer(Modifier.width(16.dp))
-            Text("Stel in als standaard beller.", Modifier.weight(1f), fontSize = 15.sp, fontWeight = FontWeight.Black, color = Color.White)
-            Button(onClick = onRequest, shape = RoundedCornerShape(20.dp)) { Text("FIX", fontWeight = FontWeight.Black) }
+            Text(stringResource(R.string.default_dialer_banner), Modifier.weight(1f), fontSize = 15.sp, fontWeight = FontWeight.Black, color = Color.White)
+            Button(onClick = onRequest, shape = RoundedCornerShape(20.dp)) { Text(stringResource(R.string.btn_set_default), fontWeight = FontWeight.Black) }
         }
     }
 }

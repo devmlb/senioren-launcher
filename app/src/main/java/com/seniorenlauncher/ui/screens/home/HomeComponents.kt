@@ -23,10 +23,12 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.seniorenlauncher.R
 import com.seniorenlauncher.ui.theme.SeniorenLauncherTheme
 import java.text.SimpleDateFormat
 import java.util.*
@@ -139,7 +141,7 @@ fun HomeTopBar(notificationCount: Int, onNotificationsClick: () -> Unit) {
                 Box(contentAlignment = Alignment.Center) {
                     Icon(
                         Icons.Default.Notifications, 
-                        contentDescription = "Meldingen",
+                        contentDescription = stringResource(R.string.notifications),
                         modifier = Modifier.size(34.dp),
                         tint = if (notificationCount > 0) Color(0xFF6366F1) else Color.White.copy(alpha = 0.4f)
                     )
@@ -203,7 +205,7 @@ fun HomeSOSButton(onClick: () -> Unit, modifier: Modifier = Modifier) {
                 )
                 Spacer(Modifier.width(24.dp))
                 Text(
-                    "SOS HULP NODIG",
+                    stringResource(R.string.btn_sos_help),
                     fontSize = 28.sp,
                     fontWeight = FontWeight.W900,
                     color = Color.White,
@@ -241,14 +243,14 @@ fun HomeStatusCard(
             Spacer(Modifier.width(24.dp))
             Column {
                 Text(
-                    "HERINNERING",
+                    stringResource(R.string.med_reminder_tag),
                     fontSize = 13.sp,
                     fontWeight = FontWeight.Black,
                     letterSpacing = 1.5.sp,
                     color = Color(0xFF10B981)
                 )
                 Text(
-                    "Nog $pendingMedsCount medicijnen", 
+                    stringResource(R.string.med_reminder_count, pendingMedsCount), 
                     fontSize = 22.sp, 
                     fontWeight = FontWeight.Black,
                     color = Color.White

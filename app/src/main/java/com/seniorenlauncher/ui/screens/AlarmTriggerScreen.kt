@@ -39,6 +39,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -46,6 +47,7 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import coil.compose.AsyncImage
 import com.seniorenlauncher.LauncherApp
+import com.seniorenlauncher.R
 import com.seniorenlauncher.data.model.MedicationLog
 import com.seniorenlauncher.receiver.AlarmReceiver
 import com.seniorenlauncher.util.MedicationAlarmScheduler
@@ -130,7 +132,7 @@ fun AlarmTriggerScreen(
     LaunchedEffect(Unit) {
         tts = TextToSpeech(appContext) { status ->
             if (status == TextToSpeech.SUCCESS) {
-                tts?.language = Locale.forLanguageTag("nl-NL")
+                tts?.language = Locale.getDefault()
                 tts?.setAudioAttributes(audioAttributes)
                 isTtsReady = true
             }
@@ -151,15 +153,15 @@ fun AlarmTriggerScreen(
         if (isTtsReady) {
             if (isFindPhone) {
                 while(true) {
-                    tts?.speak("Ik ben hier! Uw telefoon ligt hier!", TextToSpeech.QUEUE_FLUSH, null, "ZOEK")
+                    tts?.speak(appContext.getString(R.string.alarm_tts_find_phone), TextToSpeech.QUEUE_FLUSH, null, "ZOEK")
                     delay(4000)
                 }
             } else {
                 val msg = when {
-                    isRemoteMessage -> "Bericht van familie: $label"
-                    isMedication -> "Tijd voor uw medicijnen. $label"
-                    isAgendaEvent -> "Herinnering. $label"
-                    else -> "Goedemorgen. Het is tijd voor: $label"
+                    isRemoteMessage -> appContext.getString(R.string.alarm_tts_family_message, label)
+                    isMedication -> appContext.getString(R.string.alarm_tts_medication, label)
+                    isAgendaEvent -> appContext.getString(R.string.alarm_tts_reminder, label)
+                    else -> appContext.getString(R.string.alarm_tts_morning, label)
                 }
                 if (isRemoteMessage) {
                     tts?.speak(msg, TextToSpeech.QUEUE_FLUSH, null, "Msg1")
@@ -213,11 +215,11 @@ fun AlarmTriggerScreen(
     ) {
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
             Text(text = when { 
-                isRemoteMessage -> "📩 BERICHT"
-                isMedication -> "💊 MEDICIJNEN"
-                isAgendaEvent -> "📅 AFSPRAAK"
-                isFindPhone -> "🔍 ZOEKEN"
-                else -> "⏰ WEKKER" 
+                isRemoteMessage -> stringResource(R.string.alarm_header_message)
+                isMedication -> stringResource(R.string.alarm_header_meds)
+                isAgendaEvent -> stringResource(R.string.alarm_header_event)
+                isFindPhone -> stringResource(R.string.alarm_header_search)
+                else -> stringResource(R.string.alarm_header_alarm)
             }, fontSize = 32.sp, fontWeight = FontWeight.Bold, color = Color.White, modifier = Modifier.padding(top = 20.dp))
         }
         
@@ -243,7 +245,7 @@ fun AlarmTriggerScreen(
                     else handleSnooze(context, label, alarmId, onDismiss)
                     onDismiss()
                 }, modifier = Modifier.fillMaxWidth().height(90.dp), colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF2B6CB0).copy(alpha = 0.8f)), shape = RoundedCornerShape(24.dp)) {
-                    Row(verticalAlignment = Alignment.CenterVertically) { Icon(Icons.Default.Timer, null, modifier = Modifier.size(32.dp)); Spacer(Modifier.width(12.dp)); Text("HERINNER OVER 15 MIN", fontSize = 22.sp, fontWeight = FontWeight.Black) }
+                    Row(verticalAlignment = Alignment.CenterVertically) { Icon(Icons.Default.Timer, null, modifier = Modifier.size(32.dp)); Spacer(Modifier.width(12.dp)); Text(stringResource(R.string.alarm_snooze_15min), fontSize = 22.sp, fontWeight = FontWeight.Black) }
                 }
             }
             Button(onClick = { 
@@ -255,7 +257,19 @@ fun AlarmTriggerScreen(
                 }
                 onDismiss() 
             }, modifier = Modifier.fillMaxWidth().height(if (isMedication || isRemoteMessage) 150.dp else 120.dp), colors = ButtonDefaults.buttonColors(containerColor = if (isMedication || isAgendaEvent || isFindPhone || isRemoteMessage) Color(0xFF10B981) else Color(0xFFEF4444)), shape = RoundedCornerShape(24.dp)) {
-                Row(verticalAlignment = Alignment.CenterVertically) { Icon(if (isMedication || isAgendaEvent || isFindPhone || isRemoteMessage) Icons.Default.Check else Icons.Default.AlarmOff, null, modifier = Modifier.size(48.dp)); Spacer(Modifier.width(16.dp)); Text(text = when { isMedication -> "NU INGENOMEN"; isRemoteMessage || isAgendaEvent || isFindPhone -> "BEGREPEN"; else -> "UITZETTEN" }, fontSize = 32.sp, fontWeight = FontWeight.Black) }
+                Row(verticalAlignment = Alignment.CenterVertically) { 
+                    Icon(if (isMedication || isAgendaEvent || isFindPhone || isRemoteMessage) Icons.Default.Check else Icons.Default.AlarmOff, null, modifier = Modifier.size(48.dp))
+                    Spacer(Modifier.width(16.dp))
+                    Text(
+                        text = when { 
+                            isMedication -> stringResource(R.string.alarm_btn_taken)
+                            isRemoteMessage || isAgendaEvent || isFindPhone -> stringResource(R.string.alarm_btn_understood)
+                            else -> stringResource(R.string.alarm_turn_off)
+                        }, 
+                        fontSize = 32.sp, 
+                        fontWeight = FontWeight.Black
+                    ) 
+                }
             }
         }
         Spacer(Modifier.height(10.dp))

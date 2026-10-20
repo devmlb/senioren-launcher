@@ -24,6 +24,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
@@ -32,24 +33,21 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.seniorenlauncher.LauncherApp
+import com.seniorenlauncher.R
 import com.seniorenlauncher.data.model.QuickContact
 import com.seniorenlauncher.ui.components.ScreenHeader
 import kotlinx.coroutines.launch
 
 @Composable
 fun ContactsScreen(onBack: () -> Unit, settingsVm: SettingsViewModel = viewModel()) {
-    // --- DEMO MODE UIT ---
     val isDemoMode = false
 
     val context = LocalContext.current
     val scope = rememberCoroutineScope()
     val dao = remember { LauncherApp.instance.database.contactDao() }
     
-    // Bestaande echte data uit de database
     val realContacts by dao.getAll().collectAsState(initial = emptyList())
-    
     val contacts = realContacts
-    
     val settings by settingsVm.settings.collectAsState()
 
     var showAddDialog by remember { mutableStateOf(false) }
@@ -60,7 +58,7 @@ fun ContactsScreen(onBack: () -> Unit, settingsVm: SettingsViewModel = viewModel
             .background(MaterialTheme.colorScheme.background)
             .padding(horizontal = 12.dp, vertical = 8.dp)
     ) {
-        ScreenHeader(title = "Contacten", onBack = onBack)
+        ScreenHeader(title = stringResource(R.string.contacts_title), onBack = onBack)
         
         Row(
             Modifier.fillMaxWidth().padding(vertical = 8.dp),
@@ -68,7 +66,7 @@ fun ContactsScreen(onBack: () -> Unit, settingsVm: SettingsViewModel = viewModel
             verticalAlignment = Alignment.CenterVertically
         ) {
             Text(
-                "Mijn Lijst", 
+                stringResource(R.string.contacts_my_list), 
                 fontSize = 22.sp, 
                 fontWeight = FontWeight.Bold,
                 color = MaterialTheme.colorScheme.onBackground
@@ -81,14 +79,14 @@ fun ContactsScreen(onBack: () -> Unit, settingsVm: SettingsViewModel = viewModel
             ) {
                 Icon(Icons.Default.Add, null)
                 Spacer(Modifier.width(4.dp))
-                Text("Nieuw", fontSize = 16.sp)
+                Text(stringResource(R.string.contacts_btn_new), fontSize = 16.sp)
             }
         }
 
         if (contacts.isEmpty()) {
             Box(Modifier.weight(1f).fillMaxWidth(), contentAlignment = Alignment.Center) {
                 Text(
-                    "Geen favoriete contacten.\nTik op 'Nieuw' om er een toe te voegen.",
+                    stringResource(R.string.contacts_empty),
                     textAlign = TextAlign.Center,
                     fontSize = 18.sp,
                     color = Color.Gray
@@ -135,7 +133,7 @@ fun ContactsScreen(onBack: () -> Unit, settingsVm: SettingsViewModel = viewModel
                             )
                             Spacer(Modifier.width(8.dp))
                             Text(
-                                "Privacy: Uw contacten worden alleen op dit toestel bewaard en nooit gedeeld met derden.",
+                                stringResource(R.string.contacts_privacy),
                                 fontSize = 12.sp,
                                 color = MaterialTheme.colorScheme.onSurfaceVariant
                             )
@@ -166,7 +164,7 @@ private fun makeCall(context: Context, phoneNumber: String) {
         }
         context.startActivity(intent)
     } catch (e: Exception) {
-        Toast.makeText(context, "Kon niet bellen", Toast.LENGTH_SHORT).show()
+        Toast.makeText(context, context.getString(R.string.contacts_call_failed), Toast.LENGTH_SHORT).show()
     }
 }
 
@@ -216,13 +214,13 @@ fun ContactItem(
             }
 
             IconButton(onClick = onDelete) {
-                Icon(Icons.Default.Delete, contentDescription = "Verwijderen", tint = Color.Gray)
+                Icon(Icons.Default.Delete, contentDescription = stringResource(R.string.btn_delete), tint = Color.Gray)
             }
 
             IconButton(onClick = onToggleFavorite) {
                 Icon(
                     if (contact.isSosContact) Icons.Default.Star else Icons.Default.StarOutline,
-                    contentDescription = "Favoriet",
+                    contentDescription = stringResource(R.string.contacts_favorite),
                     tint = if (contact.isSosContact) Color(0xFFD97706) else Color.Gray,
                     modifier = Modifier.size(32.dp)
                 )
@@ -253,13 +251,13 @@ fun AddContactDialog(onDismiss: () -> Unit, onSave: (String, String) -> Unit) {
             shape = RoundedCornerShape(16.dp)
         ) {
             Column(Modifier.padding(20.dp), horizontalAlignment = Alignment.CenterHorizontally) {
-                Text("Nieuw Contact", fontSize = 22.sp, fontWeight = FontWeight.Bold)
+                Text(stringResource(R.string.contacts_add_title), fontSize = 22.sp, fontWeight = FontWeight.Bold)
                 Spacer(Modifier.height(16.dp))
                 
                 OutlinedTextField(
                     value = name,
                     onValueChange = { name = it },
-                    label = { Text("Naam") },
+                    label = { Text(stringResource(R.string.field_name)) },
                     modifier = Modifier.fillMaxWidth(),
                     singleLine = true
                 )
@@ -267,7 +265,7 @@ fun AddContactDialog(onDismiss: () -> Unit, onSave: (String, String) -> Unit) {
                 OutlinedTextField(
                     value = phone,
                     onValueChange = { phone = it },
-                    label = { Text("Telefoonnummer") },
+                    label = { Text(stringResource(R.string.emergency_phone_label)) },
                     modifier = Modifier.fillMaxWidth(),
                     singleLine = true,
                     keyboardOptions = androidx.compose.foundation.text.KeyboardOptions(
@@ -279,14 +277,14 @@ fun AddContactDialog(onDismiss: () -> Unit, onSave: (String, String) -> Unit) {
                 
                 Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(12.dp)) {
                     TextButton(onClick = onDismiss, Modifier.weight(1f)) {
-                        Text("Annuleren", fontSize = 18.sp)
+                        Text(stringResource(R.string.btn_cancel), fontSize = 18.sp)
                     }
                     Button(
                         onClick = { if (name.isNotBlank() && phone.isNotBlank()) onSave(name, phone) },
                         modifier = Modifier.weight(1f).heightIn(min = 48.dp).wrapContentHeight(),
                         shape = RoundedCornerShape(12.dp)
                     ) {
-                        Text("Opslaan", fontSize = 18.sp)
+                        Text(stringResource(R.string.btn_save), fontSize = 18.sp)
                     }
                 }
             }

@@ -40,6 +40,7 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -48,6 +49,7 @@ import androidx.core.content.ContextCompat
 import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.location.*
 import com.seniorenlauncher.LauncherApp
+import com.seniorenlauncher.R
 import com.seniorenlauncher.data.model.QuickContact
 import com.seniorenlauncher.service.SOSService
 import com.seniorenlauncher.ui.components.ScreenHeader
@@ -55,14 +57,12 @@ import kotlinx.coroutines.delay
 
 @Composable
 fun SOSScreen(onBack: () -> Unit) {
-    // --- DEMO MODE TOGGLE ---
     val isDemoMode = false
 
     val context = LocalContext.current
     val dao = LauncherApp.instance.database.contactDao()
     val realSosContacts by dao.getSosContacts().collectAsState(initial = emptyList())
     
-    // Samsung fix: Controleer of de app bovenop andere apps mag verschijnen
     var canDrawOverlays by remember { mutableStateOf(Settings.canDrawOverlays(context)) }
     
     val lifecycleOwner = androidx.lifecycle.compose.LocalLifecycleOwner.current
@@ -76,7 +76,6 @@ fun SOSScreen(onBack: () -> Unit) {
         onDispose { lifecycleOwner.lifecycle.removeObserver(observer) }
     }
 
-    // --- DUMMY DATA ---
     val dummySosContacts = listOf(
         QuickContact(name = "Dochter Sofie", phoneNumber = "06 12345678", isSosContact = true),
         QuickContact(name = "Buurman Jan", phoneNumber = "06 87654321", isSosContact = true)
@@ -88,7 +87,6 @@ fun SOSScreen(onBack: () -> Unit) {
     var holdProgress by remember { mutableStateOf(0f) }
     var sosTriggered by remember { mutableStateOf(false) }
 
-    // Check permissions and GPS status
     var hasLocationPermission by remember { mutableStateOf(
         if (isDemoMode) true else ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
     )}
@@ -96,7 +94,6 @@ fun SOSScreen(onBack: () -> Unit) {
     val locationManager = context.getSystemService(Context.LOCATION_SERVICE) as LocationManager
     var isGpsEnabled by remember { mutableStateOf(if (isDemoMode) true else locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) }
 
-    // Launcher for GPS resolution
     val gpsLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.StartIntentSenderForResult()
     ) { result ->
@@ -105,7 +102,6 @@ fun SOSScreen(onBack: () -> Unit) {
         }
     }
 
-    // Re-check periodically
     LaunchedEffect(isDemoMode) {
         if (!isDemoMode) {
             while (true) {
@@ -128,7 +124,7 @@ fun SOSScreen(onBack: () -> Unit) {
             if (holdProgress >= 1f) {
                 sosTriggered = true
                 if (!isDemoMode) triggerSOS(context)
-                else Toast.makeText(context, "Demo Mode: SOS geactiveerd", Toast.LENGTH_SHORT).show()
+                else Toast.makeText(context, context.getString(R.string.sos_demo_activated), Toast.LENGTH_SHORT).show()
             }
         } else {
             holdProgress = 0f
@@ -137,7 +133,7 @@ fun SOSScreen(onBack: () -> Unit) {
 
     Scaffold(
         modifier = Modifier.fillMaxSize(),
-        containerColor = Color(0xFF0F172A) // Slate 900
+        containerColor = Color(0xFF0F172A)
     ) { innerPadding ->
         Column(
             Modifier
@@ -145,7 +141,7 @@ fun SOSScreen(onBack: () -> Unit) {
                 .padding(innerPadding)
                 .padding(horizontal = 20.dp)
         ) {
-            ScreenHeader(title = "SOS Noodhulp", onBack = onBack)
+            ScreenHeader(title = stringResource(R.string.sos_help_title), onBack = onBack)
             
             Column(
                 Modifier.weight(1f).fillMaxWidth().verticalScroll(rememberScrollState()),
@@ -154,7 +150,6 @@ fun SOSScreen(onBack: () -> Unit) {
                 if (!sosTriggered) {
                     Spacer(Modifier.height(12.dp))
 
-                    // --- SAMSUNG LOCKSCREEN FIX ---
                     if (!canDrawOverlays) {
                         Surface(
                             modifier = Modifier
@@ -175,7 +170,7 @@ fun SOSScreen(onBack: () -> Unit) {
                                 Icon(Icons.Default.Warning, null, tint = Color(0xFFEF4444), modifier = Modifier.size(32.dp))
                                 Spacer(Modifier.width(16.dp))
                                 Text(
-                                    "Samsung blokkeert hulp. Tik hier en zet 'Verschijnen bovenop' AAN.",
+                                    stringResource(R.string.sos_overlay_warning),
                                     fontSize = 16.sp,
                                     fontWeight = FontWeight.Black,
                                     color = Color.White
@@ -196,13 +191,13 @@ fun SOSScreen(onBack: () -> Unit) {
                                 Spacer(Modifier.width(16.dp))
                                 Column(Modifier.weight(1f)) {
                                     Text(
-                                        if (!hasLocationPermission) "Locatie nodig" else "GPS staat uit",
+                                        if (!hasLocationPermission) stringResource(R.string.sos_location_needed) else stringResource(R.string.sos_gps_disabled),
                                         fontWeight = FontWeight.Black,
                                         fontSize = 18.sp,
                                         color = Color.White
                                     )
                                     Text(
-                                        "Klik hier om te herstellen.",
+                                        stringResource(R.string.sos_click_to_fix),
                                         fontSize = 14.sp,
                                         color = Color.White.copy(alpha = 0.7f)
                                     )
@@ -235,14 +230,14 @@ fun SOSScreen(onBack: () -> Unit) {
                                     colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFF59E0B)),
                                     shape = RoundedCornerShape(16.dp)
                                 ) {
-                                    Text("HERSTEL", fontWeight = FontWeight.Black)
+                                    Text(stringResource(R.string.btn_fix), fontWeight = FontWeight.Black)
                                 }
                             }
                         }
                     }
 
                     Text(
-                        "HOU DE KNOP 3 SECONDEN IN\nOM HULP TE ROEPEN",
+                        stringResource(R.string.sos_hold_button_instruction),
                         fontSize = 24.sp,
                         fontWeight = FontWeight.Black,
                         textAlign = TextAlign.Center,
@@ -287,7 +282,7 @@ fun SOSScreen(onBack: () -> Unit) {
                         ) {
                             Column(horizontalAlignment = Alignment.CenterHorizontally) {
                                 Text("SOS", fontSize = 64.sp, fontWeight = FontWeight.Black, color = Color.White)
-                                Text("HULP", fontSize = 26.sp, fontWeight = FontWeight.Black, color = Color.White.copy(alpha = 0.8f))
+                                Text(stringResource(R.string.sos_help_word), fontSize = 26.sp, fontWeight = FontWeight.Black, color = Color.White.copy(alpha = 0.8f))
                             }
                         }
                     }
@@ -295,7 +290,7 @@ fun SOSScreen(onBack: () -> Unit) {
                     Spacer(Modifier.height(32.dp))
                     
                     Text(
-                        "Uw noodcontacten ontvangen direct\nuw locatie via SMS.",
+                        stringResource(R.string.sos_sms_info),
                         textAlign = TextAlign.Center,
                         fontSize = 18.sp,
                         fontWeight = FontWeight.Medium,
@@ -310,10 +305,10 @@ fun SOSScreen(onBack: () -> Unit) {
                 
                 if (sosContacts.isNotEmpty()) {
                     Text(
-                        "Contactpersonen:", 
+                        stringResource(R.string.sos_contacts_header), 
                         fontWeight = FontWeight.Black, 
                         fontSize = 18.sp, 
-                        color = Color(0xFF6366F1), // Indigo accent
+                        color = Color(0xFF6366F1),
                         modifier = Modifier.fillMaxWidth().padding(bottom = 16.dp)
                     )
                     
@@ -349,7 +344,7 @@ fun SOSScreen(onBack: () -> Unit) {
                         border = BorderStroke(1.dp, Color(0xFFEF4444).copy(alpha = 0.3f))
                     ) {
                         Text(
-                            "Let op: Geen noodcontacten ingesteld!\nKlik op de knop in instellingen.",
+                            stringResource(R.string.sos_no_contacts_desc),
                             color = Color(0xFFEF4444),
                             fontWeight = FontWeight.Black,
                             textAlign = TextAlign.Center,
@@ -399,7 +394,7 @@ fun SOSActiveUI(onBack: () -> Unit) {
         Spacer(Modifier.height(40.dp))
         
         Text(
-            "NOODSIGNAAL\nVERSTUURD!", 
+            stringResource(R.string.sos_sent_title), 
             fontSize = 32.sp, 
             fontWeight = FontWeight.Black, 
             color = Color(0xFFEF4444), 
@@ -410,7 +405,7 @@ fun SOSActiveUI(onBack: () -> Unit) {
         Spacer(Modifier.height(24.dp))
         
         Text(
-            "Blijf rustig. Uw locatie is verzonden naar uw contactpersonen.", 
+            stringResource(R.string.sos_sent_desc), 
             fontSize = 20.sp, 
             fontWeight = FontWeight.Medium,
             color = Color.White.copy(alpha = 0.7f),
@@ -424,11 +419,11 @@ fun SOSActiveUI(onBack: () -> Unit) {
             onClick = onBack,
             modifier = Modifier.fillMaxWidth().height(90.dp),
             shape = RoundedCornerShape(40.dp),
-            color = Color(0xFF10B981), // Emerald for safety
+            color = Color(0xFF10B981),
             shadowElevation = 8.dp
         ) {
             Box(contentAlignment = Alignment.Center) {
-                Text("IK BEN VEILIG", fontSize = 24.sp, fontWeight = FontWeight.Black, color = Color.White)
+                Text(stringResource(R.string.btn_i_am_safe), fontSize = 24.sp, fontWeight = FontWeight.Black, color = Color.White)
             }
         }
     }

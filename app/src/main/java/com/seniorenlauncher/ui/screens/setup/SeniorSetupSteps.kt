@@ -10,12 +10,14 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.seniorenlauncher.LauncherApp
+import com.seniorenlauncher.R
 import com.seniorenlauncher.data.model.AppTheme
 import com.seniorenlauncher.data.model.QuickContact
 import com.seniorenlauncher.ui.screens.SettingsViewModel
@@ -29,10 +31,10 @@ fun SeniorWelcomeStep(onNext: () -> Unit) {
         verticalArrangement = Arrangement.Center
     ) {
         Text("👋", fontSize = 100.sp)
-        Text("Welkom", fontSize = 40.sp, fontWeight = FontWeight.Bold)
+        Text(stringResource(R.string.wizard_welcome), fontSize = 40.sp, fontWeight = FontWeight.Bold)
         Spacer(Modifier.height(24.dp))
         Text(
-            "We gaan uw telefoon samen heel makkelijk maken. U kunt hierbij niets fout doen.",
+            stringResource(R.string.wizard_welcome_desc),
             fontSize = 26.sp,
             textAlign = TextAlign.Center,
             lineHeight = 36.sp
@@ -43,7 +45,7 @@ fun SeniorWelcomeStep(onNext: () -> Unit) {
             modifier = Modifier.fillMaxWidth().height(80.dp),
             shape = RoundedCornerShape(20.dp)
         ) {
-            Text("BEGINNEN", fontSize = 22.sp, fontWeight = FontWeight.Bold)
+            Text(stringResource(R.string.btn_start), fontSize = 22.sp, fontWeight = FontWeight.Bold)
         }
     }
 }
@@ -56,14 +58,14 @@ fun SeniorReadingStep(onNext: () -> Unit, settingsVm: SettingsViewModel) {
         modifier = Modifier.fillMaxSize().padding(24.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text("Welkom. Hoe groot wilt u de letters?", fontSize = 26.sp, fontWeight = FontWeight.Bold, textAlign = TextAlign.Center)
+        Text(stringResource(R.string.wizard_font_question), fontSize = 26.sp, fontWeight = FontWeight.Bold, textAlign = TextAlign.Center)
         Spacer(Modifier.height(48.dp))
         
-        ReadingOptionCard("Dit is normale tekst.", 18, settings.fontSize == 18) { settingsVm.updateFontSize(18) }
+        ReadingOptionCard(stringResource(R.string.wizard_reading_normal), 18, settings.fontSize == 18) { settingsVm.updateFontSize(18) }
         Spacer(Modifier.height(16.dp))
-        ReadingOptionCard("Dit is grote tekst.", 24, settings.fontSize == 24) { settingsVm.updateFontSize(24) }
+        ReadingOptionCard(stringResource(R.string.wizard_reading_large), 24, settings.fontSize == 24) { settingsVm.updateFontSize(24) }
         Spacer(Modifier.height(20.dp))
-        ReadingOptionCard("DIT IS REUSACHTIG.", 30, settings.fontSize == 30) { settingsVm.updateFontSize(30) }
+        ReadingOptionCard(stringResource(R.string.wizard_reading_huge), 30, settings.fontSize == 30) { settingsVm.updateFontSize(30) }
         
         Spacer(Modifier.weight(1f))
         
@@ -72,7 +74,7 @@ fun SeniorReadingStep(onNext: () -> Unit, settingsVm: SettingsViewModel) {
             modifier = Modifier.fillMaxWidth().height(80.dp),
             shape = RoundedCornerShape(20.dp)
         ) {
-            Text("VOLGENDE", fontSize = 22.sp, fontWeight = FontWeight.Bold)
+            Text(stringResource(R.string.btn_next), fontSize = 22.sp, fontWeight = FontWeight.Bold)
         }
     }
 }
@@ -104,12 +106,12 @@ fun SeniorColorsStep(onNext: () -> Unit, settingsVm: SettingsViewModel) {
         modifier = Modifier.fillMaxSize().padding(24.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text("Welkom. Welke kleuren vindt u het fijnst?", fontSize = 26.sp, fontWeight = FontWeight.Bold, textAlign = TextAlign.Center)
+        Text(stringResource(R.string.wizard_colors_question), fontSize = 26.sp, fontWeight = FontWeight.Bold, textAlign = TextAlign.Center)
         Spacer(Modifier.height(48.dp))
         
-        SeniorThemeCard("Klassiek (Zacht)", AppTheme.CLASSIC, settings.theme == AppTheme.CLASSIC) { settingsVm.updateTheme(AppTheme.CLASSIC) }
+        SeniorThemeCard(stringResource(R.string.wizard_theme_classic), AppTheme.CLASSIC, settings.theme == AppTheme.CLASSIC) { settingsVm.updateTheme(AppTheme.CLASSIC) }
         Spacer(Modifier.height(32.dp))
-        SeniorThemeCard("Hoog Contrast (Fel)", AppTheme.HIGH_CONTRAST, settings.theme == AppTheme.HIGH_CONTRAST) { settingsVm.updateTheme(AppTheme.HIGH_CONTRAST) }
+        SeniorThemeCard(stringResource(R.string.wizard_theme_contrast), AppTheme.HIGH_CONTRAST, settings.theme == AppTheme.HIGH_CONTRAST) { settingsVm.updateTheme(AppTheme.HIGH_CONTRAST) }
         
         Spacer(Modifier.weight(1f))
         
@@ -118,7 +120,7 @@ fun SeniorColorsStep(onNext: () -> Unit, settingsVm: SettingsViewModel) {
             modifier = Modifier.fillMaxWidth().height(80.dp),
             shape = RoundedCornerShape(20.dp)
         ) {
-            Text("VOLGENDE", fontSize = 22.sp, fontWeight = FontWeight.Bold)
+            Text(stringResource(R.string.btn_next), fontSize = 22.sp, fontWeight = FontWeight.Bold)
         }
     }
 }
@@ -154,13 +156,13 @@ fun SeniorEmergencyStep(onNext: () -> Unit) {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text("🆘", fontSize = 60.sp)
-        Text("Wie wilt u bellen in geval van nood?", fontSize = 26.sp, fontWeight = FontWeight.Bold, textAlign = TextAlign.Center)
+        Text(stringResource(R.string.wizard_emergency_question), fontSize = 26.sp, fontWeight = FontWeight.Bold, textAlign = TextAlign.Center)
         Spacer(Modifier.height(32.dp))
         
         OutlinedTextField(
             value = name,
             onValueChange = { name = it },
-            label = { Text("Naam") },
+            label = { Text(stringResource(R.string.emergency_name_label)) },
             modifier = Modifier.fillMaxWidth(),
             textStyle = LocalTextStyle.current.copy(fontSize = 20.sp)
         )
@@ -168,7 +170,7 @@ fun SeniorEmergencyStep(onNext: () -> Unit) {
         OutlinedTextField(
             value = phone,
             onValueChange = { phone = it },
-            label = { Text("Telefoonnummer") },
+            label = { Text(stringResource(R.string.emergency_phone_label)) },
             modifier = Modifier.fillMaxWidth(),
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Phone),
             textStyle = LocalTextStyle.current.copy(fontSize = 20.sp)
@@ -189,10 +191,10 @@ fun SeniorEmergencyStep(onNext: () -> Unit) {
             enabled = name.isNotBlank() && phone.isNotBlank(),
             shape = RoundedCornerShape(20.dp)
         ) {
-            Text("BEWAAR CONTACT", fontSize = 20.sp, fontWeight = FontWeight.Bold)
+            Text(stringResource(R.string.wizard_save_contact), fontSize = 20.sp, fontWeight = FontWeight.Bold)
         }
         
         Spacer(Modifier.height(24.dp))
-        Text("De app zal hierna om toestemming vragen om dit nummer te mogen bellen.", fontSize = 16.sp, textAlign = TextAlign.Center, color = Color.Gray)
+        Text(stringResource(R.string.wizard_permission_notice), fontSize = 16.sp, textAlign = TextAlign.Center, color = Color.Gray)
     }
 }

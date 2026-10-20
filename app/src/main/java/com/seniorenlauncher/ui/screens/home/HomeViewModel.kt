@@ -49,6 +49,7 @@ class HomeViewModel : ViewModel() {
                 HomeApp(
                     id = id,
                     name = info?.name ?: "App",
+                    nameRes = null,
                     emoji = null,
                     icon = info?.icon,
                     vectorIcon = null,
@@ -60,6 +61,7 @@ class HomeViewModel : ViewModel() {
             HomeApp(
                 id = it.id,
                 name = it.name,
+                nameRes = it.nameRes,
                 emoji = if (it.id == "weather" && weatherData != null) getHomeWeatherEmoji(weatherData.iconUrl) else it.emoji,
                 icon = null,
                 vectorIcon = if (it.id == "bluetooth") Icons.Default.Bluetooth else null,

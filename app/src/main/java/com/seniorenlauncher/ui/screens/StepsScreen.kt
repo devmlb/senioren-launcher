@@ -27,12 +27,14 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.content.ContextCompat
 import com.seniorenlauncher.LauncherApp
+import com.seniorenlauncher.R
 import com.seniorenlauncher.ui.components.ScreenHeader
 
 @Composable
@@ -60,17 +62,17 @@ fun StepsScreen(onBack: () -> Unit) {
     }
 
     Column(Modifier.fillMaxSize().background(MaterialTheme.colorScheme.background).padding(horizontal = 12.dp, vertical = 8.dp)) {
-        ScreenHeader(title = "Stappen", onBack = onBack)
+        ScreenHeader(title = stringResource(R.string.steps_title), onBack = onBack)
         
         if (hasPermission) {
             StepCounterContent()
         } else {
             Box(Modifier.weight(1f).fillMaxWidth(), contentAlignment = Alignment.Center) {
                 Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.padding(24.dp)) {
-                    Text("Toegang tot bewegingsgegevens is nodig om uw stappen te tellen.", textAlign = TextAlign.Center)
+                    Text(stringResource(R.string.steps_permission_needed), textAlign = TextAlign.Center)
                     Spacer(Modifier.height(16.dp))
                     Button(onClick = { if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) launcher.launch(Manifest.permission.ACTIVITY_RECOGNITION) }) {
-                        Text("Toestaan")
+                        Text(stringResource(R.string.btn_grant))
                     }
                 }
             }
@@ -110,7 +112,7 @@ fun StepCounterContent() {
                     color = MaterialTheme.colorScheme.onBackground
                 )
                 Text(
-                    text = "STAPPEN VANDAAG",
+                    text = stringResource(R.string.steps_today_label),
                     fontSize = 16.sp,
                     fontWeight = FontWeight.Bold,
                     letterSpacing = 2.sp,
@@ -130,52 +132,63 @@ fun StepCounterContent() {
         ) {
             StatCard(
                 modifier = Modifier.weight(1f),
-                label = "Afstand",
+                label = "Km",
                 value = String.format("%.1f", currentSteps * 0.00075) + " km",
                 color = Color(0xFF3B82F6)
             )
             StatCard(
                 modifier = Modifier.weight(1f),
-                label = "Calorieën",
+                label = "Kcal",
                 value = (currentSteps * 0.04).toInt().toString() + " kcal",
-                color = Color(0xFFEF4444)
+                color = Color(0xFFF59E0B)
             )
         }
         
         Spacer(Modifier.height(32.dp))
         
+        // Dagelijks doel kaart
         Card(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(16.dp),
+            modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp),
+            shape = RoundedCornerShape(20.dp),
             colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f))
         ) {
-            Row(Modifier.padding(16.dp), verticalAlignment = Alignment.CenterVertically) {
-                Icon(Icons.Default.Info, null, tint = MaterialTheme.colorScheme.primary)
+            Row(Modifier.padding(20.dp), verticalAlignment = Alignment.CenterVertically) {
+                Icon(Icons.Default.Info, null, tint = MaterialTheme.colorScheme.primary, modifier = Modifier.size(32.dp))
                 Spacer(Modifier.width(16.dp))
-                Text(
-                    "Blijven bewegen is belangrijk voor uw gezondheid! Probeer elke dag een klein stukje te wandelen.",
-                    fontSize = 14.sp,
-                    lineHeight = 20.sp
-                )
+                Column {
+                    Text(
+                        "Doel: 6.000 stappen",
+                        fontSize = 18.sp,
+                        fontWeight = FontWeight.Bold,
+                        color = MaterialTheme.colorScheme.onSurface
+                    )
+                    val percent = ((currentSteps / 6000f) * 100).toInt().coerceAtMost(100)
+                    Text(
+                        "$percent% voltooid",
+                        fontSize = 15.sp,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+                }
             }
         }
-        
-        Spacer(Modifier.height(40.dp))
     }
 }
 
 @Composable
-fun StatCard(modifier: Modifier, label: String, value: String, color: Color) {
+fun StatCard(modifier: Modifier = Modifier, label: String, value: String, color: Color) {
     Card(
         modifier = modifier,
         shape = RoundedCornerShape(20.dp),
-        colors = CardDefaults.cardColors(containerColor = color.copy(alpha = 0.1f))
+        colors = CardDefaults.cardColors(containerColor = color.copy(alpha = 0.15f)),
+        border = androidx.compose.foundation.BorderStroke(1.dp, color.copy(alpha = 0.3f))
     ) {
-        Column(Modifier.padding(16.dp), horizontalAlignment = Alignment.CenterHorizontally) {
-            Text(label, fontSize = 14.sp, color = color, fontWeight = FontWeight.Bold)
+        Column(
+            modifier = Modifier.padding(16.dp).fillMaxWidth(),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Text(value, fontSize = 24.sp, fontWeight = FontWeight.Black, color = color)
             Spacer(Modifier.height(4.dp))
-            Text(value, fontSize = 24.sp, fontWeight = FontWeight.ExtraBold)
+            Text(label, fontSize = 14.sp, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.onSurfaceVariant)
         }
     }
 }

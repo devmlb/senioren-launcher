@@ -24,11 +24,13 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLifecycleOwner
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.core.content.ContextCompat
+import com.seniorenlauncher.R
 import com.seniorenlauncher.ui.components.ScreenHeader
 
 @Composable
@@ -54,13 +56,13 @@ fun MagnifierScreen(onBack: () -> Unit) {
     }
 
     Column(Modifier.fillMaxSize().background(Color.Black)) {
-        ScreenHeader(title = "Vergrootglas", onBack = onBack)
+        ScreenHeader(title = stringResource(R.string.app_name_magnifier), onBack = onBack)
         
         if (hasCameraPermission) {
             MagnifierCameraPreview(modifier = Modifier.weight(1f))
         } else {
             Box(Modifier.weight(1f).fillMaxWidth(), contentAlignment = Alignment.Center) {
-                Text("Camera toegang nodig voor het vergrootglas.", color = Color.White, textAlign = androidx.compose.ui.text.style.TextAlign.Center)
+                Text(stringResource(R.string.magnifier_permission_needed), color = Color.White, textAlign = androidx.compose.ui.text.style.TextAlign.Center)
             }
         }
     }
@@ -98,7 +100,7 @@ fun MagnifierCameraPreview(modifier: Modifier = Modifier) {
                         )
                         cameraControl = camera.cameraControl
                     } catch (exc: Exception) {
-                        Log.e("Magnifier", "Use case binding failed", exc)
+                        Log.e("MagnifierScreen", "Use case binding failed", exc)
                     }
                 }, executor)
                 previewView
@@ -106,74 +108,99 @@ fun MagnifierCameraPreview(modifier: Modifier = Modifier) {
             modifier = Modifier.fillMaxSize()
         )
 
-        // Zoom Controls Overlay
+        // Floating Controls overlay at the bottom
         Column(
             modifier = Modifier
                 .align(Alignment.BottomCenter)
-                .padding(24.dp)
-                .fillMaxWidth(),
+                .fillMaxWidth()
+                .background(Color.Black.copy(alpha = 0.6f))
+                .padding(16.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
+            // Slider for continuous zoom
             Row(
                 verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier
-                    .background(Color.Black.copy(alpha = 0.6f), RoundedCornerShape(32.dp))
-                    .padding(horizontal = 16.dp, vertical = 8.dp)
+                modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp)
             ) {
-                Icon(Icons.Default.Remove, null, tint = Color.White, modifier = Modifier.size(32.dp))
+                Text("1x", color = Color.White, fontWeight = FontWeight.Bold, fontSize = 18.sp)
                 Slider(
                     value = zoomState,
-                    onValueChange = { 
+                    onValueChange = {
                         zoomState = it
                         cameraControl?.setLinearZoom(it)
                     },
-                    modifier = Modifier.weight(1f).padding(horizontal = 16.dp),
+                    modifier = Modifier.weight(1f).padding(horizontal = 8.dp),
                     colors = SliderDefaults.colors(
-                        thumbColor = Color.White,
-                        activeTrackColor = Color.White,
-                        inactiveTrackColor = Color.Gray
+                        thumbColor = MaterialTheme.colorScheme.primary,
+                        activeTrackColor = MaterialTheme.colorScheme.primary
                     )
                 )
-                Icon(Icons.Default.Add, null, tint = Color.White, modifier = Modifier.size(32.dp))
+                Text("5x", color = Color.White, fontWeight = FontWeight.Bold, fontSize = 18.sp)
             }
-            
+
             Spacer(Modifier.height(16.dp))
-            
-            Row(horizontalArrangement = Arrangement.spacedBy(24.dp)) {
-                // Flash Button
-                LargeCircleButton(
-                    icon = if (isFlashOn) Icons.Default.FlashOn else Icons.Default.FlashOff,
+
+            // Action Buttons: Zoom Presets and Flashlight Toggle
+            Row(
+                horizontalArrangement = Arrangement.SpaceEvenly,
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                // Preset 1x
+                Button(
+                    onClick = {
+                        zoomState = 0f
+                        cameraControl?.setLinearZoom(0f)
+                    },
+                    colors = ButtonDefaults.buttonColors(containerColor = Color.DarkGray),
+                    shape = RoundedCornerShape(12.dp)
+                ) {
+                    Text("1x", fontSize = 18.sp)
+                }
+
+                // Preset 2.5x
+                Button(
+                    onClick = {
+                        zoomState = 0.5f
+                        cameraControl?.setLinearZoom(0.5f)
+                    },
+                    colors = ButtonDefaults.buttonColors(containerColor = Color.DarkGray),
+                    shape = RoundedCornerShape(12.dp)
+                ) {
+                    Text("2.5x", fontSize = 18.sp)
+                }
+
+                // Preset Max
+                Button(
+                    onClick = {
+                        zoomState = 1f
+                        cameraControl?.setLinearZoom(1f)
+                    },
+                    colors = ButtonDefaults.buttonColors(containerColor = Color.DarkGray),
+                    shape = RoundedCornerShape(12.dp)
+                ) {
+                    Text("Max", fontSize = 18.sp)
+                }
+
+                // Flashlight toggle button
+                IconButton(
                     onClick = {
                         isFlashOn = !isFlashOn
                         cameraControl?.enableTorch(isFlashOn)
                     },
-                    color = if (isFlashOn) Color(0xFFFBBF24) else Color.DarkGray
-                )
-                
-                // Freeze Button (simulated)
-                LargeCircleButton(
-                    icon = Icons.Default.Camera,
-                    onClick = {
-                        Toast.makeText(context, "Beeld vastgezet (niet echt)", Toast.LENGTH_SHORT).show()
-                    },
-                    color = MaterialTheme.colorScheme.primary
-                )
+                    modifier = Modifier
+                        .size(56.dp)
+                        .clip(CircleShape)
+                        .background(if (isFlashOn) Color(0xFFFBBF24) else Color.DarkGray)
+                ) {
+                    Icon(
+                        imageVector = if (isFlashOn) Icons.Default.FlashlightOn else Icons.Default.FlashlightOff,
+                        contentDescription = "Zaklamp",
+                        tint = if (isFlashOn) Color.Black else Color.White,
+                        modifier = Modifier.size(32.dp)
+                    )
+                }
             }
-        }
-    }
-}
-
-@Composable
-fun LargeCircleButton(icon: androidx.compose.ui.graphics.vector.ImageVector, onClick: () -> Unit, color: Color) {
-    Surface(
-        onClick = onClick,
-        modifier = Modifier.size(72.dp),
-        shape = CircleShape,
-        color = color,
-        tonalElevation = 4.dp
-    ) {
-        Box(contentAlignment = Alignment.Center) {
-            Icon(icon, null, modifier = Modifier.size(36.dp), tint = Color.White)
         }
     }
 }

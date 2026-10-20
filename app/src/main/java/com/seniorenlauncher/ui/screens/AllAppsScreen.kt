@@ -22,11 +22,13 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
+import com.seniorenlauncher.R
 import com.seniorenlauncher.ui.components.ScreenHeader
 import com.seniorenlauncher.util.AppLauncher
 import com.seniorenlauncher.util.InstalledApp
@@ -49,7 +51,7 @@ fun AllAppsScreen(onBack: () -> Unit) {
     }
 
     Column(Modifier.fillMaxSize().background(Color(0xFF0F172A)).padding(horizontal = 12.dp, vertical = 8.dp)) {
-        ScreenHeader(title = "Alle Apps", onBack = onBack)
+        ScreenHeader(title = stringResource(R.string.all_apps_title), onBack = onBack)
         
         Spacer(Modifier.height(8.dp))
 
@@ -58,7 +60,7 @@ fun AllAppsScreen(onBack: () -> Unit) {
             value = searchQuery,
             onValueChange = { searchQuery = it },
             modifier = Modifier.fillMaxWidth().padding(horizontal = 8.dp),
-            placeholder = { Text("Zoek een app...", fontWeight = FontWeight.Bold) },
+            placeholder = { Text(stringResource(R.string.search_apps_placeholder), fontWeight = FontWeight.Bold) },
             leadingIcon = { Icon(Icons.Default.Search, null, tint = Color.White) },
             shape = RoundedCornerShape(40.dp),
             textStyle = androidx.compose.ui.text.TextStyle(fontSize = 18.sp, fontWeight = FontWeight.Black, color = Color.White),
@@ -99,61 +101,53 @@ fun AppItem(app: InstalledApp, onClick: () -> Unit) {
     val interactionSource = remember { MutableInteractionSource() }
     val pressed by interactionSource.collectIsPressedAsState()
     val scale by animateFloatAsState(
-        targetValue = if (pressed) 0.88f else 1f,
+        targetValue = if (pressed) 0.92f else 1f,
         animationSpec = spring(dampingRatio = 0.7f, stiffness = 500f),
         label = "scale"
     )
 
     Column(
         modifier = Modifier
-            .fillMaxWidth()
             .scale(scale)
-            .clip(RoundedCornerShape(40.dp))
-            .background(Color(0xFF1E293B))
-            .border(1.dp, Color.White.copy(alpha = 0.1f), RoundedCornerShape(40.dp))
             .clickable(
                 interactionSource = interactionSource,
                 indication = null,
                 onClick = onClick
-            )
-            .padding(12.dp),
+            ),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        if (app.icon != null) {
-            AsyncImage(
-                model = app.icon,
-                contentDescription = null,
-                modifier = Modifier
-                    .size(64.dp)
-                    .clip(RoundedCornerShape(20.dp))
-            )
-        } else {
-            Box(
-                modifier = Modifier
-                    .size(64.dp)
-                    .clip(RoundedCornerShape(20.dp))
-                    .background(Color.White.copy(alpha = 0.1f)),
-                contentAlignment = Alignment.Center
-            ) {
-                Text(
-                    text = app.name.take(1).uppercase(),
-                    fontSize = 28.sp,
-                    fontWeight = FontWeight.Black,
-                    color = Color.White
-                )
+        Surface(
+            modifier = Modifier.size(76.dp),
+            shape = RoundedCornerShape(24.dp),
+            color = Color(0xFF1E293B),
+            border = borderStroke(),
+            shadowElevation = 8.dp
+        ) {
+            Box(contentAlignment = Alignment.Center) {
+                if (app.icon != null) {
+                    AsyncImage(
+                        model = app.icon,
+                        contentDescription = app.name,
+                        modifier = Modifier.size(52.dp).clip(RoundedCornerShape(14.dp))
+                    )
+                } else {
+                    Text("📱", fontSize = 32.sp)
+                }
             }
         }
-        
-        Spacer(Modifier.height(12.dp))
-        
+        Spacer(Modifier.height(8.dp))
         Text(
             text = app.name,
-            fontSize = 16.sp,
-            fontWeight = FontWeight.Black,
+            fontSize = 15.sp,
+            fontWeight = FontWeight.Bold,
+            color = Color.White,
             textAlign = TextAlign.Center,
             maxLines = 2,
             lineHeight = 18.sp,
-            color = Color.White
+            modifier = Modifier.padding(horizontal = 4.dp)
         )
     }
 }
+
+@Composable
+private fun borderStroke() = androidx.compose.foundation.BorderStroke(1.dp, Color.White.copy(alpha = 0.1f))

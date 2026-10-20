@@ -1,7 +1,9 @@
 package com.seniorenlauncher.data.model
 
+import androidx.compose.ui.res.stringResource
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.seniorenlauncher.R
 
 enum class AppTheme { CLASSIC, HIGH_CONTRAST, LIGHT }
 enum class LayoutType { GRID_2x3, GRID_3x4, GRID_1x1 }
@@ -119,28 +121,29 @@ data class AppInfo(
     val name: String,
     val icon: String,
     val emoji: String,
-    val color: Long
+    val color: Long,
+    val nameRes: Int = 0
 )
 
 val ALL_APPS = listOf(
-    AppInfo("phone", "Bellen", "📞", "📞", 0xFF38A169),
-    AppInfo("sms", "Berichten", "💬", "💬", 0xFF3B82F6),
-    AppInfo("camera", "Camera", "📷", "📷", 0xFFEC4899),
-    AppInfo("photos", "Foto's", "🖼️", "🖼️", 0xFFF59E0B),
-    AppInfo("alarm", "Wekker", "⏰", "⏰", 0xFFEA580C),
-    AppInfo("calendar", "Agenda", "📅", "📅", 0xFF0D9488),
-    AppInfo("meds", "Medicijnen", "💊", "💊", 0xFFDC2626),
-    AppInfo("weather", "Weer", "🌤️", "🌤️", 0xFF0EA5E9),
-    AppInfo("flashlight", "Zaklamp", "🔦", "🔦", 0xFFFBBF24),
-    AppInfo("magnifier", "Vergrootglas", "🔍", "🔍", 0xFF6366F1),
-    AppInfo("notes", "Notities", "📝", "📝", 0xFF84CC16),
-    AppInfo("radio", "Radio", "📻", "📻", 0xFFA855F7),
-    AppInfo("wifi", "Wifi", "📶", "📶", 0xFF4A5568),
-    AppInfo("bluetooth", "Bluetooth", "📶", "📶", 0xFF4A5568),
-    AppInfo("steps", "Stappen", "🚶", "🚶", 0xFF14B8A6),
-    AppInfo("emergency", "Noodinfo", "🏥", "🏥", 0xFFEF4444),
-    AppInfo("sos", "SOS", "🆘", "🆘", 0xFFDC2626),
-    AppInfo("remote_support", "Hulp op afstand", "👨‍🔧", "👨‍🔧", 0xFF4A5568),
-    AppInfo("all_apps", "Alle Apps", "📱", "📱", 0xFF718096),
-    AppInfo("settings", "Instellingen", "⚙️", "⚙️", 0xFF718096),
+    AppInfo("phone", "Bellen", "📞", "📞", 0xFF38A169, R.string.app_name_phone),
+    AppInfo("sms", "Berichten", "💬", "💬", 0xFF3B82F6, R.string.app_name_sms),
+    AppInfo("camera", "Camera", "📷", "📷", 0xFFEC4899, R.string.app_name_camera),
+    AppInfo("photos", "Foto's", "🖼️", "🖼️", 0xFFF59E0B, R.string.app_name_photos),
+    AppInfo("alarm", "Wekker", "⏰", "⏰", 0xFFEA580C, R.string.app_name_alarm),
+    AppInfo("calendar", "Agenda", "📅", "📅", 0xFF0D9488, R.string.app_name_calendar),
+    AppInfo("meds", "Medicijnen", "💊", "💊", 0xFFDC2626, R.string.app_name_meds),
+    AppInfo("weather", "Weer", "🌤️", "🌤️", 0xFF0EA5E9, R.string.app_name_weather),
+    AppInfo("flashlight", "Zaklamp", "🔦", "🔦", 0xFFFBBF24, R.string.app_name_flashlight),
+    AppInfo("magnifier", "Vergrootglas", "🔍", "🔍", 0xFF6366F1, R.string.app_name_magnifier),
+    AppInfo("notes", "Notities", "📝", "📝", 0xFF84CC16, R.string.app_name_notes),
+    AppInfo("radio", "Radio", "📻", "📻", 0xFFA855F7, R.string.app_name_radio),
+    AppInfo("wifi", "Wifi", "📶", "📶", 0xFF4A5568, R.string.app_name_wifi),
+    AppInfo("bluetooth", "Bluetooth", "📶", "📶", 0xFF4A5568, R.string.app_name_bluetooth),
+    AppInfo("steps", "Stappen", "🚶", "🚶", 0xFF14B8A6, R.string.app_name_steps),
+    AppInfo("emergency", "Noodinfo", "🏥", "🏥", 0xFFEF4444, R.string.app_name_emergency),
+    AppInfo("sos", "SOS", "🆘", "🆘", 0xFFDC2626, R.string.app_name_sos),
+    AppInfo("remote_support", "Hulp op afstand", "👨‍🔧", "👨‍🔧", 0xFF4A5568, R.string.app_name_remote_support),
+    AppInfo("all_apps", "Alle Apps", "📱", "📱", 0xFF718096, R.string.app_name_all_apps),
+    AppInfo("settings", "Instellingen", "⚙️", "⚙️", 0xFF718096, R.string.app_name_settings),
 )

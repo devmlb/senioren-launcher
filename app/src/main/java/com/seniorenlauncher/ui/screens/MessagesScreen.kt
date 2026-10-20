@@ -31,6 +31,7 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
@@ -38,6 +39,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.seniorenlauncher.R
 import com.seniorenlauncher.data.model.Conversation
 import com.seniorenlauncher.data.model.SmsMessage
 import com.seniorenlauncher.ui.components.ScreenHeader
@@ -112,9 +114,9 @@ fun MessagesScreen(
                 Box(Modifier.weight(1f)) {
                     ScreenHeader(
                         title = when (activeView) {
-                            MessageView.Overview -> "Berichten"
-                            MessageView.Chat -> selectedName ?: selectedAddress ?: "Chat"
-                            MessageView.NewMessage -> "Nieuw"
+                            MessageView.Overview -> stringResource(R.string.messages_title)
+                            MessageView.Chat -> selectedName ?: selectedAddress ?: stringResource(R.string.chat_title)
+                            MessageView.NewMessage -> stringResource(R.string.new_message_title)
                         },
                         onBack = backHandler
                     )
@@ -207,7 +209,7 @@ fun ConversationOverview(messagesVm: MessagesViewModel, onConversationClick: (Co
             Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.Center) {
                 Icon(Icons.Default.Edit, null, tint = Color.White, modifier = Modifier.size(28.dp))
                 Spacer(Modifier.width(12.dp))
-                Text("NIEUW BERICHT SCHRIJVEN", fontSize = 20.sp, fontWeight = FontWeight.Black, color = Color.White)
+                Text(stringResource(R.string.btn_write_new_message), fontSize = 20.sp, fontWeight = FontWeight.Black, color = Color.White)
             }
         }
 
@@ -305,7 +307,7 @@ fun ChatScreen(address: String, messagesVm: MessagesViewModel, zoom: Float) {
                     value = newMessageBody,
                     onValueChange = { newMessageBody = it },
                     modifier = Modifier.weight(1f),
-                    placeholder = { Text("Typ een bericht...", fontSize = (18 * zoom).sp, fontWeight = FontWeight.Bold) },
+                    placeholder = { Text(stringResource(R.string.type_message_placeholder), fontSize = (18 * zoom).sp, fontWeight = FontWeight.Bold) },
                     colors = TextFieldDefaults.colors(
                         focusedContainerColor = Color.Transparent,
                         unfocusedContainerColor = Color.Transparent,
@@ -406,7 +408,7 @@ fun NewMessageScreen(onContactSelected: (String, String) -> Unit) {
             value = searchQuery,
             onValueChange = { searchQuery = it },
             modifier = Modifier.fillMaxWidth(),
-            placeholder = { Text("Zoek contact...", fontWeight = FontWeight.Black) },
+            placeholder = { Text(stringResource(R.string.search_contact_placeholder), fontWeight = FontWeight.Black) },
             leadingIcon = { Icon(Icons.Default.Search, null, tint = MaterialTheme.colorScheme.primary) },
             shape = RoundedCornerShape(40.dp),
             colors = TextFieldDefaults.colors(
@@ -456,10 +458,10 @@ fun PermissionRequestView(onGrant: () -> Unit) {
         Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.padding(24.dp)) {
             Icon(Icons.Default.Lock, null, modifier = Modifier.size(80.dp), tint = MaterialTheme.colorScheme.primary)
             Spacer(Modifier.height(24.dp))
-            Text("Berichten Beveiligd", fontSize = 24.sp, fontWeight = FontWeight.Black)
-            Text("Geef toestemming om uw berichten veilig te tonen.", textAlign = TextAlign.Center, modifier = Modifier.padding(vertical = 16.dp), fontWeight = FontWeight.Bold)
+            Text(stringResource(R.string.messages_secured_title), fontSize = 24.sp, fontWeight = FontWeight.Black)
+            Text(stringResource(R.string.messages_permission_desc), textAlign = TextAlign.Center, modifier = Modifier.padding(vertical = 16.dp), fontWeight = FontWeight.Bold)
             Button(onClick = onGrant, modifier = Modifier.fillMaxWidth().height(80.dp), shape = RoundedCornerShape(40.dp)) {
-                Text("TOESTEMMING GEVEN", fontSize = 20.sp, fontWeight = FontWeight.Black)
+                Text(stringResource(R.string.btn_grant_permission), fontSize = 20.sp, fontWeight = FontWeight.Black)
             }
         }
     }
@@ -474,10 +476,10 @@ fun DefaultSmsBanner(onSet: () -> Unit) {
         modifier = Modifier.fillMaxWidth().padding(vertical = 12.dp)
     ) {
         Column(Modifier.padding(20.dp), horizontalAlignment = Alignment.CenterHorizontally) {
-            Text("Stel in als standaard SMS-app", fontWeight = FontWeight.Black, fontSize = 18.sp)
+            Text(stringResource(R.string.default_sms_banner), fontWeight = FontWeight.Black, fontSize = 18.sp, textAlign = TextAlign.Center)
             Spacer(Modifier.height(12.dp))
             Button(onClick = onSet, colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.error), shape = RoundedCornerShape(16.dp)) {
-                Text("FIX NU", fontWeight = FontWeight.Black)
+                Text(stringResource(R.string.btn_set_default), fontWeight = FontWeight.Black)
             }
         }
     }

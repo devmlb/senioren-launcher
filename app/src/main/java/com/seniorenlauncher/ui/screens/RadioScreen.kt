@@ -19,12 +19,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.seniorenlauncher.LauncherApp
+import com.seniorenlauncher.R
 import com.seniorenlauncher.data.model.RadioCategory
 import com.seniorenlauncher.data.model.RadioStation
 import com.seniorenlauncher.ui.components.ScreenHeader
@@ -51,15 +53,19 @@ fun RadioScreen(onBack: () -> Unit, radioVm: RadioViewModel = viewModel()) {
     
     var showAddDialog by remember { mutableStateOf(false) }
 
+    val catBelgium = stringResource(R.string.radio_cat_belgium)
+    val catNetherlands = stringResource(R.string.radio_cat_netherlands)
+    val catInternational = stringResource(R.string.radio_cat_international)
+
     val defaultStations = listOf(
-        RadioStation(name = "Radio 1", url = "https://icecast.vrtcdn.be/radio1-high.mp3", emoji = "➊", category = "🇧🇪 België", colorValue = 0xFFEF4444L),
-        RadioStation(name = "Radio 2", url = "https://icecast.vrtcdn.be/ra2ant-high.mp3", emoji = "➋", category = "🇧🇪 België", colorValue = 0xFFF59E0BL),
-        RadioStation(name = "Joe", url = "https://stream.joe.be/joe", emoji = "☕", category = "🇧🇪 België", colorValue = 0xFFEC4899L),
-        RadioStation(name = "Qmusic BE", url = "https://stream.qmusic.be/qmusic.aac", emoji = "Q", category = "🇧🇪 België", colorValue = 0xFFDC2626L),
-        RadioStation(name = "NPO Radio 5", url = "https://icecast.omroep.nl/radio5-bb-mp3", emoji = "❺", category = "🇳🇱 Nederland", colorValue = 0xFFF59E0BL),
-        RadioStation(name = "Radio 10", url = "https://stream.radio10.nl/radio10", emoji = "🔟", category = "🇳🇱 Nederland", colorValue = 0xFF84CC16L),
-        RadioStation(name = "FunX Arab", url = "https://icecast.omroep.nl/funx-arab-bb-mp3", emoji = "🕌", category = "🇳🇱 Nederland", colorValue = 0xFFF59E0BL),
-        RadioStation(name = "BBC World Service", url = "https://stream.live.vc.bbcmedia.co.uk/bbc_world_service", emoji = "🌍", category = "🇬🇧 International", colorValue = 0xFF991B1BL)
+        RadioStation(name = "Radio 1", url = "https://icecast.vrtcdn.be/radio1-high.mp3", emoji = "➊", category = catBelgium, colorValue = 0xFFEF4444L),
+        RadioStation(name = "Radio 2", url = "https://icecast.vrtcdn.be/ra2ant-high.mp3", emoji = "➋", category = catBelgium, colorValue = 0xFFF59E0BL),
+        RadioStation(name = "Joe", url = "https://stream.joe.be/joe", emoji = "☕", category = catBelgium, colorValue = 0xFFEC4899L),
+        RadioStation(name = "Qmusic BE", url = "https://stream.qmusic.be/qmusic.aac", emoji = "Q", category = catBelgium, colorValue = 0xFFDC2626L),
+        RadioStation(name = "NPO Radio 5", url = "https://icecast.omroep.nl/radio5-bb-mp3", emoji = "❺", category = catNetherlands, colorValue = 0xFFF59E0BL),
+        RadioStation(name = "Radio 10", url = "https://stream.radio10.nl/radio10", emoji = "🔟", category = catNetherlands, colorValue = 0xFF84CC16L),
+        RadioStation(name = "FunX Arab", url = "https://icecast.omroep.nl/funx-arab-bb-mp3", emoji = "🕌", category = catNetherlands, colorValue = 0xFFF59E0BL),
+        RadioStation(name = "BBC World Service", url = "https://stream.live.vc.bbcmedia.co.uk/bbc_world_service", emoji = "🌍", category = catInternational, colorValue = 0xFF991B1BL)
     )
 
     val allStations = defaultStations + customStations
@@ -69,7 +75,7 @@ fun RadioScreen(onBack: () -> Unit, radioVm: RadioViewModel = viewModel()) {
 
     Box(Modifier.fillMaxSize().background(Color(0xFF0F172A))) {
         Column(Modifier.fillMaxSize().padding(horizontal = 20.dp)) {
-            ScreenHeader(title = "Radio", onBack = onBack)
+            ScreenHeader(title = stringResource(R.string.radio_title), onBack = onBack)
             
             LazyColumn(
                 modifier = Modifier.weight(1f),
@@ -160,14 +166,14 @@ fun RadioScreen(onBack: () -> Unit, radioVm: RadioViewModel = viewModel()) {
                         Spacer(Modifier.width(16.dp))
                         Column(Modifier.weight(1f)) {
                             Text(
-                                text = if (hasError) "FOUT BIJ LADEN" else if (isLoading) "VERBINDEN..." else "NU AAN HET SPELEN", 
+                                text = if (hasError) stringResource(R.string.radio_status_error) else if (isLoading) stringResource(R.string.radio_status_connecting) else stringResource(R.string.radio_status_playing), 
                                 fontSize = 11.sp, 
                                 fontWeight = FontWeight.Black,
                                 color = MaterialTheme.colorScheme.primary,
                                 letterSpacing = 1.sp
                             )
                             Text(
-                                text = currentStation?.name ?: "Zender", 
+                                text = currentStation?.name ?: stringResource(R.string.radio_station_fallback), 
                                 fontSize = 22.sp, 
                                 fontWeight = FontWeight.Black, 
                                 color = Color.White,
@@ -214,7 +220,7 @@ fun RadioScreen(onBack: () -> Unit, radioVm: RadioViewModel = viewModel()) {
                             Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.Center) {
                                 Icon(if (isPlaying) Icons.Default.Pause else Icons.Default.PlayArrow, null, tint = Color.White, modifier = Modifier.size(32.dp))
                                 Spacer(Modifier.width(12.dp))
-                                Text(if (isPlaying) "PAUZE" else "SPEEL", fontWeight = FontWeight.Black, color = Color.White, fontSize = 18.sp)
+                                Text(if (isPlaying) stringResource(R.string.radio_btn_pause) else stringResource(R.string.radio_btn_play), fontWeight = FontWeight.Black, color = Color.White, fontSize = 18.sp)
                             }
                         }
                         
@@ -229,7 +235,7 @@ fun RadioScreen(onBack: () -> Unit, radioVm: RadioViewModel = viewModel()) {
                             Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.Center) {
                                 Icon(Icons.Default.Stop, null, tint = Color(0xFFEF4444), modifier = Modifier.size(28.dp))
                                 Spacer(Modifier.width(8.dp))
-                                Text("STOP", fontWeight = FontWeight.Black, color = Color(0xFFEF4444), fontSize = 18.sp)
+                                Text(stringResource(R.string.radio_btn_stop), fontWeight = FontWeight.Black, color = Color(0xFFEF4444), fontSize = 18.sp)
                             }
                         }
                     }
@@ -287,6 +293,8 @@ fun AddRadioDialog(
 
     val isUrl = input.startsWith("http")
 
+    val myStationsCategory = stringResource(R.string.radio_cat_my_stations)
+
     Dialog(onDismissRequest = onDismiss) {
         Surface(
             Modifier.fillMaxWidth().fillMaxHeight(0.85f),
@@ -295,12 +303,12 @@ fun AddRadioDialog(
             border = androidx.compose.foundation.BorderStroke(1.dp, Color.White.copy(alpha = 0.1f))
         ) {
             Column(Modifier.padding(24.dp), verticalArrangement = Arrangement.spacedBy(16.dp)) {
-                Text("Zender Toevoegen", fontSize = 28.sp, fontWeight = FontWeight.Black, color = Color.White)
+                Text(stringResource(R.string.radio_add_title), fontSize = 28.sp, fontWeight = FontWeight.Black, color = Color.White)
                 
                 OutlinedTextField(
                     value = input, 
                     onValueChange = { input = it }, 
-                    label = { Text(if (isUrl) "Link gedetecteerd!" else "Typ naam of plak link...") }, 
+                    label = { Text(if (isUrl) stringResource(R.string.radio_link_detected) else stringResource(R.string.radio_input_hint)) }, 
                     modifier = Modifier.fillMaxWidth(),
                     shape = RoundedCornerShape(24.dp),
                     colors = TextFieldDefaults.colors(
@@ -318,13 +326,13 @@ fun AddRadioDialog(
                         border = androidx.compose.foundation.BorderStroke(1.dp, MaterialTheme.colorScheme.primary.copy(alpha = 0.3f))
                     ) {
                         Column(Modifier.padding(20.dp)) {
-                            Text("Gevonden: Directe Stream", fontWeight = FontWeight.Black, color = Color.White)
-                            Text("Geef deze zender een naam:", fontSize = 14.sp, color = Color.White.copy(alpha = 0.6f))
+                            Text(stringResource(R.string.radio_stream_found), fontWeight = FontWeight.Black, color = Color.White)
+                            Text(stringResource(R.string.radio_name_prompt), fontSize = 14.sp, color = Color.White.copy(alpha = 0.6f))
                             Spacer(Modifier.height(12.dp))
                             OutlinedTextField(
                                 value = name, 
                                 onValueChange = { name = it }, 
-                                placeholder = { Text("Bijv. Radio Extra") }, 
+                                placeholder = { Text(stringResource(R.string.radio_name_example)) }, 
                                 modifier = Modifier.fillMaxWidth(),
                                 shape = RoundedCornerShape(12.dp)
                             )
@@ -356,7 +364,7 @@ fun AddRadioDialog(
                     ) {
                         Box(contentAlignment = Alignment.Center) {
                             if (isSearching) CircularProgressIndicator(color = Color.White, modifier = Modifier.size(28.dp))
-                            else Text("ZOEK OP INTERNET", fontWeight = FontWeight.Black, color = Color.White)
+                            else Text(stringResource(R.string.radio_btn_search), fontWeight = FontWeight.Black, color = Color.White)
                         }
                     }
 
@@ -369,7 +377,7 @@ fun AddRadioDialog(
                                         name = res.name,
                                         url = res.url,
                                         emoji = "📻",
-                                        category = "⭐ Mijn Zenders",
+                                        category = myStationsCategory,
                                         colorValue = 0xFF3B82F6L,
                                         isCustom = true
                                     )
@@ -397,16 +405,16 @@ fun AddRadioDialog(
                 if (isUrl && name.isNotBlank() && url.isNotBlank()) {
                     Spacer(Modifier.height(8.dp))
                     Button(
-                        onClick = { onSave(name, url, emoji, "⭐ Mijn Zenders") },
+                        onClick = { onSave(name, url, emoji, myStationsCategory) },
                         modifier = Modifier.fillMaxWidth().height(76.dp),
                         shape = RoundedCornerShape(40.dp)
                     ) {
-                        Text("OPSLAAN & SPELEN", fontSize = 20.sp, fontWeight = FontWeight.Black)
+                        Text(stringResource(R.string.radio_btn_save_play), fontSize = 20.sp, fontWeight = FontWeight.Black)
                     }
                 }
 
                 TextButton(onClick = onDismiss, modifier = Modifier.align(Alignment.CenterHorizontally).height(70.dp)) {
-                    Text("ANNULEREN", fontSize = 18.sp, color = Color.White.copy(alpha = 0.6f), fontWeight = FontWeight.Black)
+                    Text(stringResource(R.string.btn_cancel), fontSize = 18.sp, color = Color.White.copy(alpha = 0.6f), fontWeight = FontWeight.Black)
                 }
             }
         }

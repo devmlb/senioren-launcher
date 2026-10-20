@@ -31,16 +31,18 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.content.ContextCompat
+import com.seniorenlauncher.R
 
 data class PermissionCategory(
-    val title: String,
-    val description: String,
-    val privacyNote: String,
+    val titleRes: Int,
+    val descriptionRes: Int,
+    val privacyNoteRes: Int,
     val icon: ImageVector,
     val permissions: List<String>
 )
@@ -61,28 +63,25 @@ fun PermissionsSetupScreen(onNext: () -> Unit, isSenior: Boolean = false) {
         }
 
         list.add(PermissionCategory(
-            if (isSenior) "HULP BIJ NOOD" else "LOCATIE", 
-            if (isSenior) "Als u in nood bent, kan de app uw familie vertellen waar u bent." 
-            else "Nodig voor de SOS-functie om uw locatie te bepalen.", 
-            "Privacy: Uw locatie wordt alleen gedeeld tijdens een SOS-oproep.",
+            if (isSenior) R.string.perm_cat_emergency_senior else R.string.perm_cat_location_tech, 
+            if (isSenior) R.string.perm_cat_emergency_senior_desc else R.string.perm_cat_location_tech_desc, 
+            R.string.perm_privacy_location,
             Icons.Default.LocationOn, 
             locationPermissions
         ))
 
         list.add(PermissionCategory(
-            if (isSenior) "FAMILIE BELLEN" else "TELEFOON", 
-            if (isSenior) "Hiermee kunt u direct uw kinderen of de dokter bellen."
-            else "Om direct vanuit de launcher te bellen.", 
-            "Privacy: De app belt alleen wanneer u zelf op een contact drukt.",
+            if (isSenior) R.string.perm_cat_phone_senior else R.string.perm_cat_phone_tech, 
+            if (isSenior) R.string.perm_cat_phone_senior_desc else R.string.perm_cat_phone_tech_desc, 
+            R.string.perm_privacy_phone,
             Icons.Default.Phone, 
             listOf(Manifest.permission.CALL_PHONE)
         ))
 
         list.add(PermissionCategory(
-            if (isSenior) "BERICHTEN" else "SMS SERVICE", 
-            if (isSenior) "Zodat de telefoon een noodbericht kan sturen naar uw familie."
-            else "Nodig voor SOS en batterijwaarschuwingen.", 
-            "Privacy: We lezen NOOIT uw privéberichten.",
+            if (isSenior) R.string.perm_cat_sms_senior else R.string.perm_cat_sms_tech, 
+            if (isSenior) R.string.perm_cat_sms_senior_desc else R.string.perm_cat_sms_tech_desc, 
+            R.string.perm_privacy_sms,
             Icons.Default.Sms, 
             listOf(Manifest.permission.SEND_SMS, Manifest.permission.READ_SMS, Manifest.permission.RECEIVE_SMS)
         ))
@@ -94,29 +93,27 @@ fun PermissionsSetupScreen(onNext: () -> Unit, isSenior: Boolean = false) {
             }
             
             list.add(PermissionCategory(
-                "GEZONDHEID", 
-                "Zodat de telefoon uw stapjes kan tellen voor uw dagelijkse beweging.", 
-                "Privacy: Deze gegevens blijven veilig op uw eigen telefoon.",
+                R.string.perm_cat_health, 
+                R.string.perm_cat_health_desc, 
+                R.string.perm_privacy_health,
                 Icons.AutoMirrored.Filled.DirectionsWalk, 
                 healthPermissions
             ))
         }
 
         list.add(PermissionCategory(
-            if (isSenior) "VERGROOTGLAS" else "CAMERA", 
-            if (isSenior) "Zodat u kleine lettertjes makkelijk kunt lezen met de camera."
-            else "Nodig voor het vergrootglas en de zaklamp.", 
-            "Privacy: Er worden geen foto's ongevraagd opgeslagen.",
+            if (isSenior) R.string.perm_cat_camera_senior else R.string.perm_cat_camera_tech, 
+            if (isSenior) R.string.perm_cat_camera_senior_desc else R.string.perm_cat_camera_tech_desc, 
+            R.string.perm_privacy_camera,
             Icons.Default.CameraAlt, 
             listOf(Manifest.permission.CAMERA)
         ))
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             list.add(PermissionCategory(
-                if (isSenior) "HERINNERINGEN" else "MELDINGEN", 
-                if (isSenior) "Zodat u een seintje krijgt als het tijd is voor uw medicijnen."
-                else "Nodig voor medicijnalarmen.", 
-                "Privacy: Geen reclame, alleen uw eigen belangrijke meldingen.",
+                if (isSenior) R.string.perm_cat_notifications_senior else R.string.perm_cat_notifications_tech, 
+                if (isSenior) R.string.perm_cat_notifications_senior_desc else R.string.perm_cat_notifications_tech_desc, 
+                R.string.perm_privacy_notifications,
                 Icons.Default.Notifications, 
                 listOf(Manifest.permission.POST_NOTIFICATIONS)
             ))
@@ -154,7 +151,7 @@ fun PermissionsSetupScreen(onNext: () -> Unit, isSenior: Boolean = false) {
             // Premium Stepper
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
                 Text(
-                    text = "STAP ${currentStep + 1} VAN ${categories.size}".uppercase(),
+                    text = stringResource(R.string.perm_step_format, currentStep + 1, categories.size).uppercase(),
                     fontSize = 16.sp,
                     fontWeight = FontWeight.Black,
                     letterSpacing = 2.sp,
@@ -216,7 +213,7 @@ fun PermissionsSetupScreen(onNext: () -> Unit, isSenior: Boolean = false) {
                     Spacer(modifier = Modifier.height(32.dp))
 
                     Text(
-                        text = category.title.uppercase(),
+                        text = stringResource(category.titleRes).uppercase(),
                         fontSize = 32.sp,
                         fontWeight = FontWeight.Black,
                         textAlign = TextAlign.Center,
@@ -227,7 +224,7 @@ fun PermissionsSetupScreen(onNext: () -> Unit, isSenior: Boolean = false) {
                     Spacer(modifier = Modifier.height(24.dp))
 
                     Text(
-                        text = category.description,
+                        text = stringResource(category.descriptionRes),
                         fontSize = 22.sp,
                         fontWeight = FontWeight.Bold,
                         textAlign = TextAlign.Center,
@@ -256,7 +253,7 @@ fun PermissionsSetupScreen(onNext: () -> Unit, isSenior: Boolean = false) {
                             )
                             Spacer(Modifier.width(16.dp))
                             Text(
-                                text = category.privacyNote,
+                                text = stringResource(category.privacyNoteRes),
                                 fontSize = 16.sp,
                                 fontWeight = FontWeight.Bold,
                                 color = Color(0xFFCBD5E1),
@@ -296,7 +293,7 @@ fun PermissionsSetupScreen(onNext: () -> Unit, isSenior: Boolean = false) {
                     ) {
                         Row(verticalAlignment = Alignment.CenterVertically) {
                             Text(
-                                if (currentStep < categories.size - 1) "VOLGENDE STAP" else "START DE APP", 
+                                if (currentStep < categories.size - 1) stringResource(R.string.perm_btn_next) else stringResource(R.string.perm_btn_start_app), 
                                 fontSize = 24.sp, 
                                 fontWeight = FontWeight.Black
                             )
@@ -322,7 +319,7 @@ fun PermissionsSetupScreen(onNext: () -> Unit, isSenior: Boolean = false) {
                         shape = RoundedCornerShape(40.dp),
                         colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF3B82F6))
                     ) {
-                        Text("JA, DIT IS GOED", fontSize = 24.sp, fontWeight = FontWeight.Black)
+                        Text(stringResource(R.string.perm_btn_confirm), fontSize = 24.sp, fontWeight = FontWeight.Black)
                     }
                     
                     TextButton(
@@ -332,7 +329,7 @@ fun PermissionsSetupScreen(onNext: () -> Unit, isSenior: Boolean = false) {
                         modifier = Modifier.align(Alignment.CenterHorizontally)
                     ) {
                         Text(
-                            "NU EVEN NIET", 
+                            stringResource(R.string.perm_btn_not_now), 
                             fontSize = 18.sp, 
                             fontWeight = FontWeight.Black,
                             color = Color(0xFF94A3B8)

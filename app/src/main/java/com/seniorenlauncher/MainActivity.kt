@@ -9,12 +9,15 @@ import android.os.Bundle
 import android.view.WindowManager
 import androidx.activity.ComponentActivity
 import androidx.activity.OnBackPressedCallback
+import androidx.activity.compose.LocalActivityResultRegistryOwner
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.seniorenlauncher.ui.AppNavigation
 import com.seniorenlauncher.ui.components.RadioMiniPlayer
@@ -22,6 +25,7 @@ import com.seniorenlauncher.ui.screens.*
 import com.seniorenlauncher.ui.theme.SeniorenLauncherTheme
 import com.seniorenlauncher.ui.screens.home.*
 import com.seniorenlauncher.service.SeniorInCallService
+import com.seniorenlauncher.util.LocaleHelper
 import com.seniorenlauncher.util.UpdateManager
 import android.telecom.Call
 import android.util.Log
@@ -105,71 +109,82 @@ class MainActivity : ComponentActivity() {
                 }
             }
 
-            SeniorenLauncherTheme(appTheme = settings.theme, fontSize = settings.fontSize) {
-                Surface(Modifier.fillMaxSize()) {
-                    if (isFallDetected) {
-                        FallDetectionDialog(
-                            onConfirm = {
-                                fallDetectedTriggered.value = false
-                                val intent = Intent(this@MainActivity, com.seniorenlauncher.service.SOSService::class.java)
-                                startForegroundService(intent)
-                            },
-                            onCancel = {
-                                fallDetectedTriggered.value = false
-                            }
-                        )
-                    } else if (triggerLabel != null) {
-                        AlarmTriggerScreen(
-                            label = triggerLabel!!,
-                            alarmId = alarmId,
-                            soundName = soundUri,
-                            isForcedRemote = isRemote,
-                            onDismiss = {
-                                val nm = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-                                nm.cancel(alarmId.toInt())
-                                if (triggerLabel!!.startsWith("Medicijn:")) {
-                                    nm.cancel(alarmId.toInt() + 5000)
+            val baseContext = LocalContext.current
+            val localizedContext = remember(settings.language) {
+                LocaleHelper.setLocale(baseContext, settings.language)
+            }
+
+            CompositionLocalProvider(
+                LocalContext provides localizedContext,
+                LocalConfiguration provides localizedContext.resources.configuration,
+                LocalActivityResultRegistryOwner provides this@MainActivity
+            ) {
+                SeniorenLauncherTheme(appTheme = settings.theme, fontSize = settings.fontSize) {
+                    Surface(Modifier.fillMaxSize()) {
+                        if (isFallDetected) {
+                            FallDetectionDialog(
+                                onConfirm = {
+                                    fallDetectedTriggered.value = false
+                                    val intent = Intent(this@MainActivity, com.seniorenlauncher.service.SOSService::class.java)
+                                    startForegroundService(intent)
+                                },
+                                onCancel = {
+                                    fallDetectedTriggered.value = false
                                 }
-                                alarmTriggered.value = null
-                                alarmSoundUri.value = null
-                                alarmIsRemote.value = false
-                                currentAlarmId.value = -1L
-                            },
-                            onNavigateToWeather = {
-                                navigateToWeatherAfterAlarm.value = true
-                            }
-                        )
-                    } else if (!settings.hasCompletedSetup) {
-                        SetupWizardScreen(
-                            onFinished = { settingsVm.completeSetup() },
-                            settingsVm = settingsVm
-                        )
-                    } else {
-                        Column(
-                            Modifier
-                                .fillMaxSize()
-                                .navigationBarsPadding()
-                        ) {
-                            Box(Modifier.weight(1f)) {
-                                AppNavigation(
-                                    settingsVm = settingsVm, 
-                                    radioVm = radioVm, 
-                                    initialSmsAddress = smsAddress,
-                                    initialIncomingCall = showIncomingCall || (currentCall != null && currentCall?.state == Call.STATE_RINGING),
-                                    initialWeatherNav = shouldNavToWeather,
-                                    onNavigatedToSms = { navigateToSmsAddress.value = null },
-                                    onNavigatedToCall = { navigateToIncomingCall.value = false },
-                                    onNavigatedToWeather = { navigateToWeatherAfterAlarm.value = false },
-                                    onRouteChanged = { currentRoute = it }
-                                )
-                            }
-                            if (currentRoute != "radio") {
-                                RadioMiniPlayer(
-                                    radioVm = radioVm,
-                                    onOpenRadio = {
-                                        // Optioneel: Navigeer naar radio
+                            )
+                        } else if (triggerLabel != null) {
+                            AlarmTriggerScreen(
+                                label = triggerLabel!!,
+                                alarmId = alarmId,
+                                soundName = soundUri,
+                                isForcedRemote = isRemote,
+                                onDismiss = {
+                                    val nm = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+                                    nm.cancel(alarmId.toInt())
+                                    if (triggerLabel!!.startsWith("Medicijn:")) {
+                                        nm.cancel(alarmId.toInt() + 5000)
                                     }
-                                )
+                                    alarmTriggered.value = null
+                                    alarmSoundUri.value = null
+                                    alarmIsRemote.value = false
+                                    currentAlarmId.value = -1L
+                                },
+                                onNavigateToWeather = {
+                                    navigateToWeatherAfterAlarm.value = true
+                                }
+                            )
+                        } else if (!settings.hasCompletedSetup) {
+                            SetupWizardScreen(
+                                onFinished = { settingsVm.completeSetup() },
+                                settingsVm = settingsVm
+                            )
+                        } else {
+                            Column(
+                                Modifier
+                                    .fillMaxSize()
+                                    .navigationBarsPadding()
+                            ) {
+                                Box(Modifier.weight(1f)) {
+                                    AppNavigation(
+                                        settingsVm = settingsVm, 
+                                        radioVm = radioVm, 
+                                        initialSmsAddress = smsAddress,
+                                        initialIncomingCall = showIncomingCall || (currentCall != null && currentCall?.state == Call.STATE_RINGING),
+                                        initialWeatherNav = shouldNavToWeather,
+                                        onNavigatedToSms = { navigateToSmsAddress.value = null },
+                                        onNavigatedToCall = { navigateToIncomingCall.value = false },
+                                        onNavigatedToWeather = { navigateToWeatherAfterAlarm.value = false },
+                                        onRouteChanged = { currentRoute = it }
+                                    )
+                                }
+                                if (currentRoute != "radio") {
+                                    RadioMiniPlayer(
+                                        radioVm = radioVm,
+                                        onOpenRadio = {
+                                            // Optioneel: Navigeer naar radio
+                                        }
+                                    )
+                                }
                             }
                         }
                     }

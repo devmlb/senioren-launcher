@@ -14,10 +14,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.seniorenlauncher.LauncherApp
+import com.seniorenlauncher.R
 import com.seniorenlauncher.data.model.*
 import com.seniorenlauncher.service.NotificationListener
 import com.seniorenlauncher.service.SOSService
@@ -150,7 +152,6 @@ fun HomeScreenContent(
         LayoutType.GRID_3x4 -> 12
     }
 
-    // Bereken het totaal aantal items inclusief de "Toevoegen" knop
     val totalItemsCount = allVisibleApps.size + 1
     val pageCount = max(1, ceil(totalItemsCount.toDouble() / appsPerPage.toDouble()).toInt())
     val pagerState = rememberPagerState(pageCount = { pageCount })
@@ -159,7 +160,6 @@ fun HomeScreenContent(
         modifier = Modifier.fillMaxSize(),
         containerColor = MaterialTheme.colorScheme.background,
         bottomBar = {
-            // Fixed SOS Button at bottom
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -177,13 +177,11 @@ fun HomeScreenContent(
                 .fillMaxSize()
                 .padding(innerPadding)
         ) {
-            // Top Bar: Clock, Battery & Notifications
             HomeTopBar(
                 notificationCount = activeNotificationsCount,
                 onNotificationsClick = { onNavigate("notifications") }
             )
 
-            // Status Card: Alleen nog voor Medicijnen
             if (pendingMedsCount > 0) {
                 HomeStatusCard(
                     pendingMedsCount = pendingMedsCount,
@@ -191,81 +189,83 @@ fun HomeScreenContent(
                 )
             }
 
-            // App Grid Pager
             HorizontalPager(
                 state = pagerState,
                 modifier = Modifier.weight(1f).fillMaxWidth(),
                 contentPadding = PaddingValues(horizontal = 24.dp, vertical = 8.dp),
                 pageSpacing = 32.dp
             ) { pageIndex ->
-            val startIdx = pageIndex * appsPerPage
-            
-            LazyVerticalGrid(
-                columns = GridCells.Fixed(cols),
-                modifier = Modifier.fillMaxSize(),
-                verticalArrangement = Arrangement.spacedBy(20.dp),
-                horizontalArrangement = Arrangement.spacedBy(20.dp),
-                userScrollEnabled = false
-            ) {
-                // Apps voor deze pagina
-                val endIdx = Math.min(startIdx + appsPerPage, allVisibleApps.size)
-                if (startIdx < allVisibleApps.size) {
-                    val pageApps = allVisibleApps.subList(startIdx, endIdx)
-                    items(pageApps) { app ->
-                        BigButton(
-                            emoji = app.emoji,
-                            icon = app.icon,
-                            vectorIcon = app.vectorIcon,
-                            label = app.name,
-                            color = app.color,
-                            small = settings.layout == LayoutType.GRID_3x4,
-                            badge = if (app.id == "sms" || app.id == "phone") {
-                               NotificationListener.getBadgeCountByAppId(app.id, settings.appMappings, badgeCounts)
-                            } else 0,
-                            weatherText = app.weatherOverlay,
-                            onClick = {
-                                when {
-                                    app.id == "camera" -> AppLauncher.openSystemCamera(context)
-                                    app.id == "wifi" -> onWifiClick()
-                                    app.id == "bluetooth" -> onBluetoothClick()
-                                    app.id == "remote_support" -> onNavigate("remote_support")
-                                    app.id == "settings" -> onSettingsClick()
-                                    app.id.startsWith("mapped_") -> {
-                                        val pkg = settings.appMappings[app.id]
-                                        if (pkg != null) AppLauncher.launchApp(context, pkg)
-                                    }
-                                    else -> onNavigate(app.id)
-                                }
-                            },
-                            onLongClick = {
-                                if (app.id != "settings" && app.id != "wifi" && app.id != "bluetooth") {
-                                    onAppLongClick(app.id)
-                                }
+                val startIdx = pageIndex * appsPerPage
+                
+                LazyVerticalGrid(
+                    columns = GridCells.Fixed(cols),
+                    modifier = Modifier.fillMaxSize(),
+                    verticalArrangement = Arrangement.spacedBy(20.dp),
+                    horizontalArrangement = Arrangement.spacedBy(20.dp),
+                    userScrollEnabled = false
+                ) {
+                    val endIdx = Math.min(startIdx + appsPerPage, allVisibleApps.size)
+                    if (startIdx < allVisibleApps.size) {
+                        val pageApps = allVisibleApps.subList(startIdx, endIdx)
+                        items(pageApps) { app ->
+                            val displayName = if (app.nameRes != null && app.nameRes != 0) {
+                                stringResource(app.nameRes)
+                            } else {
+                                app.name
                             }
-                        )
+                            BigButton(
+                                emoji = app.emoji,
+                                icon = app.icon,
+                                vectorIcon = app.vectorIcon,
+                                label = displayName,
+                                color = app.color,
+                                small = settings.layout == LayoutType.GRID_3x4,
+                                badge = if (app.id == "sms" || app.id == "phone") {
+                                    NotificationListener.getBadgeCountByAppId(app.id, settings.appMappings, badgeCounts)
+                                } else 0,
+                                weatherText = app.weatherOverlay,
+                                onClick = {
+                                    when {
+                                        app.id == "camera" -> AppLauncher.openSystemCamera(context)
+                                        app.id == "wifi" -> onWifiClick()
+                                        app.id == "bluetooth" -> onBluetoothClick()
+                                        app.id == "remote_support" -> onNavigate("remote_support")
+                                        app.id == "settings" -> onSettingsClick()
+                                        app.id.startsWith("mapped_") -> {
+                                            val pkg = settings.appMappings[app.id]
+                                            if (pkg != null) AppLauncher.launchApp(context, pkg)
+                                        }
+                                        else -> onNavigate(app.id)
+                                    }
+                                },
+                                onLongClick = {
+                                    if (app.id != "settings" && app.id != "wifi" && app.id != "bluetooth") {
+                                        onAppLongClick(app.id)
+                                    }
+                                }
+                            )
+                        }
                     }
-                }
-                
-                // Voeg de "Toevoegen" knop toe als we op de juiste pagina zijn
-                val addBtnIdx = allVisibleApps.size
-                val start = startIdx
-                val limit = startIdx + appsPerPage
-                
-                if (addBtnIdx in start until limit) {
-                    item {
-                        BigButton(
-                            emoji = "➕",
-                            label = "Toevoegen",
-                            color = Color(0xFF718096),
-                            small = settings.layout == LayoutType.GRID_3x4,
-                            onClick = onAddApp
-                        )
+                    
+                    val addBtnIdx = allVisibleApps.size
+                    val start = startIdx
+                    val limit = startIdx + appsPerPage
+                    
+                    if (addBtnIdx in start until limit) {
+                        item {
+                            BigButton(
+                                emoji = "➕",
+                                label = stringResource(R.string.btn_add_app),
+                                color = Color(0xFF718096),
+                                small = settings.layout == LayoutType.GRID_3x4,
+                                onClick = onAddApp
+                            )
+                        }
                     }
                 }
             }
         }
     }
-}
 }
 
 @Preview(showSystemUi = true)

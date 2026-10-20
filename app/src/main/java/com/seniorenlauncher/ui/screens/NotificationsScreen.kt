@@ -25,12 +25,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.app.NotificationManagerCompat
+import com.seniorenlauncher.R
 import com.seniorenlauncher.service.NotificationListener
 import com.seniorenlauncher.ui.components.ScreenHeader
 
@@ -64,7 +66,7 @@ fun NotificationsScreen(onBack: () -> Unit, onNavigate: (String) -> Unit) {
             .background(MaterialTheme.colorScheme.background)
             .padding(horizontal = 12.dp, vertical = 8.dp)
     ) {
-        ScreenHeader(title = "Berichten & Herinneringen", onBack = onBack)
+        ScreenHeader(title = stringResource(R.string.notifications_title), onBack = onBack)
 
         if (!hasPermission) {
             PermissionRequiredScreen()
@@ -74,7 +76,7 @@ fun NotificationsScreen(onBack: () -> Unit, onNavigate: (String) -> Unit) {
             if (grouped.isEmpty()) {
                 Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
                     Text(
-                        "Geen nieuwe berichten",
+                        stringResource(R.string.no_notifications),
                         fontSize = 22.sp,
                         color = Color.Gray,
                         textAlign = TextAlign.Center
@@ -109,7 +111,7 @@ fun NotificationsScreen(onBack: () -> Unit, onNavigate: (String) -> Unit) {
                         ) {
                             Icon(Icons.Default.Delete, contentDescription = null)
                             Spacer(Modifier.width(12.dp))
-                            Text("ALLES WISSEN", fontSize = 20.sp, fontWeight = FontWeight.Black)
+                            Text(stringResource(R.string.btn_clear_all), fontSize = 20.sp, fontWeight = FontWeight.Black)
                         }
                     }
                 }
@@ -120,8 +122,8 @@ fun NotificationsScreen(onBack: () -> Unit, onNavigate: (String) -> Unit) {
     if (showClearConfirm) {
         AlertDialog(
             onDismissRequest = { showClearConfirm = false },
-            title = { Text("Alle meldingen wissen?", fontSize = 22.sp, fontWeight = FontWeight.Bold) },
-            text = { Text("Weet u zeker dat u alle meldingen wilt verwijderen? U kunt dit niet ongedaan maken.", fontSize = 18.sp) },
+            title = { Text(stringResource(R.string.notif_clear_confirm_title), fontSize = 22.sp, fontWeight = FontWeight.Bold) },
+            text = { Text(stringResource(R.string.notif_clear_confirm_desc), fontSize = 18.sp) },
             confirmButton = {
                 Button(
                     onClick = {
@@ -130,12 +132,12 @@ fun NotificationsScreen(onBack: () -> Unit, onNavigate: (String) -> Unit) {
                     },
                     colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.error)
                 ) {
-                    Text("Ja, wis alles", fontSize = 18.sp, fontWeight = FontWeight.Bold)
+                    Text(stringResource(R.string.notif_clear_confirm_yes), fontSize = 18.sp, fontWeight = FontWeight.Bold)
                 }
             },
             dismissButton = {
                 TextButton(onClick = { showClearConfirm = false }) {
-                    Text("Nee, terug", fontSize = 18.sp)
+                    Text(stringResource(R.string.notif_clear_confirm_no), fontSize = 18.sp)
                 }
             },
             shape = RoundedCornerShape(20.dp)
@@ -159,14 +161,14 @@ fun PermissionRequiredScreen() {
         )
         Spacer(Modifier.height(24.dp))
         Text(
-            "Toegang nodig",
+            stringResource(R.string.notif_access_needed),
             fontSize = 28.sp,
             fontWeight = FontWeight.Bold,
             textAlign = TextAlign.Center
         )
         Spacer(Modifier.height(16.dp))
         Text(
-            "Om uw berichten van WhatsApp, SMS en andere apps hier te tonen, hebben we toestemming nodig.",
+            stringResource(R.string.notif_access_desc),
             fontSize = 20.sp,
             textAlign = TextAlign.Center,
             lineHeight = 28.sp
@@ -179,7 +181,7 @@ fun PermissionRequiredScreen() {
             modifier = Modifier.fillMaxWidth().height(70.dp),
             shape = RoundedCornerShape(16.dp)
         ) {
-            Text("Instellingen openen", fontSize = 20.sp, fontWeight = FontWeight.Bold)
+            Text(stringResource(R.string.notif_open_settings), fontSize = 20.sp, fontWeight = FontWeight.Bold)
         }
     }
 }
@@ -219,7 +221,7 @@ fun NotificationGroupCard(
                 IconButton(onClick = {
                     group.items.forEach { NotificationListener.dismiss(it.key) }
                 }) {
-                    Icon(Icons.Default.Close, "Wis groep", tint = Color.Gray)
+                    Icon(Icons.Default.Close, stringResource(R.string.notif_clear_group), tint = Color.Gray)
                 }
             }
             
@@ -229,7 +231,7 @@ fun NotificationGroupCard(
                 Column(Modifier.weight(1f)) {
                     Text(
                         text = if (group.items.size > 1) {
-                            "${group.items.size} nieuwe berichten"
+                            stringResource(R.string.notif_new_messages_count, group.items.size)
                         } else {
                             group.items.first().title
                         },
@@ -276,7 +278,7 @@ fun NotificationGroupCard(
                                 Text(item.text, fontSize = 16.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
                             }
                             IconButton(onClick = { NotificationListener.dismiss(item.key) }) {
-                                Icon(Icons.Default.Close, contentDescription = "Wis", modifier = Modifier.size(20.dp))
+                                Icon(Icons.Default.Close, contentDescription = stringResource(R.string.notif_clear_item), modifier = Modifier.size(20.dp))
                             }
                         }
                     }
